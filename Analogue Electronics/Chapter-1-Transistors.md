@@ -1,5 +1,7 @@
 ---
 layout: page
+title: Chapter 1 - Transistors
+nav_order: 1
 ---
 
 # Chapter 1: Transistors
@@ -136,7 +138,7 @@ $R_b = 39 \Omega$. Still assume 12 V at the top.
 
 $\therefore$ the effective gain is,
 
-$$\ \beta =\frac{i_c}{i_b}=\frac{{\left(12-0.2\right)}/{12.0}}{{\left(2.4-0.7\right)}/{39}}=22.6$$
+$$\ \beta =\frac{i_c}{i_b}=\frac{(12-0.2)/12.0}{(2.4-0.7)/39}=22.6$$
 
 Note that the effective value of $\beta$ may be smaller than the given
 minimum value of $\beta$: it is possible because the design is for the
@@ -542,7 +544,7 @@ Below is a simple current source (actually current sink) circuit:
 Here: $V_e=V_b-0.7$ V and $i_1=\frac{V_e}{R_1}=\frac{V_b-0.7}{R_1}$
 
 For high $\beta$ transistors $i_1\approx i_2$ (because
-$i_1=\frac{{\beta }_1+1}{{\beta }_1}i_2$)
+$i_1=\frac{\beta_1+1}{\beta_1}i_2$)
 $$\therefore i_2\approx \frac{V_b-0.7}{R_1}$$ The current in the load
 $i_2$ , is not affected by the load's resistance. As the load resistance
 changes, the voltage across it automatically changes to compensate.
