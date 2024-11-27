@@ -55,7 +55,7 @@ Current flows through the transistor from collector to emitter in the
 direction of the arrows. $V_e$ is the lowest voltage in the circuit. The
 maximum voltage across the base-emitter junction is about 0.7 V.
 
-${{\ \therefore V}_b-V}_e\approx \ 0.7$ V, provided
+$\therefore V_b-V_e\approx \ 0.7$ V, provided
 $V_{in} \mathrm{>}V_{e} + 0.7 V$.
 
 This 0.7 V depends on the transistor, a bit on the value of $I_b$, the
