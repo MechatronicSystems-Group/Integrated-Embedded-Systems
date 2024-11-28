@@ -1,5 +1,5 @@
 title: Integrated-Embedded-Systems
-description: A starter template for a Jeykll site using the Just the Docs theme!
+description: Course material for MEC4126F - Integrated Embedded Systems
 theme: just-the-docs
 
 url: https://mechatronicsystems-group.github.io/Integrated-Embedded-Systems
@@ -13,7 +13,7 @@ defaults:
 
 
 # Set a path/url to a logo that will be displayed instead of the title
-logo: "/assets/images/ms.g_logo.png"
+logo: "/assets/images/ies_logo.png"
 
 # Set a path/url to a favicon that will be displayed by the browser
 favicon_ico: "/assets/images/ms.g_favicon.ico"
@@ -124,3 +124,8 @@ jekyll-spaceship:
     css:
       class: emoji
     src: https://github.githubassets.com/images/icons/emoji/
+
+# Add your own custom styles:
+sass:
+  sass_dir: _sass
+  style: compressed

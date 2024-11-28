@@ -1,7 +1,8 @@
 ---
 layout: page
-title: Chapter 1 - Transistors
-nav_order: 1
+title: "Chapter 1: Transistors"
+parent: Analogue Electronics
+nav_order: 2
 ---
 
 # Chapter 1: Transistors
@@ -18,8 +19,8 @@ the emitter. The amount of current allowed to flow is related to the
 gain, often shown as $\beta$ or $H_{fe}$, of the transistor. The
 important formula to remember, with $I_{c}$ the collector current, is:
 
-$I_{c} = \beta\times I_{b}$ , valid when the transistor is operated in
-its linear mode.
+{: .note }
+$I_{c} = \beta\times I_{b}$ , valid when the transistor is operated in its linear mode.
 
 When the transistor is used in its saturated mode (in other words not in
 linear mode), the collector current will be restricted by the supply
@@ -30,7 +31,8 @@ possible power dissipation without damaging the transistor. If mounted
 on a heatsink, even more power can be dissipated. The following picture
 shows some transistor packages taken from a variety of data sheets.
 
-![Various physical packages of BJTs](image1.png){width="\\textwidth"}
+![Various physical packages of BJTs](/assets/images/image1.png)
+_Figure 1: Different types of BJT packages showing various sizes and mounting styles_
 
 The SOT-23 is a very small surface mount package, as can be seen looking
 at its legs, which are to be soldered on a flat surface. The two types
@@ -47,7 +49,7 @@ will point from the emitter to the base.
 
 In the saturated switch application, the transistor is operated like a
 switch -- it is supposed to be either on (when in the figure below
-$V_{in}$ = high) or off (when $V_{in}$ = low). The resistors will have
+$V_{in}$ = HIGH) or off (when $V_{in}$ = LOW). The resistors will have
 to be designed to ensure saturation. When in saturation mode, it means
 that the transistor is not operating in its linear mode. The emitter
 follower, discussed in the next section (4 pages on), is an example of
@@ -57,15 +59,17 @@ Current flows through the transistor from collector to emitter in the
 direction of the arrows. $V_e$ is the lowest voltage in the circuit. The
 maximum voltage across the base-emitter junction is about 0.7 V.
 
-$\therefore V_b-V_e\approx \ 0.7$ V, provided
-$V_{in} \mathrm{>}V_{e} + 0.7 V$.
+{: .note }
+$\therefore V_b-V_e\approx \ 0.7 \ V$ , provided
+$V_{in} >V_{e} + 0.7 \ V$.
 
 This 0.7 V depends on the transistor, a bit on the value of $I_b$, the
 temperature of the transistor and is an approximate value, but can for
 most applications be regarded as a constant. The formula also assumes
-that $V_{in} \mathrm{>} V_e + 0.7 V$ otherwise $V_{be}$ won't be
+that $V_{in} > V_e + 0.7\ V$ otherwise $V_{be}$ won't be
 roundabout 0.7 V.
 
+{: .note }
 $i_e=i_c+i_b$ , since it is obeying Kirchoff's Current Law (KCL).
 
 The transistor has i.e. for small $i_b$ a much bigger $i_c$ will flow.
@@ -79,12 +83,15 @@ current $i_c$ so that $i_c$ is limited by the resistance or impedance of
 the load, not by the transistor. In other words the voltage across the
 transistor, from the collector to the emitter, will be small.
 
+
 To illustrate this:
 
+<div class="example" markdown="1">
+#### **Example**
+\\
 Suppose we have a 12 $\Omega$ load and a 12 V supply. By Ohm's Law:
 
-$$i={V}/{R}=\frac{12\ \mathrm{V}}{12\ \mathrm{\Omega }}=1 A$$
-
+$$i={V}/{R}=\frac{12\ \mathrm{V}}{12\ \mathrm{\Omega }}=1\ A$$
 Take the same load and put it into a transistor switch circuit, with
 still 12 V at the top:
 
@@ -93,11 +100,16 @@ to flow through the load. If we give the base even more current, almost
 1 A will still flow through the transistor. It can't be more because the
 voltage from collector to emitter can't be negative in this case (NPN
 transistor). If we make $R_{b}$ too big, it will cause $I_{b}$ to be too
-small to ensure almost 1 A in the collector. Then $\beta \times I_b$
-will be $\mathrm{<} 1 A$, for example 0.8 A. This means $V_{ce}$ will be
-$12.0 - 0.8\times12 = 2.4 V$. The effective $\beta$ will be
-$\frac{0.8 A}{I_{b}}$.
+small to ensure almost 1 A in the collector. Then,
+$$\beta \times I_b< 1\ A,$$ 
+for example 0.8 A. This means $V_{ce}$ will be,
 
+$$12.0 - 0.8\times 12 = 2.4\ V.$$ 
+The effective $\beta$ will be,
+$$\beta=\frac{0.8 A}{I_{b}}.$$
+</div>
+
+{: .note }
 Depending on the transistor specifications, 0.2 V to 0.5 V is the
 smallest $V_{ce}$ can be. If the transistor is not saturated, $V_{ce}$
 will be bigger because then it will be in the linear mode.
@@ -109,7 +121,10 @@ So, with the transistor in saturated mode:
 2.  the effective $\beta$ will be less than the $\beta$ as specified for
     the transistor in linear mode.
 
-Example: In the circuit above suppose that the transistor is a TIP31C
+<div class="example" markdown="1">
+#### **Example**
+\\
+In the circuit above suppose that the transistor is a TIP31C
 power transistor. We need a power transistor to handle 1 A loads.
 
 The TIP31C has a minimum (specified) $\beta$ of 25, and a minimum
@@ -117,75 +132,49 @@ $V_{ce}$ of 0.2 V.
 
 Suppose that $V_{in}$ comes from a microcontroller which guarantees a
 minimum high level output of 2.4 V. If this output is high, we want
-maximum current to flow through the load. With low level maximum 0.5 V
-from the micro, the voltage across the load must be 0 V. What value of
-$R_b$ should we use?
+maximum current to flow through the load. With low level maximum 0.5 V from the micro, the voltage across the load must be 0 V. What value of $R_b$ should we use?
 
 What is the effective $\beta$ of the transistor now?
 
-Solution: We require that:
-
-$$i_b>\frac{i_c}{\beta} \therefore \ i_b>\frac{1.0}{25} \therefore i_b>0.04 A$$
+**Solution:** \\
+We require that,
+$$i_b>\frac{i_c}{\beta} \therefore \ i_b>\frac{1.0}{25} \therefore i_b>0.04\ A$$
 
 Using Ohm's Law and Kirchoff's Voltage Law (KVL):
 
 $$i_b={\left(V_{in}-0.7\right)}/{R_b} ={(2.4-0.7)}/{R_b}>0.04$$
-$${\therefore R}_b\mathrm{<} 42.5 \Omega$$
+$${\therefore R}_b< 42.5\ \Omega$$
 
-In practice the closest standard resistor value $\mathrm{<} 42.5 \Omega$
+In practice the closest standard resistor value $< 42.5\ \Omega$
 is 39 $\Omega$ (from the E12 series -- see the Appendix), so choose
-$R_b = 39 \Omega$. Still assume 12 V at the top.
+$R_b = 39\ \Omega$. Still assume 12 V at the top.
 
 $\therefore$ the effective gain is,
 
 $$\ \beta =\frac{i_c}{i_b}=\frac{(12-0.2)/12.0}{(2.4-0.7)/39}=22.6$$
+</div>
 
-Note that the effective value of $\beta$ may be smaller than the given
-minimum value of $\beta$: it is possible because the design is for the
-saturation mode. What will happen if we replace the 12 $\Omega$ load
-with a higher resistance load, like 22 $\Omega$ for example, without
-changing $R_b$?
+Note that the effective value of $\beta$ may be smaller than the given minimum value of $\beta$: it is possible because the design is for the saturation mode. What will happen if we replace the 12 $\Omega$ load with a higher resistance load, like 22 $\Omega$ for example, withoutchanging $R_b$?
 
 The $\beta$ of the transistor will effectively decrease because $V_{ce}$
-can't go smaller than a certain value (like 0.2 V typically).
-
-So if the transistor is saturated (very much switched on), thus $V_{ce}$
-is the minimum it can be, $\beta$ can effectively be even smaller than
-the minimum given in the spec sheet of the transistor.
+can't go smaller than a certain value (like 0.2 V typically). So if the transistor is saturated (very much switched on), thus $V_{ce}$ is the minimum it can be, $\beta$ can effectively be even smaller than theminimum given in the spec sheet of the transistor.
 
 This is possible because the minimum given for $\beta$ in the spec sheet
-is for the condition of or linear mode.
+is for the condition of _non-saturation_ or _linear mode_.
 
-One may even use the effective value of $\beta$ to determine whether the
-transistor is saturated or not: If the effective $\beta$ is smaller than
-the minimum of $\beta$ in the spec sheet, the transistor is saturated.
+{: .note }
+One may even use the effective value of $\beta$ to determine whether the transistor is saturated or not: If the effective $\beta$ is smaller than the minimum of $\beta$ in the spec sheet, the transistor is saturated. Another condition for saturation is that $V_{ce}$ is the minimum it can be.
 
-Another condition for saturation is that $V_{ce}$ is the minimum it can
-be.
+> #### **Question 1:**
+> Assuming that $V_{ce}$ can't be smaller than 0.2 V, calculate the effective $\beta$ in this case (specified $\beta = 25$) if $R_{load} = 22\ \Omega$ and $R_{b} = 33\ \Omega$. A 12 V supply is at the top of the load.
 
-:
+> #### **Question 2:**
+> Assuming that $V_{ce}$ can't be smaller than 0.2 V, calculate theeffective $\beta$ in this case (specified $\beta = 25$) if $R_{load} = 5\ \Omega$ and $R_{b} = 33\ \Omega$. A 12 V supply is at the top of the load. Also calculate *$V_{ce}$ .*
 
-Assuming that $V_{ce}$ can't be smaller than 0.2 V, calculate the
-effective $\beta$ in this case (specified $\beta = 25$) if
-$R_{load} = 22 \Omega$ and $R_{b} = 33 \Omega$. A 12 V supply is at the
-top of the load.
+These two questions are significant because they represent working in
+the two modes of saturation and linear operation respectively.
 
-:
-
-Assuming that $V_{ce}$ can't be smaller than 0.2 V, calculate the
-effective $\beta$ in this case (specified $\beta = 25$) if
-$R_{load} = 5 \Omega$ and $R_{b} = 33 \Omega$. A 12 V supply is at the
-top of the load. Also calculate *$V_{ce}$ .*
-
-These two Own work calculations are significant because they represent
-working in the two modes of saturation and linear operation
-respectively.
-
-A standard microcontroller can't supply 50 mA (0.05 A) from its port
-pins, so the example circuit above wouldn't work in practice when trying
-to drive it directly from a microcontroller. What would be useful is a
-transistor circuit which gives much higher current gain. The Darlington
-transistor can help in achieving this.
+A standard microcontroller can't supply 50 mA (0.05 A) from its portpins, so the example circuit above wouldn't work in practice when trying to drive it directly from a microcontroller. What would be useful is a transistor circuit which gives much higher current gain. The Darlington transistor can help in achieving this.
 
 The consists of two transistors connected as follows:
 
@@ -198,24 +187,23 @@ of the current gains of T1 and T2. T1 can be a low power transistor and
 T2 a power transistor. T1 only carries T2's base current. The Darlington
 transistor has two base-emitter drops in series -- thus 1.4 V.
 
-$\therefore V_b-V_e \approx 1.4 V$, provided
-$V_{in}\mathrm{>}V_{e} + 1.4 V$, with $V_{in}$ connected to $V_{b}$
+{: .note }
+$\therefore V_b-V_e \approx 1.4\ V$, provided
+$V_{in}>V_{e} + 1.4\ V$, with $V_{in}$ connected to $V_{b}$
 through a resistor.
 
-: Prove that
-$\beta =\beta_1\left(\beta_2+1\right)+\beta_2\cong \beta_1\beta_2$, for
-a Darlington in linear mode.
+
+> #### **Question 3:**
+> Prove that $\beta =\beta_1\left(\beta_2+1\right)+\beta_2\cong \beta_1\beta_2$, for a Darlington in linear mode.
 
 Some Darlingtons incorporate extra base-emitter resistors in order to
 speed them up.
 
-: Redo the previous example with the 12 $\Omega$ load, but this time use
-a TIP122 Darlington with a $\beta\mathrm{>} 1000$. In other words, in
-the diagram below, the transistor must be replaced by a Darlington
-transistor. The supply is 12 V and $V_{in} = 2.4 V$. Determine $R_{b}$
-(select from the E12 series) and the effective $\beta$.
+> #### **Question 4:**
+> Redo the previous example with the 12 $\Omega$ load, but this time use a TIP122 Darlington with a $\beta> 1000.$ In other words, in the diagram below, the transistor must be replaced by a Darlington transistor. The supply is 12 V and $V_{in} = 2.4\ V$. Determine $R {b}$ (select from the E12 series) and the effective $\beta$.
 
-Note that $\beta$ is a fairly unreliable figure. It will vary from
+{: .note }
+$\beta$ is a fairly unreliable figure. It will vary from
 transistor to transistor of the same type and it will vary with
 parameters such as temperature. For this reason, you always use the
 worst-case $\beta$ for your designs. For this same reason you generally
@@ -239,8 +227,8 @@ linear mode.
 
 As before: $V_e\approx V_b-0.7\ V$
 
+{: .note }
 As before: $i_e=i_c+i_b$ and $i_c=\beta i_b$
-
 $$\therefore \ i_e=\left(\beta +1\right)i_b=\frac{\beta +1}{\beta }i_c$$
 
 The important thing to notice in this circuit is that the voltage across
@@ -262,6 +250,7 @@ $$P_T=V_{ce}\times i_e.$$
 
 A more accurate equation for the power dissipated in a transistor is:
 
+{: .note }
 $$P_T=(V_{be}\times i_b)+(V_{ce}\times i_c)$$
 
 Note that in this formula the collector current is used, not the emitter
@@ -273,8 +262,9 @@ input and the supply) minus the power dissipated in the other components
 $$P_T=\left(V_b\times i_b\right)+\left(V_c\times i_c\right)-\left(i_b+i_c\right)\times V_e=\left(V_b-V_e\right)\times i_b+\left(V_c-V_e\right)\times i_c$$
 $$\ \ \ \ \ \ =(V_{be}\times i_b)+(V_{ce}\times i_c)$$
 
-Example:
-
+<div class="example" markdown="1">
+#### **Example**
+\\
 For the circuit above when we are using a 10 $\Omega$ load and a TIP31
 transistor (with a minimum $\beta$ of 25), 12 V supply and 5 V base
 voltage:
@@ -287,17 +277,17 @@ voltage:
 
 4.  How much power does the transistor dissipate?
 
-Answer
+**Solution:** 
+1.  $5\ V - 0.7\ V = 4.3\ V$
 
-1.  $5 V - 0.7 V = 4.3 V$
-
-2.  $I = V/R = 4.3/10 = 430 mA$
+2.  $I = V/R = 4.3/10 = 430\ mA$
 
 3.  If $\beta$ = 25 (minimum): $0.43/(25+1) = 17 \ mA$ (maximum)
 
-4.  $P = VI = (12 - 4.3) \mathrm \times 0.43 = 7.7 \mathrm \times 0.43 = 3.31 \ W$,
+4.  $P = VI = (12 - 4.3) \times 0.43 = 7.7 \times 0.43 = 3.31 \ W$,
     or with the better formula:
-    $0.017 \times 0.7 + (0.43 - 0.017) \times (12 - 4.3) = 3.19 \ W$
+    $P = (V_{be}\times i_b)+(V_{ce}\times i_c) = 0.017 \times 0.7 + (0.43 - 0.017) \times (12 - 4.3) = 3.19 \ W$
+</div>
 
 As a rough guide -- in practice don't let the TO220 (package of the
 TIP31) power transistor dissipate more than 1 W without mounting it on a
@@ -321,17 +311,16 @@ This can be used to turn a load on and off in response to a digital
 signal have the load and the control ($V_{in}$) sharing a ground.
 
 If needed a resistor can be connected across the emitter and base to
-alter the switch-on point for $V_{in}$.
+alter the switch-on point for $V_{in}.$
 
 We can also make a PNP emitter follower and a Darlington transistor
 (e.g. TIP127) with PNP transistors. Now with the emitter follower the
 load is connected between the emitter and the supply voltage:
 
-![image](image2.png){width="3.20in" height="1.71in"}
+![image](/assets/images/image2.png)
 
-: Why do we need to use a base resistor in the case of the
-ground-connected load on the previous page, but not necessarily in the
-case of a supply-connected load?
+> #### **Question 5:**
+> Why do we need to use a base resistor in the case of the ground-connected load on the previous page, but not necessarily in the case of a supply-connected load?
 
 ## Bi-directional operation, including H-bridges
 
@@ -343,7 +332,7 @@ both directions.
 We can combine the NPN and PNP emitter followers to get linear mode
 bi-directional operation.
 
-![image](image3.png){width="2.21in" height="2.14in"}
+![image](/assets/images/image3.png)
 
 Note that there will be a deadband in the signal applied to the load if
 the input is between -0.7 V and +0.7 V. Note that two supplies are
@@ -380,12 +369,12 @@ $V^{-}$ ; not any other voltage in between.
 Therefore, the following is a better H-bridge configuration, but now
 resistors are required between the drive signals, the supply voltages
 and the transistor bases. Note that the NPN and PNP transistors have
-been swopped. *Why can't the Drive Signals be directly connected to the
-bases such as with the emitter follower H-bridge*?
+been swopped. 
 
-![image](image4.png){width="4.19in" height="3.08in"}
+> #### **Question 6:**
+> Why can't the Drive Signals be directly connected to the bases such as with the emitter follower H-bridge?
 
-:
+![image](/assets/images/image4.png)
 
 Whereas the emitter follower H-bridge can be used in the linear or
 saturated mode, the last H-bridge is only well-suited for the saturated
@@ -424,14 +413,11 @@ It is about ($V^{+} - V^{-} - 2 \times 0.5$) if we assume that $V_{ce}$
 (saturated) is 0.5 V, if the Drive Signals have extreme values of
 $V^{+}$ and $V^{-}$.
 
-:
-
-If $V^{+} = 12.0 V$ and $V^{-} = 0.0 V$, assuming the levels of the
-Drive Signals are also $V^{+}$ or $V^{-}$, and Darlingtons with
-$\beta = 1000$ are used, show that the 8 resistors in the H-bridge can
-be four 180 $\Omega$ ($R_{1}$) and four 1.0 k$\Omega$ ($R_{2}$)
-resistors. Also show that a load of 5 $\Omega$ can be driven by this
-amplifier.
+> #### **Question 7:**
+> If $V^{+} = 12.0\ V$ and $V^{-} = 0.0\ V$, assuming the levels of the
+> Drive Signals are also $V^{+}$ or $V^{-}$, and Darlingtons with
+> $\beta = 1000$ are used, show that the 8 resistors in the H-bridge can
+> be four 180 $\Omega$ ($R_{1}$) and four 1.0 k$\Omega$ ($R_{2}$ resistors. Also show that a load of 5 $\Omega$ can be driven by this amplifier.
 
 Be careful; if a different supply voltage is used, or if a smaller load
 resistance must be driven, the resistors must be redesigned. But the
@@ -467,6 +453,7 @@ Example signals:
 On average, or low-pass filtered, the PWM signal is just the same as the
 original signal.
 
+{: .note }
 The duty cycle of a PWM signal is the ratio of the time the signal is
 high to the period of the triangular wave. If the duty cycle is
 constant, the period of the repeating PWM signal will be equal to the
@@ -562,24 +549,19 @@ supply drops, or will be increased when the supply increases.
 This is called a voltage controlled current source because the current
 through the load is determined by the voltage $V_{b}$.
 
-:
+> #### **Question 8:**
+> Give the more accurate formula for $i_2$ as a function of $V_{b}$, $R_{1}$ and $\beta$(in other words don't assume that $\beta$ is necessarily very high).
 
-Give the more accurate formula for $i_2$ as a function of $V_{b}$,
-$R_{1}$ and $\beta$(in other words don't assume that $\beta$ is
-necessarily very high).
+> Give the accurate formula for $i_2$ if $R_{1}$ is moved from the emitter to the base.
 
-Give the accurate formula for $i_2$ if $R_{1}$ is moved from the emitter
-to the base.
-
-Why is this latter case a worse current source compared to the previous
-case?
+> Why is this latter case a worse current source compared to the previous case?
 
 ## Voltage Amplification
 
 We can use a transistor's current amplification to produce voltage
 amplification. Consider the following circuit:
 
-For $V_b = 1.7 V$: $V_e = 1 V$ and $i_e = 1 mA$. Therefore $i_c$ will be
+For $V_b = 1.7\ V$: $V_e = 1\ V$ and $i_e = 1 mA$. Therefore $i_c$ will be
 approximately 1 mA.
 
 By Ohm's Law, the voltage across the collector resistor is 10 V.
@@ -598,25 +580,17 @@ accurate as various transistor effects tend to reduce gain.
 Much more accurate results are possible with Operational Amplifiers --
 to be discussed in Chapter 2.
 
-:
-
-With $V_{s}$ the supply voltage, $V_{b}$ and $V_{c}$ the base and
-collector voltages, and $R_{c}$ and $R_{e}$ the resistors connected to
-the collector and the emitter:
-
-1.  Derive $\frac{V_s-V_c}{V_b-0.7}$ in terms of $R_{c}$, $R_{e}$ and
-    $\beta$.
-
-2.  Derive the minimum and maximum $V_{b}$ may be, in terms of $V_{s}$,
-    $R_{c}$, $R_{e}$ and $\beta$ for the formula above to be still
-    valid, with $V_{ce}$ minimum assumed to be 0.2 V.
+> #### **Question 9:**
+> With $V_{s}$ the supply voltage, $V_{b}$ and $V_{c}$ the base and collector voltages, and $R_{c}$ and $R_{e}$ the resistors connected to the collector and the emitter:
+> 1.  Derive $\frac{V_s-V_c}{V_b-0.7}$ in terms of $R_{c}$, $R_{e}$ and $\beta$.
+> 2.  Derive the minimum and maximum $V_{b}$ may be, in terms of $V_{s}$, $R_{c}$, $R_{e}$ and $\beta$ for the formula above to be still valid, with $V_{ce}$ minimum assumed to be 0.2 V.
 
 Answer b):
 $0.7<V_b<0.7+\frac{V_s-0.2}{1+\frac{\beta }{\beta +1}.\frac{R_c}{R_e}}$
 
 ## Field Effect Transistors
 
-#### N-channel, P-channel, Enhancement Mode, Depletion Mode
+### N-channel, P-channel, Enhancement Mode, Depletion Mode
 
 The FET (Field Effect Transistor) is a common voltage controlled
 transistor. With FETs we talk of drain, gate and source for its 3
@@ -629,6 +603,7 @@ $V_{GS}$ must exceed a threshold value ($V_{GS(th)}$, in V) before drain
 current will flow. The important formula to remember, with $I_{D}$ the
 drain current, is:
 
+{: .note }
 $I_{D}$ = ($V_{GS}$ -- $V_{GS(th)}$) $g_{FS}$, valid when the transistor
 is operated in its linear mode.
 
@@ -644,6 +619,7 @@ discussed or used in this course.
 The MOSFET has very large input impedance, in other words the gate
 current is very low.
 
+{: .note }
 $\therefore I_S=I_D$ is a valid approximation, with $I_S$ the source
 current.
 
@@ -654,28 +630,28 @@ P-channel is also opposite.
 
 The last subtypes I would mention here are the Enhancement Mode and
 Depletion Mode MOSFETs. The blocked formulas above are applicable to
-both these subtypes, but the difference lies in $V_{GS(th)}$:
+both these subtypes, but the difference lies in $V_{GS(th)}:$
 
-1.  Enhancement Mode N-channel: $V_{GS(th)}$ is positive with
-    $V_{GS} = 0 V$ switching the transistor off and $V_{GS}$
-    $\mathrm{>}$ $V_{GS(th)}$ switching it on.
+- Enhancement Mode N-channel: $V_{GS(th)}$ is positive with
+    $V_{GS} = 0\ V$ switching the transistor off and $V_{GS}$
+    $>$ $V_{GS(th)}$ switching it on.
 
-2.  Enhancement Mode P-channel: $V_{GS(th)}$ is negative with
-    $V_{GS} = 0 V$ switching the transistor off and
-    $V_{GS} \mathrm{<} V_{GS(th)}$ switching it on.
+- Enhancement Mode P-channel: $V_{GS(th)}$ is negative with
+    $V_{GS} = 0\ V$ switching the transistor off and
+    $V_{GS} < V_{GS(th)}$ switching it on.
 
-3.  Depletion Mode N-channel: $V_{GS(th)}$ is 0 V with
-    $V_{GS} \mathrm{<} 0 V$ switching the transistor off and
-    $V_{GS} \mathrm{>} 0 V$ switching it on.
+- Depletion Mode N-channel: $V_{GS(th)}$ is 0 V with
+    $V_{GS} < 0\ V$ switching the transistor off and
+    $V_{GS} > 0\ V$ switching it on.
 
-4.  Depletion Mode P-channel: $V_{GS(th)}$ is 0 V with
-    $V_{GS} \mathrm{>} 0 V$ switching the transistor off and
-    $V_{GS} \mathrm{<} 0 V$ switching it on.
+- Depletion Mode P-channel: $V_{GS(th)}$ is 0 V with
+    $V_{GS} > 0\ V$ switching the transistor off and
+    $V_{GS} < 0\ V$ switching it on.
 
 These are the symbols of N-channel and P-channel enhancement mode
 MOSFETs:
 
-![image](image5.png){width="4.33in" height="2.12in"}
+![image](/assets/images/image5.png)
 
 For a P-channel, the arrow in the symbol is turned around, and for
 depletion mode, the dashed lines will be solid. ***Although the current
@@ -687,42 +663,37 @@ drain and ground.
 
 These are the symbols of N-channel and P-channel depletion mode MOSFETs:
 
-![image](image6.png){width="4.37in" height="1.95in"}
+![image](/assets/images/image6.png)
 
 Again $I_{D}$ as shown here with the P-channel, will be negative.
 
-Examples:
-
-If an N-channel MOSFET with threshold voltage of 2 to 4 V is to be used
-in saturated mode, with the load connected between a positive supply and
-the drain, and the source of the MOSFET connected to ground,
-$V_{GS} \mathrm{<} 1.0 V$ will have it switched off completely, and
-$V_{GS} = 10 V$ will have it switched on completely.
+<div class="example" markdown="1">
+#### **Examples:** 
+\\
+If an N-channel MOSFET with threshold voltage of 2 to 4 V is to be used in saturated mode, with the load connected between a positive supply and the drain, and the source of the MOSFET connected to ground, $V_{GS} < 1.0\ V$ will have it switched off completely, and
+$V_{GS} = 10\ V$ will have it switched on completely.
 
 If an N-channel MOSFET is to be used in saturated mode, with the load
 connected between a positive supply and the drain, and the source of the
-MOSFET connected to ground, typically $V_{GS} \mathrm{<} -2.0 V$ will
-have it switched off completely, and $V_{GS} = 5 V$ will have it
-switched on completely.
+MOSFET connected to ground, typically $V_{GS} < -2.0\ V$ will have it
+switched off completely, and $V_{GS} = 5\ V$ will have it switched on
+completely.
+</div>
 
 It is fine to indicate FETs as in this diagram, whenever hand drawn
 circuit diagrams are asked.
 
-#### FETs in an H-bridge
+### FETs in an H-bridge
 
 H-bridges can also be designed with MOSFETs, especially enhancement mode
 MOSFETs as in the circuit below.
 
 Parts list:
+- Q2, Q4, P-channel MOSFET IRF9630 (6.5 A, 200 V)
+- Q1, Q3, N-channel MOSFET IRF630 (9 A, 200 V)
+- Q5, Q6, 2N2222A NPN bipolar transistor
 
-::: list
-Q2, Q4, P-channel MOSFET IRF9630 (6.5 A, 200 V)
-
-Q1, Q3, N-channel MOSFET IRF630 (9 A, 200 V)Q5, Q6, 2N2222A NPN bipolar
-transistor
-:::
-
-![image](image7.png){width="5.52in" height="4.23in"}
+![image](/assets/images/image7.png)
 
 http://www.bristolwatch.com/ele/h_bridge.htm
 
@@ -770,8 +741,7 @@ following advantages:
 
 2.  Wider range of load currents
 
-3.  Less voltage drop over the transistors, therefore less heat loss in
-    the transistors
+3.  Less voltage drop over the transistors, therefore less heat loss in the transistors
 
 4.  Faster switching, therefore it can handle higher PWM frequency
 
