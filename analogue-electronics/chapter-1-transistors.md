@@ -716,7 +716,7 @@ MOSFET connected to ground, typically $V_{GS} < -2.0\ V$ will have it
 switched off completely, and $V_{GS} = 5\ V$ will have it switched on
 completely.
 
-<img src="/analogue-electronics/images/1.20.png" width="50%" alt="MOSFETs in a saturated switch circuit"/>
+<img src="../images/1.20.png" width="50%" alt="MOSFETs in a saturated switch circuit"/>
 _Figure 20: MOSFETs in a saturated switch circuit_
 
 _It is fine to indicate FETs as in this diagram, whenever hand drawn_
