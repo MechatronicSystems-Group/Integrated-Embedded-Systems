@@ -25,7 +25,7 @@ possible power dissipation without damaging the transistor. If mounted
 on a heatsink, even more power can be dissipated. The following picture
 shows some transistor packages taken from a variety of data sheets.
 
-![image](/analogue-electronics/images/1.1.png)
+<img src="./images/1.1.png" width="80%" alt="Different types of BJT packages showing various sizes and mounting styles"/>
 _Figure 1: Different types of BJT packages showing various sizes and mounting styles_
 
 The SOT-23 is a very small surface mount package, as can be seen looking
@@ -52,7 +52,7 @@ the transistor operating in linear mode.
 Current flows through the transistor from collector to emitter in the
 direction of the arrows. $V_e$ is the lowest voltage in the circuit. 
 
-<img src="/analogue-electronics/images/1.2.png" width="50%" alt="Saturated switch circuit with an NPN transistor"/>
+<img src="./images/1.2.png" width="50%" alt="Saturated switch circuit with an NPN transistor"/>
 _Figure 2: Saturated switch circuit with an NPN transistor_
 
 The maximum voltage across the base-emitter junction is about 0.7 V.

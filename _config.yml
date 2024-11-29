@@ -2,8 +2,7 @@ title: Integrated-Embedded-Systems
 description: Course material for MEC4126F - Integrated Embedded Systems
 theme: just-the-docs
 
-url: https://mechatronicsystems-group.github.io
-baseurl: /Integrated-Embedded-Systems
+url: https://mechatronicsystems-group.github.io/Integrated-Embedded-Systems
 
 defaults:
   - scope:
