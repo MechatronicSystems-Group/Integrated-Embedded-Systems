@@ -7,17 +7,11 @@ nav_order: 2
 
 # Chapter 1: Transistors
 
-Transistors are used as basic building blocks in amplifiers. They can
-also be used as switches.
+Transistors are used as basic building blocks in amplifiers. They can also be used as switches.
 
 ## Bipolar Junction Transistors
 
-The BJT (Bipolar Junction Transistor) is a very common current
-controlled transistor. A small current flowing through the base
-($I_{b}$) allows a much larger current to flow between the collector and
-the emitter. The amount of current allowed to flow is related to the
-gain, often shown as $\beta$ or $H_{fe}$, of the transistor. The
-important formula to remember, with $I_{c}$ the collector current, is:
+The BJT (Bipolar Junction Transistor) is a very common current controlled transistor. A small current flowing through the base ($I_{b}$) allows a much larger current to flow between the collector and the emitter. The amount of current allowed to flow is related to the gain, often shown as $\beta$ or $H_{fe}$, of the transistor. The important formula to remember, with $I_{c}$ the collector current, is:
 
 {: .note }
 $I_{c} = \beta\times I_{b}$ , valid when the transistor is operated in its linear mode.
@@ -31,7 +25,7 @@ possible power dissipation without damaging the transistor. If mounted
 on a heatsink, even more power can be dissipated. The following picture
 shows some transistor packages taken from a variety of data sheets.
 
-![Various physical packages of BJTs](/assets/images/image1.png)
+![image](/analogue-electronics/images/1.1.png)
 _Figure 1: Different types of BJT packages showing various sizes and mounting styles_
 
 The SOT-23 is a very small surface mount package, as can be seen looking
@@ -56,8 +50,12 @@ follower, discussed in the next section (4 pages on), is an example of
 the transistor operating in linear mode.
 
 Current flows through the transistor from collector to emitter in the
-direction of the arrows. $V_e$ is the lowest voltage in the circuit. The
-maximum voltage across the base-emitter junction is about 0.7 V.
+direction of the arrows. $V_e$ is the lowest voltage in the circuit. 
+
+<img src="/analogue-electronics/images/1.2.png" width="50%" alt="Saturated switch circuit with an NPN transistor"/>
+_Figure 2: Saturated switch circuit with an NPN transistor_
+
+The maximum voltage across the base-emitter junction is about 0.7 V.
 
 {: .note }
 $\therefore V_b-V_e\approx \ 0.7 \ V$ , provided
@@ -83,17 +81,25 @@ current $i_c$ so that $i_c$ is limited by the resistance or impedance of
 the load, not by the transistor. In other words the voltage across the
 transistor, from the collector to the emitter, will be small.
 
-
 To illustrate this:
 
 <div class="example" markdown="1">
 #### **Example**
 \\
-Suppose we have a 12 $\Omega$ load and a 12 V supply. By Ohm's Law:
+Suppose we have a 12 $\Omega$ load and a 12 V supply:
+
+<img src="/analogue-electronics/images/1.3a.png" width="30%" alt="Current flowing through a resistor"/>
+_Figure 3a: Current flowing through a resistor_
+
+By Ohm's Law:
 
 $$i={V}/{R}=\frac{12\ \mathrm{V}}{12\ \mathrm{\Omega }}=1\ A$$
 Take the same load and put it into a transistor switch circuit, with
 still 12 V at the top:
+
+<img src="/analogue-electronics/images/1.3b.png" width="50%" alt="Current flowing through a transistor switch circuit"/>
+_Figure 3b: Current flowing through a transistor switch circuit_
+
 
 We want to specify the base current so that we allow at least almost 1 A
 to flow through the load. If we give the base even more current, almost
@@ -101,7 +107,7 @@ to flow through the load. If we give the base even more current, almost
 voltage from collector to emitter can't be negative in this case (NPN
 transistor). If we make $R_{b}$ too big, it will cause $I_{b}$ to be too
 small to ensure almost 1 A in the collector. Then,
-$$\beta \times I_b< 1\ A,$$ 
+$$\beta \times I_b< 1\ A,$$
 for example 0.8 A. This means $V_{ce}$ will be,
 
 $$12.0 - 0.8\times 12 = 2.4\ V.$$ 
@@ -176,7 +182,10 @@ the two modes of saturation and linear operation respectively.
 
 A standard microcontroller can't supply 50 mA (0.05 A) from its portpins, so the example circuit above wouldn't work in practice when trying to drive it directly from a microcontroller. What would be useful is a transistor circuit which gives much higher current gain. The Darlington transistor can help in achieving this.
 
-The consists of two transistors connected as follows:
+The Darlington transistor consists of two transistors connected as follows:
+
+<img src="/analogue-electronics/images/1.4.png" width="50%" alt="Darlington transistor"/>
+_Figure 4: Darlington transistor_
 
 When we force a current into the base of T1 it causes a current to flow
 in the emitter of T1. This current goes into the base of T2 which allows
@@ -202,6 +211,10 @@ speed them up.
 > #### **Question 4:**
 > Redo the previous example with the 12 $\Omega$ load, but this time use a TIP122 Darlington with a $\beta> 1000.$ In other words, in the diagram below, the transistor must be replaced by a Darlington transistor. The supply is 12 V and $V_{in} = 2.4\ V$. Determine $R {b}$ (select from the E12 series) and the effective $\beta$.
 
+<img src="/analogue-electronics/images/1.5.png" width="50%" alt="BJT transistor replaced by a Darlington transistor"/>
+_Figure 5: BJT transistor replaced by a Darlington transistor_
+
+
 {: .note }
 $\beta$ is a fairly unreliable figure. It will vary from
 transistor to transistor of the same type and it will vary with
@@ -224,6 +237,9 @@ base, but much higher current is possible.
 
 In this case the transistor is not saturated, thus it operates in the
 linear mode.
+
+<img src="/analogue-electronics/images/1.6.png" width="50%" alt="Emitter follower circuit"/>
+_Figure 6: Emitter follower circuit_
 
 As before: $V_e\approx V_b-0.7\ V$
 
@@ -296,12 +312,21 @@ heatsink.
 ## PNP Transistors
 
 PNP transistors allow current to flow through them in the opposite
-direction to NPN transistors. For PNP devices the emitter is connected
+direction to NPN transistors.
+
+<img src="/analogue-electronics/images/1.7.png" width="50%" alt="Emitter follower circuit"/>
+_Figure 7: PNP transistor_
+
+
+For PNP devices the emitter is connected
 to the highest voltage. Current flows through the device in the
 direction indicated by the emitter's arrow, thus it flows out of the
 collector and out of the base. We can use a PNP transistor to make a
 saturated switch to control ground-connected loads. Here is such a
 circuit:
+
+<img src="/analogue-electronics/images/1.8.png" width="50%" alt="Saturated switch circuit with a PNP transistor"/>
+_Figure 8: Saturated switch circuit with a PNP transistor_
 
 In this case $V_b$ must be 0.7 V than $V_e$.
 
@@ -317,7 +342,10 @@ We can also make a PNP emitter follower and a Darlington transistor
 (e.g. TIP127) with PNP transistors. Now with the emitter follower the
 load is connected between the emitter and the supply voltage:
 
-![image](/assets/images/image2.png)
+<img src="/analogue-electronics/images/1.9a.png" width="30%" alt="PNP emitter follower circuit"/>
+_Figure 9a: PNP emitter follower circuit_
+<img src="/analogue-electronics/images/1.9b.png" width="30%" alt="PNP Darlington transistor"/>
+_Figure 9b: PNP Darlington transistor_
 
 > #### **Question 5:**
 > Why do we need to use a base resistor in the case of the ground-connected load on the previous page, but not necessarily in the case of a supply-connected load?
@@ -332,7 +360,8 @@ both directions.
 We can combine the NPN and PNP emitter followers to get linear mode
 bi-directional operation.
 
-![image](/assets/images/image3.png)
+<img src="/analogue-electronics/images/1.10.png" width="50%" alt="The Half-bridge: bi-directional operation with NPN and PNP emitter followers"/>
+_Figure 10: The Half-bridge: bi-directional operation with NPN and PNP emitter followers_
 
 Note that there will be a deadband in the signal applied to the load if
 the input is between -0.7 V and +0.7 V. Note that two supplies are
@@ -341,6 +370,9 @@ required in this case -- for the positive and negative supplies.
 If we want to run our system off a single supply rail (V- = ground in
 circuit below) we can combine two of these double-ended emitter
 followers, therefore configuring an H-bridge.
+
+<img src="/analogue-electronics/images/1.11.png" width="80%" alt="The Full-bridge: bi-directional operation with NPN and PNP emitter followers"/>
+_Figure 11: The Full-bridge: bi-directional operation with NPN and PNP emitter followers_   
 
 Drive Signal 1 and Drive Signal 2 are basically driven in anti-phase (if
 the one is high, the other is low, and vice versa, but there are
@@ -351,7 +383,7 @@ around the value $\frac{V^{+}}{2}$.
 
 A disadvantage of this H-bridge, especially if Darlingtons are used
 instead of transistors, is that the maximum possible voltage across the
-load is quite a bit less than $V^{+}$ - $V^{-}$. It is about
+load is quite a bit less than $V^{+} - V^{-}$. It is about
 ($V^{+} - V^{-} - 2 \times 0.7$) in the case of transistors and
 ($V^{+} - V^{-} - 2 \times 1.4$) in the case of Darlingtons, if the
 Drive Signals have extreme values of $V^{+}$ and $V^{-}$. It is
@@ -371,10 +403,12 @@ resistors are required between the drive signals, the supply voltages
 and the transistor bases. Note that the NPN and PNP transistors have
 been swopped. 
 
+<img src="/analogue-electronics/images/1.12.png" width="80%" alt="The PNP driven H-bridge configuration"/>
+_Figure 12: The PNP driven H-bridge configuration_
+
 > #### **Question 6:**
 > Why can't the Drive Signals be directly connected to the bases such as with the emitter follower H-bridge?
 
-![image](/assets/images/image4.png)
 
 Whereas the emitter follower H-bridge can be used in the linear or
 saturated mode, the last H-bridge is only well-suited for the saturated
@@ -450,6 +484,9 @@ PWM signal.
 
 Example signals:
 
+<img src="/analogue-electronics/images/1.13.png" width="80%" alt="Example PWM signal"/> 
+_Figure 13: Example PWM signal_
+
 On average, or low-pass filtered, the PWM signal is just the same as the
 original signal.
 
@@ -482,6 +519,9 @@ transistor stays small.
     maximum negative voltage and 100% with maximum positive voltage
     across the load.
 
+<img src="/analogue-electronics/images/1.14.png" width="80%" alt="The first PWM scheme: DS1 and DS2 out of phase"/>
+_Figure 14: The first PWM scheme: DS1 and DS2 out of phase_
+
 2.  The second PWM scheme is to control one Drive Signal with the PWM
     signal or its inverse\* (signal conditioning may be necessary) and
     to let the second Drive Signal be either positive or negative
@@ -491,23 +531,12 @@ transistor stays small.
     will correspond with half the maximum negative voltage across the
     load if the sign is negative. \*The inverse will be necessary if the
     sign is changed, because 0% duty cycle with one sign will mean 100%
-    duty cycle with the other sign.
+    duty cycle with the other sign. To explain this: Say e.g. DS2 is low just before the sign change. DS1 is mostly low because the load voltage is close to zero. If the load voltage must now change to a small negative value, DS2 must go high. Then DS1 can't stay mostly low, because this will cause a large negative voltage across the load. Therefore the PWM signal to DS1 must be inversed.
 
-To explain this: Say e.g. DS2 is low just before the sign change. DS1 is
-mostly low because the load voltage is close to zero. If the load
-voltage must now change to a small negative value, DS2 must go high.
-Then DS1 can't stay mostly low, because this will cause a large negative
-voltage across the load. Therefore the PWM signal to DS1 must be
-inversed.
+<img src="/analogue-electronics/images/1.15.png" width="80%" alt="The second PWM scheme: DS1 (or DS2) driven by a PWM signal with the other acting as a direction signal"/>
+_Figure 15: The second PWM scheme: DS1 (or DS2) driven by a PWM signal with the other acting as a direction signal_
 
-      
-
-The second scheme will require more code if the PWM is generated in a
-micro-processor, but the resolution will be double that of the first
-scheme.
-
-PWM controller chips can be found that do all of these, but you must
-understand how it works to use it best.
+The second scheme will require more code if the PWM is generated in a micro-processor, but the resolution will be double that of the first scheme. PWM controller chips can be found that do all of these, but you must understand how it works to use it best.
 
 ## Current Sources
 
@@ -527,6 +556,9 @@ source" or "current source". Depending on the direction of the current
 through the load it may also be called a "current sink".
 
 Below is a simple current source (actually current sink) circuit:
+
+<img src="/analogue-electronics/images/1.16.png" width="30%" alt="Simple current source circuit"/>  
+_Figure 16: Simple current source circuit_
 
 Here: $V_e=V_b-0.7$ V and $i_1=\frac{V_e}{R_1}=\frac{V_b-0.7}{R_1}$
 
@@ -560,6 +592,9 @@ through the load is determined by the voltage $V_{b}$.
 
 We can use a transistor's current amplification to produce voltage
 amplification. Consider the following circuit:
+
+<img src="/analogue-electronics/images/1.17.png" width="30%" alt="Voltage amplification circuit"/>
+_Figure 17: Voltage amplification circuit_
 
 For $V_b = 1.7\ V$: $V_e = 1\ V$ and $i_e = 1 mA$. Therefore $i_c$ will be
 approximately 1 mA.
@@ -651,7 +686,8 @@ both these subtypes, but the difference lies in $V_{GS(th)}:$
 These are the symbols of N-channel and P-channel enhancement mode
 MOSFETs:
 
-![image](/assets/images/image5.png)
+<img src="/analogue-electronics/images/1.18.png" width="80%" alt="N-channel and P-channel enhancement mode MOSFETs"/>
+_Figure 18: N-channel and P-channel enhancement mode MOSFETs_
 
 For a P-channel, the arrow in the symbol is turned around, and for
 depletion mode, the dashed lines will be solid. ***Although the current
@@ -663,7 +699,8 @@ drain and ground.
 
 These are the symbols of N-channel and P-channel depletion mode MOSFETs:
 
-![image](/assets/images/image6.png)
+<img src="/analogue-electronics/images/1.19.png" width="80%" alt="N-channel and P-channel depletion mode MOSFETs"/>
+_Figure 19: N-channel and P-channel depletion mode MOSFETs_
 
 Again $I_{D}$ as shown here with the P-channel, will be negative.
 
@@ -678,10 +715,13 @@ connected between a positive supply and the drain, and the source of the
 MOSFET connected to ground, typically $V_{GS} < -2.0\ V$ will have it
 switched off completely, and $V_{GS} = 5\ V$ will have it switched on
 completely.
+
+<img src="/analogue-electronics/images/1.20.png" width="50%" alt="MOSFETs in a saturated switch circuit"/>
+_Figure 20: MOSFETs in a saturated switch circuit_
+
+_It is fine to indicate FETs as in this diagram, whenever hand drawn_
 </div>
 
-It is fine to indicate FETs as in this diagram, whenever hand drawn
-circuit diagrams are asked.
 
 ### FETs in an H-bridge
 
@@ -693,9 +733,8 @@ Parts list:
 - Q1, Q3, N-channel MOSFET IRF630 (9 A, 200 V)
 - Q5, Q6, 2N2222A NPN bipolar transistor
 
-![image](/assets/images/image7.png)
-
-http://www.bristolwatch.com/ele/h_bridge.htm
+<img src="/analogue-electronics/images/1.21.png" width="80%" alt="MOSFET H-bridge circuit using enhancement mode MOSFETs"/>
+_Figure 21: MOSFET H-bridge circuit using enhancement mode MOSFETs_
 
 It is easy to design these resistors, because the Gate current here is
 so small, it can be neglected. Therefore, the resistors can also have
@@ -718,16 +757,6 @@ and below on the same side of the motor will both be switched on,
 causing a current spike from the 12 V supply to ground through Q2 and Q1
 or through Q4 and Q3. In practice it seems that this is not a problem,
 probably because the Gate signals switch fast enough.
-
-The following circuit works fine with a supply from 6 V to 12 V, and can
-drive 2 A through the load (but be careful when testing it on a
-breadboard because a maximum current of 1 A is recommended on a
-breadboard). The 10k resistors of the previous design were changed to
-220 $\Omega$ resistors because smaller resistors were required to handle
-higher PWM frequency signals. This circuit works fine with a PWM signal
-with frequency as high as 20 kHz. It can also handle Drive Signals
-straight from a micro-processor since levels of 3.3 V and 0 V will turn
-the BJT transistors on or off.
 
 We shall return to level adjusters in the next chapter, but they are
 required between the drive signals and the H-bridges if the drive
