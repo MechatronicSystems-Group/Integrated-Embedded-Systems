@@ -4,7 +4,7 @@ title: "Chapter 4: Filter Circuits"
 parent: Analogue Electronics
 nav_order: 5
 ---
-# Chapter 7: Filter Circuits
+# Chapter 4: Filter Circuits
 
 Often, we have small signals which we need to measure. We need to apply
 some special techniques in order to preserve these.
