@@ -24,6 +24,82 @@ p, main p {
   text-align: left;
 }
 
+.important {
+  background: rgba(223, 213, 255, 0.2);
+  border-left: 4px solid #8250DF;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+  padding: 0.8rem;
+  margin: 1.5rem auto;
+  max-width: 100%;
+  text-align: left;
+}
+
+.important::before {
+  content: "Important";
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #8250DF
+}
+
+.note2 {
+  background: rgba(204, 229, 255, 0.2);
+  border-left: 4px solid #0969DA;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+  padding: 0.8rem;
+  margin: 1.5rem auto;
+  max-width: 100%;
+  text-align: left;
+}
+
+.note2::before {
+  content: "Note";
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #0969DA
+}
+
+.caution {
+  background: rgba(255, 150, 150, 0.2);
+  border-left: 4px solid #CF222E;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+  padding: 0.8rem;
+  margin: 1.5rem auto;
+  max-width: 100%;
+  text-align: left;
+}
+
+.caution::before {
+  content: "Caution";
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #CF222E
+}
+
+.tip {
+  background: rgba(150, 255, 150, 0.2);
+  border-left: 4px solid #1A7F37;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+  padding: 0.8rem;
+  margin: 1.5rem auto;
+  max-width: 100%;
+  text-align: left;
+}
+
+.tip::before {
+  content: "Tip";
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #1A7F37
+}
+
 img {
   display: block;
   margin-left: auto;
