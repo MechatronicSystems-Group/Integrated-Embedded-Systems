@@ -1,0 +1,180 @@
+ARM GAS  /var/folders/06/701235812n18f0hk5nv_7xwc0000gp/T//ccz5RtM0.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "Core/Src/main.c"
+  18              		.section	.rodata.helloWorld.str1.4,"aMS",%progbits,1
+  19              		.align	2
+  20              	.LC0:
+  21 0000 48656C6C 		.ascii	"Hello world! :)\000"
+  21      6F20776F 
+  21      726C6421 
+  21      203A2900 
+  22              		.section	.text.helloWorld,"ax",%progbits
+  23              		.align	1
+  24              		.global	helloWorld
+  25              		.syntax unified
+  26              		.code	16
+  27              		.thumb_func
+  29              	helloWorld:
+  30              	.LFB44:
+   1:Core/Src/main.c **** //********************************************************************
+   2:Core/Src/main.c **** //*                    MEC4126F C template                           *
+   3:Core/Src/main.c **** //*==================================================================*
+   4:Core/Src/main.c **** //* WRITTEN BY: Jesse Arendse   	                 	             *
+   5:Core/Src/main.c **** //* DATE CREATED: 07/04/2023                                         *
+   6:Core/Src/main.c **** //* MODIFIED: Dylan Fanner                                           *
+   7:Core/Src/main.c **** //* DATE MODIFIED: 23/01/2025                                        *
+   8:Core/Src/main.c **** //*==================================================================*
+   9:Core/Src/main.c **** //* PROGRAMMED IN: Visual Studio Code                                *
+  10:Core/Src/main.c **** //* TARGET:        STM32F0                                           *
+  11:Core/Src/main.c **** //*==================================================================*
+  12:Core/Src/main.c **** //* DESCRIPTION:     Template for MEC4126F C Practicals              *
+  13:Core/Src/main.c **** //*                                                                  *
+  14:Core/Src/main.c **** //********************************************************************
+  15:Core/Src/main.c **** // INCLUDE FILES
+  16:Core/Src/main.c **** //====================================================================
+  17:Core/Src/main.c **** 
+  18:Core/Src/main.c **** #define STM32F051
+  19:Core/Src/main.c **** #include "stm32f0xx.h"											   
+  20:Core/Src/main.c **** #include "lcd_stm32f0.h"
+  21:Core/Src/main.c **** #include "stdio.h"
+  22:Core/Src/main.c **** #include "stdint.h"
+  23:Core/Src/main.c **** 
+  24:Core/Src/main.c **** //====================================================================
+  25:Core/Src/main.c **** // GLOBAL CONSTANTS
+ARM GAS  /var/folders/06/701235812n18f0hk5nv_7xwc0000gp/T//ccz5RtM0.s 			page 2
+
+
+  26:Core/Src/main.c **** //====================================================================
+  27:Core/Src/main.c **** 
+  28:Core/Src/main.c **** //====================================================================
+  29:Core/Src/main.c **** // GLOBAL VARIABLES
+  30:Core/Src/main.c **** //====================================================================
+  31:Core/Src/main.c **** 
+  32:Core/Src/main.c **** //====================================================================
+  33:Core/Src/main.c **** // FUNCTION DECLARATIONS
+  34:Core/Src/main.c **** //====================================================================
+  35:Core/Src/main.c **** 
+  36:Core/Src/main.c **** void helloWorld();
+  37:Core/Src/main.c **** 
+  38:Core/Src/main.c **** //====================================================================
+  39:Core/Src/main.c **** // MAIN FUNCTION
+  40:Core/Src/main.c **** //====================================================================
+  41:Core/Src/main.c **** 
+  42:Core/Src/main.c **** int main (void)
+  43:Core/Src/main.c **** {
+  44:Core/Src/main.c ****     helloWorld();
+  45:Core/Src/main.c ****     
+  46:Core/Src/main.c ****     while (1){
+  47:Core/Src/main.c ****     }
+  48:Core/Src/main.c **** 
+  49:Core/Src/main.c **** }							
+  50:Core/Src/main.c **** // End of main
+  51:Core/Src/main.c **** 
+  52:Core/Src/main.c **** //====================================================================
+  53:Core/Src/main.c **** // FUNCTION DEFINITIONS
+  54:Core/Src/main.c **** //====================================================================
+  55:Core/Src/main.c **** 
+  56:Core/Src/main.c **** void helloWorld(){
+  31              		.loc 1 56 18 view -0
+  32              		.cfi_startproc
+  33              		@ args = 0, pretend = 0, frame = 0
+  34              		@ frame_needed = 0, uses_anonymous_args = 0
+  35 0000 10B5     		push	{r4, lr}
+  36              		.cfi_def_cfa_offset 8
+  37              		.cfi_offset 4, -8
+  38              		.cfi_offset 14, -4
+  57:Core/Src/main.c ****     init_LCD();
+  39              		.loc 1 57 5 view .LVU1
+  40 0002 FFF7FEFF 		bl	init_LCD
+  41              	.LVL0:
+  58:Core/Src/main.c ****     lcd_command(CLEAR);
+  42              		.loc 1 58 5 view .LVU2
+  43 0006 0120     		movs	r0, #1
+  44 0008 FFF7FEFF 		bl	lcd_command
+  45              	.LVL1:
+  59:Core/Src/main.c ****     lcd_putstring("Hello world! :)");
+  46              		.loc 1 59 5 view .LVU3
+  47 000c 0148     		ldr	r0, .L2
+  48 000e FFF7FEFF 		bl	lcd_putstring
+  49              	.LVL2:
+  60:Core/Src/main.c **** }
+  50              		.loc 1 60 1 is_stmt 0 view .LVU4
+  51              		@ sp needed
+  52 0012 10BD     		pop	{r4, pc}
+ARM GAS  /var/folders/06/701235812n18f0hk5nv_7xwc0000gp/T//ccz5RtM0.s 			page 3
+
+
+  53              	.L3:
+  54              		.align	2
+  55              	.L2:
+  56 0014 00000000 		.word	.LC0
+  57              		.cfi_endproc
+  58              	.LFE44:
+  60              		.section	.text.main,"ax",%progbits
+  61              		.align	1
+  62              		.global	main
+  63              		.syntax unified
+  64              		.code	16
+  65              		.thumb_func
+  67              	main:
+  68              	.LFB43:
+  43:Core/Src/main.c ****     helloWorld();
+  69              		.loc 1 43 1 is_stmt 1 view -0
+  70              		.cfi_startproc
+  71              		@ Volatile: function does not return.
+  72              		@ args = 0, pretend = 0, frame = 0
+  73              		@ frame_needed = 0, uses_anonymous_args = 0
+  74 0000 10B5     		push	{r4, lr}
+  75              		.cfi_def_cfa_offset 8
+  76              		.cfi_offset 4, -8
+  77              		.cfi_offset 14, -4
+  44:Core/Src/main.c ****     
+  78              		.loc 1 44 5 view .LVU6
+  79 0002 FFF7FEFF 		bl	helloWorld
+  80              	.LVL3:
+  81              	.L5:
+  46:Core/Src/main.c ****     }
+  82              		.loc 1 46 5 view .LVU7
+  47:Core/Src/main.c **** 
+  83              		.loc 1 47 5 view .LVU8
+  46:Core/Src/main.c ****     }
+  84              		.loc 1 46 11 view .LVU9
+  85 0006 FEE7     		b	.L5
+  86              		.cfi_endproc
+  87              	.LFE43:
+  89              		.text
+  90              	.Letext0:
+  91              		.file 2 "Core/Inc/lcd_stm32f0.h"
+ARM GAS  /var/folders/06/701235812n18f0hk5nv_7xwc0000gp/T//ccz5RtM0.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+/var/folders/06/701235812n18f0hk5nv_7xwc0000gp/T//ccz5RtM0.s:19     .rodata.helloWorld.str1.4:00000000 $d
+/var/folders/06/701235812n18f0hk5nv_7xwc0000gp/T//ccz5RtM0.s:23     .text.helloWorld:00000000 $t
+/var/folders/06/701235812n18f0hk5nv_7xwc0000gp/T//ccz5RtM0.s:29     .text.helloWorld:00000000 helloWorld
+/var/folders/06/701235812n18f0hk5nv_7xwc0000gp/T//ccz5RtM0.s:56     .text.helloWorld:00000014 $d
+/var/folders/06/701235812n18f0hk5nv_7xwc0000gp/T//ccz5RtM0.s:61     .text.main:00000000 $t
+/var/folders/06/701235812n18f0hk5nv_7xwc0000gp/T//ccz5RtM0.s:67     .text.main:00000000 main
+
+UNDEFINED SYMBOLS
+init_LCD
+lcd_command
+lcd_putstring
