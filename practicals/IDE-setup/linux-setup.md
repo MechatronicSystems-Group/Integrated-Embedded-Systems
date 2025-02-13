@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Linux Setup for practicals"
-parent: "Setup"
+parent: "IDE Setup"
 nav_order: 2
 ---
 

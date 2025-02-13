@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "macOS Setup for practicals"
-parent: "Setup"
+parent: "IDE Setup"
 nav_order: 3
 ---
 

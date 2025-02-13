@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Windows Setup for practicals"
-parent: "Setup"
+parent: "IDE Setup"
 nav_order: 4
 ---
 
