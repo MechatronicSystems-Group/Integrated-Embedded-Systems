@@ -22,7 +22,7 @@ nav_order: 4
 
 
 {:.important}
-This practical series is new to the course. We require your feedback so that we can improve these practicals not only for next year but for the following weeks’ practicals. We ask that you take a few minutes to fill out the following [form](https://youtu.be/dQw4w9WgXcQ?si=labcCZXC0vl52rMY) so that we can improve this practical series.
+This practical series is new to the course. We require your feedback so that we can improve these practicals not only for next year but for the following weeks’ practicals. We ask that you take a few minutes to fill out the following [form](https://forms.office.com/r/bMUfettP7m) so that we can improve this practical series.
 
 ## Practical Sessions
 

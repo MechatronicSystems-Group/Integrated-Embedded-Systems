@@ -7,6 +7,9 @@ parent: Practicals
 # Practical 0: Workbench Equipment
 This practical looks to remind you of (or possibly introduce you to!) the functionality of the workbench equipment available in EM101, or any of the other UCT electronics labs. This equipment will be crucial for completing the rest of the MEC4126F practicals, so please take your time to familiarize yourself with the equipment now.
 
+{:.important}
+> Please use the [feedback form](https://forms.office.com/r/bMUfettP7m) to give us feedback on this practical and to report broken/faulty equipment.
+
 Table of Contents
 =================
 
