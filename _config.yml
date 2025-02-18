@@ -129,3 +129,9 @@ jekyll-spaceship:
 sass:
   sass_dir: _sass
   style: compressed
+
+mermaid:
+  # Version of mermaid library
+  # Pick an available version from https://cdn.jsdelivr.net/npm/mermaid/
+  version: "9.1.3"
+
