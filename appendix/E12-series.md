@@ -1,7 +1,6 @@
-
-layout: page
-title: "The E12 Series"
-parent: Appendix
+---
+title: The E12 Series
+parent: Appendices
 nav_order: 2
 ---
 
