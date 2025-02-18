@@ -12,7 +12,7 @@ This practical aims to introduce you to the functionality of an Emitter Follower
 {:.important}
 > Please use the [feedback form](https://forms.office.com/r/bMUfettP7m) to give us feedback on this practical and to report broken/faulty equipment.
 
-able of Contents
+Table of Contents
 =================
 
 * [Background](#background)
