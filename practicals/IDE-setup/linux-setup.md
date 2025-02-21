@@ -109,7 +109,7 @@ While it is installing, you may be asked to install other pre-requisites in a po
 
 If you don't see any pop-ups, that is fine - you will be prompted in the next step.
 
-Once the **stm32-for-vscode** extension is installed, download the [`STM32 Programming Template`](https://github.com/MechatronicSystems-Group/Integrated-Embedded-Systems/tree/main/STM32-Programming-Template) available in the Integrating Embedded Systems repo. Save it to a convenient location, and open the folder in VSCode using `File → Open Folder ...`
+Once the **stm32-for-vscode** extension is installed, download the [`STM32 Programming Template`](https://github.com/MechatronicSystems-Group/STM32-Programming-Template) available in its own GitHub repo. Save it to a convenient location (either use git clone ... or download as a .zip file and extract) and open the folder in VSCode using `File → Open Folder ...`
 
 Once it is open, you should see the STM32 plugin window available on the left hand side of the screen. It is the **small block with a dot and the letters ST under the extension marketplace icon**
 
