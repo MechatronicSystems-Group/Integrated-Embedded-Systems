@@ -31,7 +31,7 @@ Table of Contents
 A workbench DC power supply supplies stable, adjustable output of direct current (DC) voltage and current. The EM101 power supplies feature two adjustable outputs, which you can connect to your circuit using the provided crocodile clips. As the lab uses **bi-polar power supplies** it is possible to generate a DC voltage with a potential lower than that of mains earth - this is explained below. This will be used later for bi-directional DC motor control and op-amp circuits.
 
 ### Multimeter
-A multimeter is a tool used to measure electrical properties like voltage, current and resistance. It combines several functions in one device, allowing you to test and troubleshoot electrical circuits. A useful feature of hand-held multimeters is the **continuity tester**. Using this you can test whether two points on your circuit are connected (shorted) or not. While this may seem basic, it is a very helpful debugging tools for some of the more complicated circuits covered in this course.
+A multimeter is a tool used to measure electrical properties like voltage, current and resistance. It combines several functions in one device, allowing you to test and troubleshoot electrical circuits. A useful feature of hand-held multimeters is the **continuity tester**. Using this you can test whether two points on your circuit are connected (shorted) or not. While this may seem basic, it is a very helpful debugging tool for some of the more complicated circuits covered in this course.
 
 ### Signal Generator
 A workbench signal generator is an electronic test instrument used to produce various types of electrical waveforms (sine, square, triangle, pulse, etc.) at different frequencies, amplitudes, and voltages. It is primarily used for testing and troubleshooting other electronic equipment by providing a known signal input. We will use it in this practical to generate a PWM (pulse width modulated) signal.
@@ -96,7 +96,7 @@ The goal of this question is for you to setup your signal generator to generate 
 <img width="60%" src="./Resources/PWM.drawio.png">
 _Figure 3: Example PWM wave with 50% duty cycle._
 
-On newer signal generators this wave be set up with just with the generator, but for the older machines you will also need to use the oscilloscope to tune the amplitude and DC offset as there is no readout. The graphic and table below hopes to explain what most of the buttons do on each machine, but it is usually the best to poke around yourself to see what everything does.
+On newer signal generators this wave can be set up with just with the generator, but for the older machines you will also need to use the oscilloscope to tune the amplitude and DC offset as there is no readout. The graphic and table below hopes to explain what most of the buttons do on each machine, but it is usually the best to poke around yourself to see what everything does.
 
 ### Old Signal Generator
 <img width="60%" src="./Resources/OldSigGen.png">
@@ -166,7 +166,7 @@ _Figure 7: Newer oscilloscope model availabel in EM101 (with a boring LCD displa
 
 | Feature | Description |
 | -------- | ------- |
-| Default Setup | Resets the machine to default settings - useful if things are completely beansed. |
+| Default Setup | Resets the machine to default settings - useful if things are completely messed up. |
 | Auto Scale | The oscillscope will attempt to capture the signal with reasonable scaling values. This is very useful when it works! But not always reliable. |
 | Trigger | Adjusts the trigger for the oscilloscope, this is the input voltage that starts the oscilloscopes measurement. **This needs to be within the voltage range of your signal if you want the oscilloscope to work.** For example, if you have a 0-3.3V signal, your trigger should be ~1.5V.|
 | Run/Stop | Runs and pauses the oscilloscope. |
