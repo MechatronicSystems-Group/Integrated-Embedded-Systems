@@ -51,8 +51,8 @@ The first part of this prac is focused on using the DC power supply and multimet
 > **Before using a DC power supply, you must set a current limit. This is done by the following procedure, and must be done for both outputs (left and right side) every time you use a power supply:**
 > 1. Set **voltage** and **amperage** to zero on both DC power supplies using the adjustment knobs.
 > 2. Connect the leads of each power supply together so that each supply is shorted.
-> 3. Turn up the voltage on each power supply a little bit - anywhere around 5V should be fine.
-> 4. Slowly increase the current limit to your desired value. Unless high current is expected (e.g. when driving a motor), this should be quite low. 0.5A or less would be typical.\
+> 3. Turn up the voltage on each power supply a little bit - the voltage output will still read 0 on the screen, but will be turned up for the machine. Don't worry too much about what the voltage actually is, the important part is that it is not zero.
+> 4. Slowly increase the current limit to your desired value. Unless high current is expected (e.g. when driving a motor), this should be quite low. 0.5A or less would be typical.
 > **Doing this is important as it ensures that if you connect your power leads to a circuit and there is a short (a path without resistance between the two leads) you limit the current flow (and possible damage to components) in the circuit.**
 
 
