@@ -71,11 +71,11 @@ _Figure 3: A Darlington transistor half bridge._
 
 > ### **Question 1.1**
 > For this question you must test your circuit to make sure if functions correctly. You can test this circuit in two manners:
-> * If you are at home we suggest using your STM32 dev board as a power supply, connect the 5V pin on your dev board to power both the half bridge and the input pin. Then connect ground to the ground pin of your dev board. You should be then able to read around 3.2 V across the resistor (why do you think this is?).
+> * If you are at home we suggest using your STM32 dev board as a power supply, connect the 5V pin on your dev board to power both the half bridge and the input pin. Then connect ground to the ground pin of your dev board. You should be then able to read around 3.6 V across the resistor (why do you think this is?).
 > * If you are in the lab, use the same steps as before but just with the DC power supply and multimeter that is provided on the work bench.
 
 > ### **Question 1.2**
-> If you successfully see a ~3.2V output across the resistor when input is high, see if you can toggle the output by connecting the input to ground. You should now see 0V across the "motor" (resistor).
+> If you successfully see a ~3.6 V output across the resistor when input is high, see if you can toggle the output by connecting the input to ground. You should now see 0V across the "motor" (resistor).
 
 ## Question 2: Completing the circuit
 You can now construct the full H-Bridge by creating another half-bridge to create a circuit as shown in Figure 4. Depending on the combination of inputs (as both sides should now have an input signal) you should be able to drive your hypothetical motor forwards AND backwards!
