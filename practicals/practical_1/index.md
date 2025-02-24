@@ -32,7 +32,7 @@ The state of the switches are used to control the polarity and magnitude (on/off
 <img width="40%" src="./Resources/H_bridge.png">
 _Figure 1: A basic representation of a H-Bridge._
 
-As mentioned, the switches shown in Figure 1 can be implemented through several technologies. In this practical we will use the Darlington Transistor, specifically the TIP122 and TIP126. This requires that we use two NPN and PNP transistors are used in a complimentary transistor pair as shown in [Figure 2](./Resources/H_bridge_darl.png).
+As mentioned, the switches shown in Figure 1 can be implemented through several technologies. In this practical we will use the Darlington Transistor, specifically the TIP122 and TIP127. This requires that we use two NPN and PNP transistors are used in a complimentary transistor pair as shown in [Figure 2](./Resources/H_bridge_darl.png).
 
 <img width="40%" src="./Resources/H_bridge_darl.png">
 _Figure 2: A transistor H-Bridge._
@@ -40,7 +40,7 @@ _Figure 2: A transistor H-Bridge._
 Two drive signals are used to bias the transistors to turn them on or off. These dive signals are always anti-phase (i.e. when one is high the other is low) for our application. The voltage of the drive signals should be as close as possible to the rail voltages as to ensure that the transistors are properly biased.
 
 {:.important}
-> Before continuing further read the [datasheet](./Resources/TIP120-D.PDF) for the TIP122 and TIP126 transistors. Make sure you know the package orientation with regards to the pin numbers and functions.
+> Before continuing further read the [datasheet](./Resources/TIP120-D.PDF) for the TIP122 and TIP127 transistors. Make sure you know the package orientation with regards to the pin numbers and functions.
 
 ## What you will need
 To complete this practical you will require a breadboard and a pair of wire strippers.
@@ -50,7 +50,7 @@ To complete this practical you will require a breadboard and a pair of wire stri
 
 The following components will be provided to you on the **Monday when this practical is released**, if you are unable to collect components then please collect them during the week at the **MechatronicSystems.Lab** located in the Duncan Macmillan Lab during the hours posted on the main README page:
 - 2 x TIP 122
-- 2 x TIP 126
+- 2 x TIP 127
 - 1 x 100 Ω, 2 W Resistor
 - Wire
 
@@ -61,7 +61,7 @@ The following components will be provided to you on the **Monday when this pract
 
 We will first make what is commonly referred to as a half bridge, otherwise known as a class B amplifier. These are able to control high current input to a DC motor but only in one direction: the motor can be enabled, the speed can be controlled with PWM, but it can only be driven forward and cannot reverse.
 
-We shall use one TIP 122 and one TIP 126 for this layout as shown in [Figure 3](./Resources/Half-bridge.png), read the [datasheet](./Resources/TIP120-D.PDF) to figure out which transistor to place where and how. Connect the output of the half bridge to one lead of your 100 Ω resistor and connect the other lead to ground, as shown in [Figure 3](./Resources/Half-bridge.png). In this case the 2W resistor is a stand in for a DC motor and is able to support a high current without exploding (do not use the normal ¼ watt resistors!).
+We shall use one TIP 122 and one TIP 127 for this layout as shown in [Figure 3](./Resources/Half-bridge.png), read the [datasheet](./Resources/TIP120-D.PDF) to figure out which transistor to place where and how. Connect the output of the half bridge to one lead of your 100 Ω resistor and connect the other lead to ground, as shown in [Figure 3](./Resources/Half-bridge.png). In this case the 2W resistor is a stand in for a DC motor and is able to support a high current without exploding (do not use the normal ¼ watt resistors!).
 
 <img width="40%" src="./Resources/Half-bridge.png">
 _Figure 3: A Darlington transistor half bridge._
@@ -101,7 +101,7 @@ You may have noticed that we always drive the H-Bridge with a voltage that is ne
 To complete this we will use a BJT level adjuster circuit using a [P2N2222 transistor](./Resources/P2N2222A-D.PDF).
 
 > ### **Question 3.1**
-> For this part of the practical you are required to design a level adjusting circuit using a P2N2222 transistor. This level adjuster should be used to drive a H-Bridge that is connected to a 20 V power supply from a μ-Controller that outputs 3V3. Draw the circuit on a piece of paper and calculate the values of the two resistors required to bias this circuit, assuming a β of 10, I<sub>E</sub> of 100 mA, V<sub>CE(sat)</sub> of 0.3V and V<sub>BE</sub> of 0.7V. Show this circuit to the tutor during your demonstration and explain how you would integrate this circuit to the H-Bridge.
+> For this part of the practical you are required to design a level adjusting circuit using a PN2222 transistor. This level adjuster should be used to drive a H-Bridge that is connected to a 20 V power supply from a μ-Controller that outputs 3V3. Draw the circuit on a piece of paper and calculate the values of the two resistors required to bias this circuit, assuming a β of 10, I<sub>E</sub> of 100 mA, V<sub>CE(sat)</sub> of 0.3V and V<sub>BE</sub> of 0.7V. Show this circuit to the tutor during your demonstration and explain how you would integrate this circuit to the H-Bridge.
 
 **You do not need to actually build the circuit!**
 
@@ -114,7 +114,7 @@ To complete this we will use a BJT level adjuster circuit using a [P2N2222 trans
 You may have noticed that the drive signals that we use are always in anti-phase. This means that when we connect the H-Bridge to our μ-controller we will have to use two GPIO pins. We could then unnecessarily use up our GPIO pins.
 
 > ### **Question 4.1**
-> Using only PN2N2222s and resistors, design a circuit that can create two anti-phase signals from one input signal. Ensure that each signal has the same propagation delay. You need not to size the resistors for this question.
+> Using only PN2222s and resistors, design a circuit that can create two anti-phase signals from one input signal. Ensure that each signal has the same propagation delay. You need not to size the resistors for this question.
 
 ## Demonstrating your circuit
 When you are happy with your full h-bridge circuit you can demonstrate the operation of your circuit to a tutor. If you have completed the extension question bring it along as well. When you are ready, you are required to power your circuit from the DC power supply with 10 V. Connect one input to 10 V and the other to ground. Read the voltage across the resistor, it should be around 7.2 V. Then switch the inputs and read the voltage across the resistor, it should be around -7.2 V.
