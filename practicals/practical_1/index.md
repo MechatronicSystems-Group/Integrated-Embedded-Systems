@@ -86,7 +86,7 @@ _Figure 4: A Darlington transistor H-Bridge._
 
 > ### **Question 2.1**
 > You can test this circuit in two manners:
-> * If you are at home, use your STM32 dev board as a power supply again. Connect the 5V pin on your dev board to both power the H-Bridge and one input pin. Then connect the circuit’s ground and the other input pin to the ground pin on your dev board. You should then be then able to read around 3.2 V across the resistor and -3.2 V across the resistor when you switch around the inputs.
+> * If you are at home, use your STM32 dev board as a power supply again. Connect the 5V pin on your dev board to both power the H-Bridge and one input pin. Then connect the circuit’s ground and the other input pin to the ground pin on your dev board. You should then be then able to read around 2.2 V across the resistor and -2.2 V across the resistor when you switch around the inputs.
 > * If you are in the lab, use the same steps as before but just with the DC power supply and multimeter that is provided on the work bench.
 
 {:.note2}
