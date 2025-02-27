@@ -7,44 +7,52 @@ nav_order: 3
 
 # Chapter 2: Operational Amplifiers 
 
-Operational amplifiers (op-amps for short) are essential building blocks
-of modern electronic circuitry. They have a few simple properties. These
-are:
+An operational amplifier (or op-amp for short) is a differential amplifier and essential building block of modern circuitry. The diagram below shows the typical symbol used to represent an op-amp, along with the pins.
 
-<img src="./images/2.1.png" width="40%" alt="Op-amp"/>
+<img src="./images/n_2.1_op_amp.png" width="40%" alt="Op-amp"/>
 _Figure 2.1: Op-amp schematic_
 
-'-' input: inverting input
+The inputs to an op-amp are the following:
 
-'+' input: non-inverting input
+* $V_{-}$ or '-' input $\rightarrow$ inverting input
+* $V_{+}$ or '+' input $\rightarrow$ non-inverting input
+* $+V_{CC}$ and $-V_{CC}$ $\rightarrow$ positive and negative supply rails
+* $V_{out}$ $\rightarrow$ op-amp output
 
-$V_{out}=A_v(V_+-V_-)$ -- the op-amp equation
+## The Ideal Op-Amp
 
-The other pins are connected to the supply rails.
+A hypothetical ideal op-amp would be governed by the following op-amp equation:
 
-$A_v$ is called the "open loop gain" of the op-amp. Typically $A_v$ Is
-between 100 000 and 1 000 000.
+{: .note}
+- $V_{out}=A_v(V_+-V_-)$
 
-In practice $V_{out}$ is limited by the supply voltages to the op-amp.
+$A_v$ is called the "open loop gain" of the op-amp. Ideally $A_v = \infin$, however in practice $A_v$ is typically
+between 100 000 and 1 000 000. As the gain is so high, and as the output of the op-amp cannot exceed the range of $+V_{CC}$ to $-V_{CC}$, $V_{out} is typically limited by the supply voltages to the op-amp.
 
-Ideally no current flows into either of the inputs but in reality this
-is not exactly the case and will be discussed later.
+Additionally for an ideal op-amp no current flows into either of the inputs, but in reality this is not quite the case. This will be discussed later.
 
-From the above equation:
+Critically from the op-amp equation above, the following behaviour is found:
 
 {: .note }
-- If $V_+ > V_-$ : $V_{out}$ goes as high as it can (limited by the positive supply voltage), unless $V_+-V_-$ is very, very small
--  If $V_- > V_+$ : $V_{out}$ goes as low as it can (limited by the negative supply voltage), unless $V_--V_+$ is very, very small
+- If $V_+ > V_-$ : $V_{out} = +V_{CC}$ (as high as possible but limited by the positive supply voltage), unless $V_+-V_-$ is very, very small.
+- If $V_- > V_+$ : $V_{out} = -V_{CC}$ (as low as possible but limited by the negative supply voltage), unless $V_--V_+$ is very, very small.
+
+## Closed Loop (Feedback)
+Closed loop feedback is when the the output of an op-amp (or anything else) is fed back into its own input. This means the current output influences the input which influences the output which influences the input...
+round and round in a loop!
+
+There are two types of feedback and they behave very differently:
+* _Negative feedback_ - stable, settles on a specific value
+* _Positive feedback_ - unstable, oscillates or goes to infinity
+
+We will mostly deal with negative feedback.
 
 ## Negative feedback
 
-A buffer is an example of _negative feedback_:
+To start with negative feedback let's look at a buffer circuit. A buffer is an example of _negative feedback_:
 
 <img src="./images/2.2.png" width="50%" alt="Buffer circuit"/>
 _Figure 2.2: Buffer circuit_
-
-The inverting and non-inverting amplifiers discussed further on, are
-also examples of negative feedback.
 
 If we arrange our circuit so that $V_{out}$ affects $V_-$ such that when
 $V_{out}$ increases so does $V_-$, then we find that the output
