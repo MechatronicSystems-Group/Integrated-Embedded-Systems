@@ -36,7 +36,7 @@ During the week there will also be opportunities for students to engage with tut
 | 2 | | | | | |
 | 3 | | | | | |
 | 4 | | | | | |
-| Meridian | | | | | |
+| Meridian | |EM101 | |EM101 | |
 | 5 |EM101 | | | | |
 | 6 |EM101 | | | | |
 | 7 |EM101 | | | | |
