@@ -76,12 +76,15 @@ Set up your signal generator to output a 0 to 3.3V **triangle wave**. This is on
 ## Question 2: NPN Emitter Follower
 If the practical is functioning as intended, you may have noticed a problem in Question 1.2 - the HIGH output of the LM358 is roughly around the cutoff value for the STM32 to detect a HIGH logic signal. You may get lucky and the random tolerance of your particular chip is a little higher than the cutoff, or you may be unlucky and its well below the threshhold. The point is is that this is obviously not good enough.
 
-A simple solution is to add a switch to the output of the op-amp such that the ~2.6V signal can turn on an off a true 3.3V logic HIGH. The easiest solution is to use a NPN transistor in the ```common-emitter``` configuration. As [Wikipedia has a very helpful article](https://en.wikipedia.org/wiki/Common_emitter) on the common-emitter configuration, you are trusted to be able to build the circuit yourself. 
+A simple solution is to add a switch to the output of the op-amp such that the ~2.6V signal can turn on an off a true 3.3V logic HIGH. The easiest solution is to use a NPN transistor in the ```common-emitter``` configuration. As [Wikipedia has a very helpful article](https://en.wikipedia.org/wiki/Common_emitter) on the common-emitter configuration, you are trusted to be able to build the circuit yourself.
 
 <img width="40%" src="./Resources/com-emi.png">
 _Figure 2: NPN transistor acting as a common-emitter switch. Note this diagram neglects biasing details (specifically R<sub>B</sub>) which do matter in this case._
 
 Take careful note of where you should connect a hypothetical microcontroller to the circuit such that it acts as a binary 0 → 3.3V switch.
+
+{:.note}
+> The common-emitter will invert the signal - a LOW input will result in a HIGH output, and when the input is HIGH the output will be LOW. This is expected and not a problem with the circuit.
 
 You should use the supplied **10kOhm** and **3.3kOhm** resistors for R<sub>C</sub> and R<sub>B</sub>, but you must prove that they will force the switch into saturation when Vin is HIGH. The datasheet of your transistor should have an available approximate β value for your calculation, though you may need to estimate or interpolate for your particular situation.
 
@@ -112,7 +115,7 @@ The basic scheme for a window comparator is shown below. Make careful note of wh
 <img width="50%" src="./Resources/window.png">
 _Figure 3: Basic concept of a window comparator circuit. Note missing detail on the Op-Amp rails, and the OR gate on the output._
 
-Using a PN2222 is to raise the op-amp output voltage to exactly 10V is not necessary, however it may be useful in implementing the OR gate... the details are up to you.
+Using a PN2222 to raise the op-amp output voltage to exactly 10V is not necessary, however it may be useful in implementing the OR gate... the details are up to you.
 
 {:.note}
 > The polarity of your window comparator does not matter. It can be HIGH for values between the upper and lower limits, or LOW. What matters is that the output switches correct in **TWO** places for an input signal that rises betwen 0V and 10V.
