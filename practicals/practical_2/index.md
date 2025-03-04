@@ -14,6 +14,9 @@ Table of Contents
 * [Background](#background)
 * [What you will need](#what-you-will-need)
 * [Question 1: Basic comparator circuit](#question-1-basic-comparator-circuit)
+* [Question 2: NPN Emitter Follower](#question-2-npn-emitter-follower)
+* [Question 3: Extension Question](#question-3-extension-question)
+* [Demonstration](#demonstrating-your-circuit)
 
 ## Background
 In this practical, you are going to design, build, and test a simple comparator circuit. The goal of a comparator circuit is simple: it takes an analogue input voltage and compares it to a specified analogue reference voltage. If the input is GREATER than the reference voltage, it outputs a digital HIGH signal (depending on the configuration this could also be a LOW signal, mind you) and if the input is LESS than the reference voltage it outputs a digital LOW.
@@ -72,8 +75,6 @@ If you think you know, conenct both your circuit's output and input to the oscil
 
 {:.important}
 > **This setup forms part of the demonstration for Practical 2. Make sure your final circuit can be connected to a signal generator and the output plotted on your oscilloscope.**
->
-> If you happen to have a signal generator that can only output a maximum of ~2.2V (some units are currently malfunctioning), please demonstrate with a different signal generator able to output at least 3.3V.
 
 ## Question 2: NPN Emitter Follower
 If the practical is functioning as intended, you may have noticed a problem in Question 1.2 - the HIGH output of the LM358 is roughly around the cutoff value for the STM32 to detect a HIGH logic signal. You may get lucky and the random tolerance of your particular chip is a little higher than the cutoff, or you may be unlucky and its well below the threshhold. The point is is that this is obviously not good enough.
