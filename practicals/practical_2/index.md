@@ -92,7 +92,7 @@ You should use the supplied **10kOhm** and **3.3kOhm** resistors for R<sub>C</su
 > For a PN2222 NPN transistor, you can find the datasheet... somewhere online[!](https://en.wiktionary.org/wiki/womp_womp) One of the required skills for this course is being able to take a component, and do the research to be able to use it.
 
 {:.important}
-> **The calculation showing that the transistor is in saturation is part of the demonstration for Practical 2.**
+> **The calculation showing that the transistor is in saturation is part of the demonstration for Practical 2. Please bring your calculations on a piece of paper that can be submitted with the demonstration as in last weeks practical.**
 
 Once you have shown the switch is saturated, build your design and answer the questions below:
 
