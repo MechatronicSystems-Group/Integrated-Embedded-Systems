@@ -86,7 +86,7 @@ _Figure 2: NPN transistor acting as a common-emitter switch. Note this diagram n
 
 Take careful note of where you should connect a hypothetical microcontroller to the circuit such that it acts as a binary 0 → 3.3V switch.
 
-You should use the supplied 10kOhm and 3.3kOhm resistors for R<sub>C</sub> and R<sub>B</sub>, but you must prove that they will force the switch into saturation when Vin is HIGH. The datasheet of your transistor should have an available approximate β value for your calculation, though you may need to estimate or interpolate for your particular situation.
+You should use the supplied 3.3kOhm and 10kOhm resistors for R<sub>C</sub> and R<sub>B</sub> respectively, but you must prove that they will force the switch into saturation when Vin is HIGH. The datasheet of your transistor should have an available approximate β value for your calculation, though you may need to estimate or interpolate for your particular situation.
 
 {:.tip}
 > For a PN2222 NPN transistor, you can find the datasheet... somewhere online! One of the required skills for this course is being able to take a component, and do the research to be able to use it.
