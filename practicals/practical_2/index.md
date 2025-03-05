@@ -71,7 +71,7 @@ When the circuit's output is HIGH, what is the actual voltage? The STM32 datashe
 ### **Question 1.3**
 Set up your signal generator to output a 0 to 3.3V **triangle wave**. This is one of the waveforms available on the lab signal generators, and looks like an up-down-up-down line. Remember to adjust the amplitude such that the minimum voltage is 0, not -(3.3÷2)V. Connect this to V<sub>signal</sub> of your circuit. What do you expect the output to look like on an oscilloscope? 
 
-If you think you know, conenct both your circuit's output and input to the oscilloscope. What happens if you then vary the reference voltage? Do you see what you were expecting?
+If you think you know, connect both your circuit's output and input to the oscilloscope. What happens if you then vary the reference voltage? Do you see what you were expecting?
 
 {:.important}
 > **This setup forms part of the demonstration for Practical 2. Make sure your final circuit can be connected to a signal generator and the output plotted on your oscilloscope.**
