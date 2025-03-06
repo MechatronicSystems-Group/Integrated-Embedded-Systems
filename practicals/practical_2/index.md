@@ -14,7 +14,7 @@ Table of Contents
 * [Background](#background)
 * [What you will need](#what-you-will-need)
 * [Question 1: Basic comparator circuit](#question-1-basic-comparator-circuit)
-* [Question 2: NPN Emitter Follower](#question-2-npn-emitter-follower)
+* [Question 2: NPN Common-Emitter](#question-2-npn-common-emitter-switch)
 * [Question 3: Extension Question](#question-3-extension-question)
 * [Demonstration](#demonstrating-your-circuit)
 
@@ -76,7 +76,7 @@ If you think you know, connect both your circuit's output and input to the oscil
 {:.important}
 > **This setup forms part of the demonstration for Practical 2. Make sure your final circuit can be connected to a signal generator and the output plotted on your oscilloscope.**
 
-## Question 2: NPN Emitter Follower
+## Question 2: NPN Common-Emitter Switch
 If the practical is functioning as intended, you may have noticed a problem in Question 1.2 - the HIGH output of the LM358 is roughly around the cutoff value for the STM32 to detect a HIGH logic signal. You may get lucky and the random tolerance of your particular chip is a little higher than the cutoff, or you may be unlucky and its well below the threshhold. The point is is that this is obviously not good enough.
 
 A simple solution is to add a switch to the output of the op-amp such that the ~2.6V signal can turn on an off a voltage much closer to 3.3V logic HIGH which will switch the STM32 more reliably. The easiest solution is to use an NPN transistor in the ```common-emitter``` configuration. As [Wikipedia has a very helpful article](https://en.wikipedia.org/wiki/Common_emitter) on the common-emitter configuration, you are trusted to be able to build the circuit yourself. 
@@ -97,7 +97,7 @@ You should use the supplied 3.3kOhm and 10kOhm resistors for R<sub>C</sub> and R
 Once you have shown the switch is saturated, build your design and answer the questions below:
 
 ### **Question 2.1**
-If you have correctly built the emitter-follower switch, you should see your output toggle between 3.3V and 0V as V<sub>signal</sub> varies above and below the reference voltage. Do you see this behaviour? 
+If you have correctly built the common-emitter switch, you should see your output toggle between 3.3V and 0V as V<sub>signal</sub> varies above and below the reference voltage. Do you see this behaviour? 
 
 Note! While the switch should have a HIGH value much closer to 3.3V, the LOW value might be slightly higher than 0V. This is fine, as long as it is safely lower than 0.7V (the maximum LOW value for the STM32). Why do you think this might be?
 
@@ -156,7 +156,7 @@ The following mark scheme will be used to mark your practical:
 - [ ] Is the triangle wave amplitude and frequency set correctly? **+2 marks**
     - [ ] Does the comparator toggle the circuit output at +2V? **+4 marks**
 - [ ] Do the values of Rb and Rc for the transistor ensure that it is operating in the saturation region? Show calculations. **+3 marks**
-- [ ] Is there an emitter-follower NPN transistor adjusting the output voltage? **+3 marks**
+- [ ] Is there an common-emitter configuration NPN transistor adjusting the output voltage? **+3 marks**
     - [ ] Is the output 0 → 3.3V (with a bit of tolerance around 0V)? **+2 marks**
 - [ ] Does the extension circuit correctly toggle in two places over the 0 → 10V range? **+2 bonus marks**
 
