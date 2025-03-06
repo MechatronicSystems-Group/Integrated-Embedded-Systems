@@ -69,7 +69,7 @@ If you vary your signal voltage above and below the reference, how does the **ou
 When the circuit's output is HIGH, what is the actual voltage? The STM32 datasheet specifies that to reliably detect a logic HIGH input on a GPIO pin, the input must be higher than 0.7 * V<sub>DD</sub>, where V<sub>DD</sub> is 3.3V for our particular STM32. Based on this, would your circuit be able to reliably signal logic HIGH to the microcontroller? 
 
 ### **Question 1.3**
-Set up your signal generator to output a 0 to 3.3V **triangle wave**. This is one of the waveforms available on the lab signal generators, and looks like an up-down-up-down line. Remember to adjust the amplitude such that the minimum voltage is 0, not -(3.3÷2)V. Connect this to V<sub>signal</sub> of your circuit. What do you expect the output to look like on an oscilloscope? 
+Set up your signal generator to output a 100Hz 0 to 3.3V **triangle wave**. This is one of the waveforms available on the lab signal generators, and looks like an up-down-up-down line. Remember to adjust the amplitude such that the minimum voltage is 0, not -(3.3÷2)V. Connect this to V<sub>signal</sub> of your circuit. What do you expect the output to look like on an oscilloscope? 
 
 If you think you know, connect both your circuit's output and input to the oscilloscope. What happens if you then vary the reference voltage? Do you see what you were expecting?
 
