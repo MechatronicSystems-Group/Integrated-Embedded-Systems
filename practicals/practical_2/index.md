@@ -136,7 +136,7 @@ As you sweep the input signal from 0 → 10V, you should see the output change t
 
 ## Demonstrating your circuit
 
-When you are happy with your comparator circuit and transistor, you can demonstrate your circuit to a tutor. To prepare you should set up Question 1 and Question 2 on your breadboard, and connect a 1kHz 0V → 3.3V V<sub>pp</sub> triangle wave signal to the input of your circuit. You should attach one oscilloscope probe to the input signal of your circuit (i.e. the triangle wave signal coming from the signal generator) and the second probe to the output of the circuit. Both signals should be clearly visible on the oscilloscope.
+When you are happy with your comparator circuit and transistor, you can demonstrate your circuit to a tutor. To prepare you should set up Question 1 and Question 2 on your breadboard, and connect a 100Hz 0V → 3.3V V<sub>pp</sub> triangle wave signal to the input of your circuit. You should attach one oscilloscope probe to the input signal of your circuit (i.e. the triangle wave signal coming from the signal generator) and the second probe to the output of the circuit. Both signals should be clearly visible on the oscilloscope.
 
 **You must set your comparators reference voltage to 2V**.
 
@@ -144,7 +144,7 @@ If the above is set up, please get a tutor to come and mark your demonstration.
 
 ### Demonstration procedure
 * Measure the reference voltage using a multimeter to show that it is 2V.
-* Show on the oscilloscope that the signal generator is outputing a 1kHz 0V → 3.3V V<sub>pp</sub> triangle wave signal.
+* Show on the oscilloscope that the signal generator is outputing a 100Hz 0V → 3.3V V<sub>pp</sub> triangle wave signal.
 * Show on the oscilloscope that the comparator SWITCHES when the signal voltage is greater than 2V and then again when the signal voltage is lower than 2V (polarity does not matter).
 * Show calculations proving that Rb and Rc values ensure PN2222 transistor is saturated (should be on a loose piece of paper that can be submitted).
 * Is there a PN2222 transistor biasing the op-amp output voltage? Show where it is on the breadboard and that it is connected to the op-amp.
