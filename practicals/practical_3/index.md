@@ -72,15 +72,34 @@ _Figure 1: A Differential Operational Amplifier Circuit._
 For the above circuit the operating equation is as follow ([also available in the course notes](https://mechatronicsystems-group.github.io/Integrated-Embedded-Systems/analogue-electronics/chapter-2-opamps.html)):
 
 {: .note }
-$$V_{out}=\frac{R_2}{R_1}(V_2-V_1)$$ 
+> $$V_{out}=\frac{R_2}{R_1}(V_2-V_1)$$ 
 
 {:.note2}
-> The astute reader will notice that there are two naming conventions for the input signal. To align with the course notes we will use $V2$ and $V_{in}^{+}$ interchangeably, as well as $V1$ and $V_{in}^{-}$.
+> The astute reader will notice that there are two naming conventions for the input signal. To align with the course notes we will use $V_{2}$ and $V_{in}^{+}$ interchangeably, as well as $V_{1}$ and $V_{in}^{-}$.
+
+Due to the complexities of working with real op-amps, the circuit must be built carefully. The diagram below shows the circuit layout for this part of the question. The good news is that you only have to build this circuit - for question 2, only the potentiometer value must be changed, everything else remains the same.
+
+Please note:
+* The op-amp must be supplied with **+5** and **-5** volts, not +5 and GND. If you are at home, set $V_{in}^{-}$ to GND but in the lab this must be -5. Consult practical 0 if you have forgotten how to make a -5V to 5V voltage range.
+* The inverting input must be set to 3.3V using a potentiometer. This is because both DC sources are needed to provide +/-5V. Use the +5V signal and your 10kOhm potentiometer to create a 3.3V signal at the inverting input ($V_{in}^{-}$).
+
+<img width="75%" src="./Resources/circuit.png">
+_Figure 1.1: Circuit diagram for practical differential amplifier_
 
 > ### **Question 1.1**
-> We can now demonstrate the circuit’s ability to reject common mode noise. This can be completed both at home and in the lab. If you are at home use the instructions in point 1, otherwise use point 2. In each method we will treat a DC signal as “common mode noise”.
-> 1. You can test your differential amplifier circuit with your STM32 Dev board and use the 3V3 output as “common-mode noise” for this method. First power the LM358 with the 5V pin located on the side of you Dev board. Then connect the 5V pin to the non-inverting side of your differential amplifier and the 3V3 pin to the inverting side of differential amplifier. The circuit should then output approximately 3.4V ($2\times(5-3.3)$).
-> 2. You can also test your differential amplifier circuit using a signal generator and a DC power supply. Power the LM358 with 5V from one of the DC power supply outlets. Then create a 100Hz sin-wave signal with a DC offset of 3V and a peak to peak voltage of 1V. Connect this signal to the non-inverting side of your differential amplifier (V<sub>2</sub> in the diagram above). Then create a 3V signal from your DC power supply and connect this to the inverting side of your circuit. You should then see an AC signal on the output of your circuit that has a frequency equivalent to the AC input signal with a peak to peak voltage of approximately 2V centered about 0V.
+> We can now demonstrate the circuit’s ability to reject common mode noise. This can be completed both at home and in the lab. In each method we will treat a DC signal as “common mode noise”.
+
+### *If you are at home:*
+You can test your differential amplifier circuit with your STM32 Dev board and use the 3V3 output as “common-mode noise” for this method. First power the LM358 with the 5V pin located on the side of you Dev board. Then connect the 5V pin to the non-inverting side of your differential amplifier and the 3V3 pin to the inverting side of differential amplifier. The circuit should then output approximately 3.4V ($2\times(5-3.3)$).
+
+### *If you are at the lab:*
+You can also test your differential amplifier circuit using a signal generator and a DC power supply. Power the LM358 with 5V and -5V using the DC power supplies. Then create a 100Hz sin-wave signal with a DC offset of 3V and a peak to peak voltage of 1V. Connect this signal to the non-inverting side of your differential amplifier (V<sub>2</sub> in the diagram above). 
+
+Your potentiometer's output should be set to 3.3V. If you have built the circuit correctly, you should be able to plot two signals on the oscilloscope: your input signal with a 1V V<sub>pp</sub> and a 3.3V DC offset, and your output signal with a 2.2V V<sub>pp</sub> and no DC offset. The DC offset has been treated as the "common mode noise" and removed by your filter.
+
+Visually, the output should look similar to the picture below. The V<sub>pp</sub> is 2.2 as the gain is equal to 3.3kOhm/1.5kOhm! This should agree with your equations above.
+
+<img width="75%" src="./Resources/oscilloscope.jpg">
 
 {:.important}
 > Consult the the [Demonstration](#demonstration) section for this practical to understand what you are expected to complete during your circuit demonstration.
@@ -95,26 +114,27 @@ In this question we will use this circuit to amplify and add a DC offset to a lo
 
 We know that the input signal varies from approximately -1 V to 1 V and the ADC that we have on some generic microcontroller samples signals from 0 V to 5 V. You are now required to modify the differential amplifier circuit that you made in [Question 1](question-1-the-differential-operational-amplifier) such that your circuit is like the circuit shown in Figure 2.
 
+{:.note2}
+> As we are using E12 resistors and R<sub>1</sub> and R<sub>2</sub> have already been selected, you will not be able to perfectly map -1V to 0 and +1V to 5V. You should try and find an "approximately best" solution - unfortunately when building things in real life, compromises like this are very common!
 
 <img width="75%" src="./Resources/lvl_adj.png">
 _Figure 2: Level Adjusting Circuit._
 
 {:.caution}
-> Ensure that you wire the circuit such that you can demonstrate Question 1 and 2 in quick succession. Consult the [Demonstration](#demonstration) section for guidance.
+> * **Note that the input to the potentiometer is not -5V instead of +5V!**
+> * Ensure that you wire the circuit such that you can demonstrate Question 1 and 2 in quick succession. Consult the [Demonstration](#demonstration) but all you should need to do is change the voltage input and value of the potentiometer.
 
-> ### **Question 2.1**
-> Determine the voltage required to set with the potentiometer shown in Figure 2. Make sure the gain of the level adjuster is the same as the differential amplifier (i.e. you need not alter the layout of the resistors used in the differential amplifier). Show your working on a **piece of paper** and adjust the potentiometer to achieve your calculated value.
->
->{:.tip}
->> Using a graphing calculator such as [Desmos](https://www.desmos.com/calculator) can help you visualize the operation of the circuit.
->> Remember the operation of the level adjuster is a linear mapping from one set of value to another.
+### **Question 2.1**
+Determine the voltage required to set with the potentiometer shown in Figure 2. Make sure the gain of the level adjuster is the same as the differential amplifier (i.e. you need not alter the layout of the resistors used in the differential amplifier). Show your working on a **piece of paper** and adjust the potentiometer to achieve your calculated value. Remember, a perfect value is not necessarily possible - you should find a compromise that you think is best.
 
-> ### **Question 2.2**
-> After you achieve the above, we can demonstrate the operation of the level adjuster. To achieve this you will require a DC power supply and a signal generator. 
-> - Join the two outputs of the DC power supply and set it up so that you have +5 V, -5 V and ground. 
-> - Use the DC power supply to power the op-amp with +5 V and -5 V. 
-> - Use the signal generator to create a 100Hz sin-wave input signal that varies between +1 V and -1 V and connect the supply to the input of the level adjuster.
-> - If you correctly set the potentiometer for the voltage you required, then you should see a signal that oscillates between 0 V and 5 V at a frequency equal to your input signal. 
+{:.tip}
+> Using a graphing calculator such as [Desmos](https://www.desmos.com/calculator) can help you visualize the operation of the circuit.
+> Remember the operation of the level adjuster is a linear mapping from one set of value to another.
+
+### **Question 2.2**
+After you achieve the above, we can demonstrate the operation of the level adjuster. Change your 1V V<sub>pp</sub> sin-wave with a 3.3V DC offset to a 2V V<sub>pp</sub> signal with no offset. This means the max voltage value should be +1V and the minimum value -1V.
+
+If you correctly set the potentiometer for the voltage you required, then you should see a signal that oscillates between 0 V and 5 V at a frequency equal to your input signal. 
 
 ---
 
@@ -152,17 +172,17 @@ The student also shows you an oscilloscope snapshot of the two input signals as 
 <img width="100%" src="./Resources/diff_in.png">
 _Figure 5: Input to the operational Amplifier._
 
-> ### **Question 4.1**
-> Determine the equation that defines the sampled signal in the time domain (the output of operational amplifier) from the discrete signal shown above, assuming a sampling frequency of 200 Hz.
->
-> {:.tip}
->> The frequency of the output signal is the same as the input signal and you should round the oscillating signal to the nearest integer (do not round the DC offset).
+### **Question 4.1**
+Determine the equation that defines the sampled signal in the time domain (the output of operational amplifier) from the discrete signal shown above, assuming a sampling frequency of 200 Hz.
 
-> ### **Question 4.2**
-> Using the equation that you used to define the sampled signal in the time domain and the two input signals. Determine the common mode and differential gain of the circuit assuming a CMRR of 20 dB.
->
-> {:.tip}
->> Use the equations shown in the [Background](#background) section of this practical.
+{:.tip}
+>The frequency of the output signal is the same as the input signal and you should round the oscillating signal to the nearest integer (do not round the DC offset).
+
+### **Question 4.2**
+Using the equation that you used to define the sampled signal in the time domain and the two input signals. Determine the common mode and differential gain of the circuit assuming a CMRR of 20 dB.
+
+{:.tip}
+> Use the equations shown in the [Background](#background) section of this practical.
 
 ---
 
@@ -171,24 +191,22 @@ _Figure 5: Input to the operational Amplifier._
 {:.caution}
 > You only have two attempts to demonstrate your circuits (with an associated mark deduction on the second attempt), please familiarise yourself with both the [mark scheme](#mark-scheme) and the demonstration procedure before your first attempt to demonstrate your circuit.
 
-When you are ready to demonstrate your differential amplifier and level adjuster circuits and you have have completed question 3 and optionally question 4, you may call over a tutor so that you can begin your first attempt to demonstrate your circuits. The tutor will hand you your mark sheet, clearly write your **peoplesoft ID** on the mark sheet as well as the **day’s date**. You are now ready to demonstrate your circuit using the following procedure:
+When you are ready to demonstrate your differential amplifier and level adjuster circuits and you have have completed question 3 and optionally question 4, you may call over a tutor so that you can begin your first attempt to demonstrate your circuits. Please clearly write your **peoplesoft ID** on the mark sheet as well as the **day’s date**. You are now ready to demonstrate your circuit using the following procedure:
 
-1. Set up the DC power supply so that you can power your differential amplifier with 5 V.
-2. Create an AC signal with a DC offset of 3V and a peak to peak voltage of 1V. Connect this signal to the non-inverting side of your differential amplifier.
-3. Create a 3V DC signal from your DC power supply and connect this to the inverting side of your circuit.
+1. Set up the DC power supply so that you can power your differential amplifier with +5V and -5V.
+2. Create an AC signal with a DC offset of 3.3V and a peak to peak voltage of 1V. Connect this signal to the non-inverting side of your differential amplifier.
+3. Make sure your potentiometer is set to 3.3V.
 4. Show the output signal on the oscilloscope.
-5. When the tutor is satisfied, you may then set up your level adjuster circuit.
-6. Submit your workings that you used to solve Question 2.1.
-7. Join the two outputs of the DC power supply and set it up so that you have +5 V, -5 V and ground. 
-8. Use the DC power supply to power the op-amp with +5 V and -5 V.
-9. Use the signal generator to create an input signal that varies between +1 V and -1 V and connect the supply to the input of the level adjuster.
+5. Submit your workings that you used to solve Question 2.1.
+6. Change the potentiometer to your precalculated value from Question 2.1.
+9. Change the signal generator to create an input signal that varies between +1V and -1V without a DC offset and connect the supply to the input of the level adjuster.
 10. Show the output signal on the oscilloscope and measure the signal’s peak to peak voltage and period using the **measurement cursors**.
 11. When the tutor is satisfied, you may then submit your working for question 3 and question 4 (if you have completed it).
 12. The tutor will then mark your mark sheet and sign it.
 13. **Make sure that your mark sheet is then scanned and your other submissions are stapled to your mark sheet**.
 
 {:.important}
-> - If you start your demonstration during a practical session you **must** complete it in that session if you do not want to unnecessarily loose marks.
+> - If you start your demonstration during a practical session you **must** complete it in that session if you do not want to loose marks.
 > - **Do not** leave the venue with your mark sheet or workings, they will not be accepted for late submission if you do so.
 
 ---
@@ -199,29 +217,34 @@ The following mark scheme will be used to mark your practical and is also shown 
 ### Question 1
 If the differential amplifier has been correctly set up, the output of the amplifier circuit should be an AC signal with a frequency that is equivalent to the input signal and a peak-peak voltage of approximately 2 V with a 0 V DC offset.
 
-[ ] The circuit operated as expected the first time (+3) **OR** [] The circuit operated as expected the second time (+1)
+- [ ] The circuit operated as expected the first time (+3)
+**OR** 
+  - [ ] The circuit operated as expected the second time (+1)
 
 ### Question 2
 If the level adjuster has been correctly set up, the output of the amplifier circuit should oscillate between 0 V and 5 V when the input signal oscillates between -1 V and 1 V, with the same frequency. 
 
-[ ] The student correctly determined the voltage that the potentiometer should output (+1)
+- [ ] The student correctly determined the voltage that the potentiometer should output (+1)
 
-[ ] The circuit operated as expected the first time (+3) **OR** [] The circuit operated as expected the second time (+1)
+- [ ] The circuit operated as expected the first time (+3) 
+**OR** 
+  - [ ] The circuit operated as expected the second time (+1)
 
-[ ] The student was able to demonstrate their ability to measure peak-to-peak voltage and the period using the oscilloscope’s cursors (+1).
+- [ ] The student was able to demonstrate their ability to measure peak-to-peak voltage and the period using the oscilloscope’s cursors (+1).
 
 ### Question 3
 
-[ ] The gain equation that the student derived is correct (+1).
+- [ ] The gain equation that the student derived is correct (+1).
 
-[ ] The method that the student used is correct (i.e. the student shows understanding how to derive a gain assuming ideal operational amplifiers) (+1).
+- [ ] The method that the student used is correct (i.e. the student shows understanding how to derive a gain assuming ideal operational amplifiers) (+1).
 
 ### Question 4
 **This is the extension question!**
 
-[ ] The time domain signal is correct (+1)
+- [ ] The time domain signal is correct (+1)
 
-↳ [ ] The student correctly found $A_d$ and $A_c$ (+1)
+**↳**
+  - [ ] The student correctly found $A_d$ and $A_c$ (+1)
 
 ### Full marks = 10, Marks available = 12
 
