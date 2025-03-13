@@ -86,8 +86,8 @@ Please note:
 <img width="75%" src="./Resources/circuit.png">
 _Figure 1.1: Circuit diagram for practical differential amplifier_
 
-> ### **Question 1.1**
-> We can now demonstrate the circuit’s ability to reject common mode noise. This can be completed both at home and in the lab. In each method we will treat a DC signal as “common mode noise”.
+### **Question 1.1**
+We can now demonstrate the circuit’s ability to reject common mode noise. This can be completed both at home and in the lab. In each method we will treat a DC signal as “common mode noise”.
 
 ### *If you are at home:*
 You can test your differential amplifier circuit with your STM32 Dev board and use the 3V3 output as “common-mode noise” for this method. First power the LM358 with the 5V pin located on the side of you Dev board. Then connect the 5V pin to the non-inverting side of your differential amplifier and the 3V3 pin to the inverting side of differential amplifier. The circuit should then output approximately 3.4V ($2\times(5-3.3)$).
