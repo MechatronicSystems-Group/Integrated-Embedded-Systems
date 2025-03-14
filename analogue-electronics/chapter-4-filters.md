@@ -291,10 +291,12 @@ The transfer function for an active $2^{nd}$ order low-pass filter can be calcul
 
 $V_{3}(1/R_{1} + 1/R_{2}) = V_{4}(1/R_{2})$; and
 
-$V_{3}(1/R_{1} + 1/R_{2}) = V_{4}(1/R_{2})$; and
+$V_{3}(1/R_{1} + sC) = V_{2}(1/R)$
 
-$\Rightarrow V_{4}\frac{R_{1}}{R_{1} + R_{2}} = V_{2}\frac{1}{sRC + 1}$
-$\Rightarrow V_{2} = V_{4}\frac{R_{1}}{R_{1} + R_{2}}(sRC + 1)$
+$\Rightarrow V_{3} = V_{4}\frac{R_{1}}{R_{1}+R_{2}}$ and
+
+$V_{4}\frac{R_{1}}{R_{1} + R_{2}} = V_{2}\frac{1}{sRC + 1}$
+$V_{2} = V_{4}\frac{R_{1}}{R_{1} + R_{2}}(sRC + 1)$
 
 $V_{2}(1/R_{1} + 1/R_{2} + sC) = V_{1}(1/R_{1}) + V_{3}(1/R_{2}) + V_{4}sC$
 
