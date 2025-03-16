@@ -121,7 +121,7 @@ We know that the input signal varies from approximately -1 V to 1 V and the ADC 
 _Figure 2: Level Adjusting Circuit._
 
 {:.caution}
-> * **Note that the input to the potentiometer is not -5V instead of +5V!**
+> * **Note that the input to the potentiometer is now -5V instead of +5V!**
 > * Ensure that you wire the circuit such that you can demonstrate Question 1 and 2 in quick succession. Consult the [Demonstration](#demonstration) but all you should need to do is change the voltage input and value of the potentiometer.
 
 ### **Question 2.1**
