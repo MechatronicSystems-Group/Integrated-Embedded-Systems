@@ -93,7 +93,7 @@ We can now demonstrate the circuit’s ability to reject common mode noise. This
 You can test your differential amplifier circuit with your STM32 Dev board and use the 3V3 output as “common-mode noise” for this method. First power the LM358 with the 5V pin located on the side of you Dev board. Then connect the 5V pin to the non-inverting side of your differential amplifier and the 3V3 pin to the inverting side of differential amplifier. The circuit should then output approximately 3.4V ($2\times(5-3.3)$).
 
 ### *If you are at the lab:*
-You can also test your differential amplifier circuit using a signal generator and a DC power supply. Power the LM358 with 5V and -5V using the DC power supplies. Then create a 100Hz sin-wave signal with a DC offset of 3V and a peak to peak voltage of 1V. Connect this signal to the non-inverting side of your differential amplifier (V<sub>2</sub> in the diagram above). 
+You can also test your differential amplifier circuit using a signal generator and a DC power supply. Power the LM358 with 5V and -5V using the DC power supplies. Then create a 100Hz sin-wave signal with a DC offset of 3.3V and a peak to peak voltage of 1V. Connect this signal to the non-inverting side of your differential amplifier (V<sub>2</sub> in the diagram above). 
 
 Your potentiometer's output should be set to 3.3V. If you have built the circuit correctly, you should be able to plot two signals on the oscilloscope: your input signal with a 1V V<sub>pp</sub> and a 3.3V DC offset, and your output signal with a 2.2V V<sub>pp</sub> and no DC offset. The DC offset has been treated as the "common mode noise" and removed by your filter.
 
