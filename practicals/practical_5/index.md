@@ -1,6 +1,6 @@
 ---
 title: "Practical 5: STM32 Analog-to-Digital Converters (ADCs)"
-nav_order: 7
+nav_order: 8
 parent: Practicals
 ---
 
