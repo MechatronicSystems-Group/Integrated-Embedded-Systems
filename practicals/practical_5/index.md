@@ -255,7 +255,6 @@ To help see if everything is working, some code is provided here. All this does 
 void display_on_LCD(int ADC_val) {
     char buffer[4];
     sprintf(buffer, "%04d", ADC_val);
-    lcd_command(CURSOR_HOME);
     lcd_putstring(buffer);
 }
 ```
