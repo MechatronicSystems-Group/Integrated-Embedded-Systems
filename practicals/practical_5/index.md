@@ -288,7 +288,9 @@ Ideally, your STM32 display should look something like this:
 
 {:.important}
 > Unlike the circuit practicals, this practical will not be marked purely by demonstration. You still need to demonstrate that your code is functional on the STM32 development board, and show it to a tutor, but you must also upload your code to the **linked Gradescope assignment**. This is so your code can be submitted to ECSA along with your other submissions for the course as part of their review requirements.
-> [You can find the Gradescope assignment **here**. Please upload **only** your `main.c` file for this practical.](https://www.gradescope.com/courses/1018254)
+>
+> [You can find the Gradescope assignment here. Please upload only your `main.c` file for this practical.](https://www.gradescope.com/courses/1018254)
+>
 > You must upload your code to Gradescope **before** you demonstrate to a tutor. Your first demonstration is your only demonstration.
 
 The demonstration for this practical is simple. When your code is functional, please upload it to the Gradescope assignment. Once that is done call a tutor who will ask you to show your code and explain certain parts - you will not be told in advance what will be asked, so please understand what you have written! You will also need to show the ADC values displayed on the LCD and how they change when the potentiometer is adjusted. Marks will not be awarded if you cannot explain what your code is doing. What you need to show the tutor:
@@ -311,10 +313,12 @@ Has the student correctly written the `init_ADC()` function? To do so, the follo
 - [ ] GPIOA clock enabled and PA5 set to analog mode (**+1 marks**)
 
 ### Question 2
+Has the student implemented the `read_ADC()` function, and does the code display the read value onto the LCD?
 - [ ] `ADC_read()` function correctly implemented using start - wait - return protocol (**+1 marks**)
 - [ ] ADC value displayed on LCD and updates as potentiometer is turned (**+1 marks**)
 
 ### Question 3
+Is the mapping from ADC value to voltage correct, maxing out at max possible reading, and is the display formatting correct with a decimal point and unit?
 - [ ] Correct scaling from ADC value to voltage using linear mapping (**+1 marks**)
 - [ ] Voltage displayed on second line of LCD with two decimal places and units (**+1 marks**)
 
