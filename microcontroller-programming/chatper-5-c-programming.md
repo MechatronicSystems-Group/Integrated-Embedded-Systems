@@ -142,7 +142,8 @@ The `static` qualifier serves different purposes depending on where it's used in
 - One-time initialization
 
 ```c
-void count_events(void) {
+void count_events(void) 
+{
     static uint32_t event_counter = 0;  // Initialized only once
     
     event_counter++;
@@ -159,7 +160,8 @@ Each time `count_events()` is called, `event_counter` will increment from its pr
 static uint32_t timer_ticks;       // Only accessible within timer.c
 static void update_timer(void);    // Only callable within timer.c
 
-void timer_init(void) {            // Globally accessible
+void timer_init(void)              // Globally accessible
+{            
     timer_ticks = 0;
     // Setup code
 }
@@ -190,7 +192,8 @@ Without `volatile`, the compiler might optimize away seemingly redundant reads o
 
 ```c
 // Without volatile, compiler might optimize this to a single read
-while (device_status_register & BUSY_FLAG) {
+while (device_status_register & BUSY_FLAG) 
+{
     // Wait for device to be ready
 }
 ```
@@ -200,7 +203,8 @@ while (device_status_register & BUSY_FLAG) {
 Structures group related data of different types into a single unit. They are invaluable for organizing complex data in embedded systems:
 
 ```c
-typedef struct {
+typedef struct 
+{
     uint16_t x;
     uint16_t y;
     uint16_t z;
@@ -221,7 +225,8 @@ reading.z = 300;
 Bit-fields allow precise control over the bit width of structure members, which is especially useful for matching hardware register layouts:
 
 ```c
-typedef struct {
+typedef struct 
+{
     uint32_t enable     : 1;   // 1 bit
     uint32_t direction  : 1;   // 1 bit
     uint32_t mode       : 2;   // 2 bits
@@ -301,7 +306,8 @@ Comparison operators compare two values and return a boolean result (0 for false
 These operators are commonly used in conditional statements and loops:
 
 ```c
-if (temperature > THRESHOLD) {
+if (temperature > THRESHOLD) 
+{
     activate_cooling();
 }
 ```
@@ -320,7 +326,8 @@ Logical operators perform boolean logic operations:
 These operators implement boolean logic and are used primarily in conditional expressions:
 
 ```c
-if ((temperature > TEMP_MIN) && (temperature < TEMP_MAX)) {
+if ((temperature > TEMP_MIN) && (temperature < TEMP_MAX)) 
+{
     system_state = NORMAL;
 }
 ```
@@ -360,7 +367,8 @@ GPIOA->ODR ^= (1 << 5);  // Toggle bit 5 (toggle LED state)
 
 4. Checking if a bit is set:
 ```c
-if (GPIOA->IDR & (1 << 0)) {
+if (GPIOA->IDR & (1 << 0)) 
+{
     // Bit 0 is set (button pressed)
 }
 ```
@@ -426,7 +434,8 @@ else
 For evaluating multiple conditions, the `switch` statement often provides cleaner code:
 
 ```c
-switch (system_state) {
+switch (system_state) 
+{
     case IDLE:
         enter_low_power_mode();
         break;
@@ -484,7 +493,8 @@ int main(void)
     while (1) 
     {
         // This may be empty or contain non-time-critical tasks
-        if (flag_set) {
+        if (flag_set) 
+        {
             process_data();
             flag_set = 0;
         }
@@ -536,7 +546,8 @@ uint16_t calculate_average(uint16_t *data_array, uint8_t length)
 {
     uint32_t sum = 0;           // Local variable
     
-    for(uint8_t i = 0; i < length; i++) {
+    for(uint8_t i = 0; i < length; i++) 
+    {
         sum += data_array[i];   // Function logic
     }
     
@@ -553,13 +564,15 @@ Function prototypes declare a function before its implementation, allowing the c
 // Prototype - BEFORE main()
 void initialize_hardware(void);
 
-int main(void) {
+int main(void) 
+{
     initialize_hardware(); // Compiler knows the function exists
     // Rest of program
 }
 
 // Implementation - AFTER main()
-void initialize_hardware(void) {
+void initialize_hardware(void) 
+{
     // Initialization code
 }
 ```
@@ -581,7 +594,8 @@ A typical header file structure includes:
 #include <stdint.h>
 
 // Type definitions
-typedef struct {
+typedef struct 
+{
     uint8_t id;
     uint16_t value;
 } sensor_data_t;
