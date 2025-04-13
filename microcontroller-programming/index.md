@@ -5,4 +5,4 @@ nav_order: 3
 
 # Microcontroller Programming
 
-The first section of the course will cover the basics of analogue electronics, focussing on the operation of BJTs, MOSFETs, op-amps, filters, and feedback.
+This section of the course details the use of the SMT32F0 microcontroller using the C programming language for measurement and control tasks.
