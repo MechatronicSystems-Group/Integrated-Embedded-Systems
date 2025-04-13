@@ -11,6 +11,9 @@ In this practical you will extend the STM32 programming you did in EEE2046S. It 
 {:.important}
 > Please use the [feedback form](https://forms.office.com/r/bMUfettP7m) to give us feedback on this practical and to report broken/faulty equipment.
 
+{:.important}
+> Please use the MEC4126F STM32 Programming Template for this and other C practicals. [You can download it here.](https://github.com/MechatronicSystems-Group/STM32-Programming-Template). You should write your code in `Core/Src/main.c`. 
+
 Table of Contents
 =================
 
@@ -252,7 +255,6 @@ To help see if everything is working, some code is provided here. All this does 
 void display_on_LCD(int ADC_val) {
     char buffer[4];
     sprintf(buffer, "%04d", ADC_val);
-    lcd_command(CURSOR_HOME);
     lcd_putstring(buffer);
 }
 ```
