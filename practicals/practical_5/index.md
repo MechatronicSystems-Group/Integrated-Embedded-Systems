@@ -285,11 +285,38 @@ Ideally, your STM32 display should look something like this:
 > On embedded hardware, `sprintf()` does not work with `float` values. You will need to think of a workaround using only decimal values to display a float! How this is implemented is up to you... but it is doable.
 
 ## Demonstration
-The demonstration for this practical is simple. When your code is functional, please call a tutor who will ask you to for you to show your code and explain certain parts - you will not be told in advance what will be asked, so please understand what you have written! You will also need to show the ADC values displayed on the LCD and how they change when the potentiometer is adjusted. Marks will not be awarded if you cannot explain what a your code is doing.
 
-(Mark scheme and demo will be updated shortly - practical is released so that you can start as soon as possible!)
+{:.important}
+> Unlike the circuit practicals, this practical will not be marked purely by demonstration. You still need to demonstrate that your code is functional on the STM32 development board, and show it to a tutor, but you must also upload your code to the **linked Gradescope assignment**. This is so your code can be submitted to ECSA along with your other submissions for the course as part of their review requirements.
+> [You can find the Gradescope assignment **here**. Please upload **only** your `main.c` file for this practical.](https://www.gradescope.com/courses/1018254)
+> You must upload your code to Gradescope **before** you demonstrate to a tutor. Your first demonstration is your only demonstration.
 
-TO-BE-UPDATED
+The demonstration for this practical is simple. When your code is functional, please upload it to the Gradescope assignment. Once that is done call a tutor who will ask you to show your code and explain certain parts - you will not be told in advance what will be asked, so please understand what you have written! You will also need to show the ADC values displayed on the LCD and how they change when the potentiometer is adjusted. Marks will not be awarded if you cannot explain what your code is doing. What you need to show the tutor:
 
-## Marking
-TO-BE-UPDATED
+0. **Upload the code to the *MEC4126F Practical 5* assignment on Gradescope**. It is linked at the beginning of the [Demonstration](#demonstration) section. 
+1. Show the tutor your `init_ADC()` function, and explain what the code is doing (e.g. GPIOA setup, channel selection, resolution).
+2. Show the tutor your `ADC_read()` function, and explain the process of starting and retrieving a single ADC sample.
+3. Turn the potentiometer and show the live reading from the ADC updating on the screen.
+4. Turn the potentiometer and show the live reading of the converted **voltage** value updating on the screen.
+5. The tutor may ask you to explain anything else about your code - please make sure you understand what the code is doing at every step.
+
+## Mark Scheme
+
+### Question 1
+Has the student correctly written the `init_ADC()` function? To do so, the following should all be true:
+- [ ] ADC clock enabled via RCC (**+1 marks**)
+- [ ] Channel 5 selected for ADC (**+1 marks**)
+- [ ] Discontinuous mode enabled and continuous mode disabled (**+1 marks**)
+- [ ] Resolution correctly configured (**+1 marks**)
+- [ ] GPIOA clock enabled and PA5 set to analog mode (**+1 marks**)
+
+### Question 2
+- [ ] `ADC_read()` function correctly implemented using start - wait - return protocol (**+1 marks**)
+- [ ] ADC value displayed on LCD and updates as potentiometer is turned (**+1 marks**)
+
+### Question 3
+- [ ] Correct scaling from ADC value to voltage using linear mapping (**+1 marks**)
+- [ ] Voltage displayed on second line of LCD with two decimal places and units (**+1 marks**)
+
+### Understanding and Explanation
+- [ ] Student can explain their code and any register configuration options asked by the tutor (**+1 marks**)
