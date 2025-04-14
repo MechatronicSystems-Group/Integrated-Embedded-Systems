@@ -289,7 +289,7 @@ Ideally, your STM32 display should look something like this:
 {:.important}
 > Unlike the circuit practicals, this practical will not be marked purely by demonstration. You still need to demonstrate that your code is functional on the STM32 development board, and show it to a tutor, but you must also upload your code to the **linked Gradescope assignment**. This is so your code can be submitted to ECSA along with your other submissions for the course as part of their review requirements.
 >
-> [You can find the Gradescope assignment here. Please upload only your `main.c` file for this practical.](https://www.gradescope.com/courses/1018254)
+> [You can find the Gradescope assignment here. Please upload only your `main.c` file for this practical.](https://www.gradescope.com/courses/1018254) If you upload anything besides your `main.c` file (although you can rename it if you want) your mark will be capped at 50%.
 >
 > You must upload your code to Gradescope **before** you demonstrate to a tutor. Your first demonstration is your only demonstration.
 
