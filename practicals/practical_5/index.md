@@ -247,7 +247,7 @@ The deliverable for this question is a function called `ADC_read()`. It needs to
 * It must return the converted ADC value, which must be stored in a global variable called `ADC_val`.
 * The datatype used to store the ADC value should use the least required space (hint: look at the ADC `RES` set in the previous question).
 
-You will use this to start a conversion and return a value on every iteration of the `while(1) {...}` loop in yout `main(void) {...}` function. 
+You will use this to start a conversion and return a value on every iteration of the `while(1) {...}` loop in your `main(void) {...}` function. 
 
 To help see if everything is working, some code is provided here. All this does is display an integer value on the LCD of the STM32 when called. You may need to cast the ADC value to int when calling the function - check your notes or Google on how to do this. Make sure you run `init_LCD()` before trying to use the ADC.
 
@@ -282,7 +282,7 @@ Ideally, your STM32 display should look something like this:
 <img width="60%" src="./Resources/display.jpg">
 
 {:.note2}
-> On embedded hardware, `sprintf()` does not work with `float` values. You will need to think of a workaround using only decimal values to display a float! How this is implemented is up to you... but it is doable.
+> On embedded hardware, `sprintf()` does not work with `float` values. You will need to think of a workaround using only integer values to display a float! How this is implemented is up to you... but it is doable.
 
 ## Demonstration
 
