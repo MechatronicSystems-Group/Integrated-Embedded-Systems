@@ -61,9 +61,9 @@ The ADC can operate in different modes, however, unless it is configured in the 
 <img src="./images/ADC_single_conversion.png" width="80%" alt="Functional description of the single conversion mode of the ADC"/>
 _Figure 7.2: Functional description of the single conversion mode of the ADC_
 
-- Continuous conversion - here the selected channels are converted, in sequence of their selection, and once the sequence is complete, it is begun again until the ADC is either stopped or disabled. This behaviour is described in 13.3.8 of the Reference Manual:
+- Continuous conversion - here the selected channels are converted, in sequence of their selection, and once the sequence is complete, it is begun again until the ADC is either stopped or disabled. This behaviour is described in 13.3.9 of the Reference Manual:
 
-<img src="./images/ADC_continous_conversion.png" width="80%" alt="Functional description of the continuous conversion mode of the ADC"/>
+<img src="./images/ADC_continuous_conversion.png" width="80%" alt="Functional description of the continuous conversion mode of the ADC"/>
 _Figure 7.3: Functional description of the continuous conversion mode of the ADC_
 
 Within these modes, an Up scan is defined as from ADC_IN0 first, whilst a Down scan is from VBAT first.
@@ -85,7 +85,7 @@ ADC1->CR |= ADC_CR_ADEN;
 
 On the STM32F0, care must be taken in order of enabling and configuring the ADC peripheral. These details can be found in the instructions of Section 13.3.5 of the Reference Manual:
 
-<img src="./images/ADC_configurationr.png" width="80%" alt="Order of enabling and configuring the ADC peripheral"/>
+<img src="./images/ADC_configuration.png" width="80%" alt="Order of enabling and configuring the ADC peripheral"/>
 _Figure 7.4: Order of enabling and configuring the ADC peripheral_
 
 ### Channel Selection
@@ -172,7 +172,7 @@ ADC_DR = ADC1->DR;  // Read the result
 
 ### Interrupt generation
 
-Whilst the above methode is effective in simple applications, this method is not ideal for more complex applications where the programmer may need to perform other tasks whilst waiting for the conversion to complete. For this reason, the ADC peripheral interrupt generation from a variety of events. Typically any flag contained in and ISR register can be used to generate an interrupt. On the STM32F0, the ADC peripheral can generate interrupts from the following events stated in Section 13.3.10 of the Reference Manual:
+Whilst the above method is effective in simple applications, it is not ideal for more complex applications where the programmer may need to perform other tasks whilst waiting for the conversion to complete. For this reason, the ADC peripheral interrupt generation from a variety of events. Typically any flag contained in and ISR register can be used to generate an interrupt. On the STM32F0, the ADC peripheral can generate interrupts from the following events stated in Section 13.3.10 of the Reference Manual:
 
 <img src="./images/ADC_interrupts.png" width="80%" alt="Interrupt events on the ADC"/>
 _Figure 7.10: Interrupt events on the ADC_
@@ -194,7 +194,7 @@ Finally, the programmer must implement the ADC interrupt service routine to hand
 ```c
 void ADC1_COMP_IRQHandler(void) 
 {
-    ADC_DR = ADC1->DR;  // Read the result
+    ADC_DR = ADC1->DR;  // Read the result (this action lowers the ADC_ISR_EOC flag - See description of ADC_ISR_EOC in Section 13.3.10 of the Reference Manual)
 }
 ```
 
