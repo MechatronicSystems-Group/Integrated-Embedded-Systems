@@ -15,8 +15,8 @@ Registers are reserved memory addresses where their values represent physical me
 
 ### Register Basics
 
-- Registers are memory-mapped locations
-- Each register has a specific purpose and bit layout
+- Registers are memory-mapped locations.
+- Each register has a specific purpose and bit layout.
 - Register values directly control hardware behavior
 - Access is typically through memory-mapped I/O
 
@@ -91,36 +91,36 @@ GPIOB->MODER &= ~GPIO_MODER_MODER0_0;  // Clears bit 0
 ### Control Registers
 
 Control registers configure peripheral behavior:
-- Enable/disable features
-- Set operating modes
-- Configure parameters
+- Enable/disable features.
+- Set operating modes.
+- Configure parameters.
 
 ### Status Registers
 
 Status registers provide information about:
-- Current state
-- Error conditions
-- Operation completion
+- Current state.
+- Error conditions.
+- Operation completion.
 
 ### Data Registers
 
 Data registers handle:
-- Input data
-- Output data
-- Configuration values
+- Input data.
+- Output data.
+- Configuration values.
 
 ## Best Practices
 
-1. Always read the reference manual for register details
-2. Use provided macros and definitions
-3. Implement proper bit manipulation
-4. Consider atomic operations for critical sections
-5. Document register usage in code comments
+1. Always read the reference manual for register details.
+2. Use provided macros and definitions.
+3. Implement proper bit manipulation.
+4. Consider atomic operations for critical sections.
+5. Document register usage in code comments.
 
 ## Common Pitfalls
 
-1. Forgetting to enable peripheral clocks
-2. Incorrect bit manipulation
-3. Race conditions in multi-threaded access
-4. Unintended side effects of register writes
-5. Missing volatile qualifiers for hardware registers 
+1. Forgetting to enable peripheral clocks.
+2. Incorrect bit manipulation.
+3. Race conditions in multi-threaded access.
+4. Unintended side effects of register writes.
+5. Missing volatile qualifiers for hardware registers .
