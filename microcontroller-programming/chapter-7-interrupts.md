@@ -2,7 +2,7 @@
 layout: page
 title: "Chapter 7: Interrupts"
 parent: Microcontroller Programming
-nav_order: 5
+nav_order: 4
 ---
 
 # Interrupts
