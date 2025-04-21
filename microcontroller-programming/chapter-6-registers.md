@@ -22,7 +22,6 @@ Registers are reserved memory addresses where their values represent physical me
 
 ## Register Access Methods
 
-
 ### Pointer-Based Access
 
 Registers are often accessed through pointers to structures:

@@ -1,8 +1,8 @@
 ---
 layout: page
-title: "Chapter 7: Analog-to-Digital Conversion"
+title: "Chapter 5: Analog-to-Digital Conversion"
 parent: Microcontroller Programming
-nav_order: 4
+nav_order: 5
 ---
 
 # Analog-to-Digital Conversion
@@ -22,7 +22,7 @@ The ADC peripheral in STM32 microcontrollers provides a bridge between the analo
 These, and further features are described in Section 13.2 of the STM32F0 Reference Manual:
 
 <img src="./images/ADC_features.png" width="80%" alt="Features of the ADC on the STM32F0"/>
-_Figure 7.1: Features of the ADC on the STM32F0_
+_Figure 8.1: Features of the ADC on the STM32F0 [1]_
 
 The governing equation for an ADC is shown in the equation below:
 
@@ -59,12 +59,12 @@ The ADC can operate in different modes, however, unless it is configured in the 
 - Single conversion - here the selected channels are converted, in sequence of their selection, once before the ADC stops conversions. This behaviour is described in 13.3.8 of the Reference Manual:
 
 <img src="./images/ADC_single_conversion.png" width="80%" alt="Functional description of the single conversion mode of the ADC"/>
-_Figure 7.2: Functional description of the single conversion mode of the ADC_
+_Figure 8.2: Functional description of the single conversion mode of the ADC [1]_
 
 - Continuous conversion - here the selected channels are converted, in sequence of their selection, and once the sequence is complete, it is begun again until the ADC is either stopped or disabled. This behaviour is described in 13.3.9 of the Reference Manual:
 
 <img src="./images/ADC_continuous_conversion.png" width="80%" alt="Functional description of the continuous conversion mode of the ADC"/>
-_Figure 7.3: Functional description of the continuous conversion mode of the ADC_
+_Figure 8.3: Functional description of the continuous conversion mode of the ADC [1]_
 
 Within these modes, an Up scan is defined as from ADC_IN0 first, whilst a Down scan is from VBAT first.
 
@@ -86,14 +86,14 @@ ADC1->CR |= ADC_CR_ADEN;
 On the STM32F0, care must be taken in order of enabling and configuring the ADC peripheral. These details can be found in the instructions of Section 13.3.5 of the Reference Manual:
 
 <img src="./images/ADC_configuration.png" width="80%" alt="Order of enabling and configuring the ADC peripheral"/>
-_Figure 7.4: Order of enabling and configuring the ADC peripheral_
+_Figure 8.4: Order of enabling and configuring the ADC peripheral [1]_
 
 ### Channel Selection
 
 Channel selection is done by configuring the GPIO pins for analogue mode and then selecting the channels in the ADC_CHSELR register. This can be seen in the instructions of Section 13.3.6 of the Reference Manual:
 
 <img src="./images/ADC_channel_selection.png" width="80%" alt="Channel selection in the ADC"/>
-_Figure 7.5: Channel selection in the ADC_
+_Figure 8.5: Channel selection in the ADC [1]_
 
 For example, to configure and select GPIOA6 as an ADC channel:
 
@@ -135,7 +135,7 @@ ADC1->CFGR1 |= ADC_CFGR1_ALIGN;  // Left alignment
 The ADC can be configured to use a low power mode by the setting of the WAIT bit in the ADC_CFGR1 register. This causes the ADC to pause in its sequence of conversions until the ADC_DR register is read. This can be seen in the instructions of Section 13.6 of the Reference Manual:
 
 <img src="./images/ADC_wait.png" width="80%" alt="Wait mode in the ADC"/>
-_Figure 7.6: Wait mode in the ADC_
+_Figure 8.6: Wait mode in the ADC [1]_
 
 In addition to lowering the power usaage of the ADC (becuase conversions are not continually being performed), this setting has the additional benefit of preventing data loss by forcing each conversion to be read before the next one begins.
 
@@ -150,17 +150,17 @@ while((ADC1->ISR & ADC_ISR_ADRDY) == 0);  // Wait for ADC ready
 Once the ADC is ready, the programmer can then trigger a conversion by setting the ADSTART bit in the ADC_CR register (if using software triggering). This can be seen in the instructions of Section 13.3.10 of the Reference Manual:
 
 <img src="./images/ADC_start.png" width="80%" alt="Starting a conversion in the ADC"/>
-_Figure 7.7: Starting a conversion in the ADC_
+_Figure 8.7: Starting a conversion in the ADC [1]_
 
 Once, begun, a conversion result is not instantanious. The ADC will continue to convert the selected channels until the conversion is complete. The ADC will raise the ADC_ISR_EOC flag when the conversion is complete and then raise the ADCl_ISR_EOS flag once the sequence of conversions is complete. See Figures 7.2 and 7.3 for reference. In a single conversion mode, the timings of the conversion and flag raising are as follows:
 
 <img src="./images/ADC_timing_single.png" width="80%" alt="Timing of a single conversion in the ADC"/>
-_Figure 7.8: Timing of a single conversion in the ADC_
+_Figure 8.8: Timing of a single conversion in the ADC [1]_
 
 Conversely, in a continuous conversion mode, the timings of the conversion and flag raising are as follows:
 
 <img src="./images/ADC_timing_cont.png" width="80%" alt="Timing of a continuous conversion in the ADC"/>
-_Figure 7.9: Timing of a continuous conversion in the ADC_
+_Figure 8.9: Timing of a continuous conversion in the ADC [1]_
 
 
 Once the conversion of a channel is complete, the ADC_ISR_EOC flag is raised and the ADC_DR register is updated with the result. The programmer can then read the ADC_DR register to get the result of the conversion. Typically this can be done by using a while loop to wait for the ADC_ISR_EOC flag to be raised and then reading the ADC_DR register:
@@ -175,7 +175,7 @@ ADC_DR = ADC1->DR;  // Read the result
 Whilst the above method is effective in simple applications, it is not ideal for more complex applications where the programmer may need to perform other tasks whilst waiting for the conversion to complete. For this reason, the ADC peripheral interrupt generation from a variety of events. Typically any flag contained in and ISR register can be used to generate an interrupt. On the STM32F0, the ADC peripheral can generate interrupts from the following events stated in Section 13.3.10 of the Reference Manual:
 
 <img src="./images/ADC_interrupts.png" width="80%" alt="Interrupt events on the ADC"/>
-_Figure 7.10: Interrupt events on the ADC_
+_Figure 8.10: Interrupt events on the ADC [1]_
 
 Using an interrupt driven approach, the programmer can configure the ADC to raise an interrupt when a specific event occurs. For example, instead of using a while loop to wait for the conversion to complete, the programmer can configure the ADC to raise an interrupt when the conversion is complete and then handle the interrupt in the interrupt service routine. To do this, the programmer must first enable the ADC interrupt in the ADC_IER   register:
 
@@ -198,4 +198,6 @@ void ADC1_COMP_IRQHandler(void)
 }
 ```
 
+# References
 
+[1] ST Microelectronics, ‘RM0091 Reference Manual’. May 2022. [Online]. Available: https://www.st.com/resource/en/reference_manual/rm0091-stm32f0x1stm32f0x2stm32f0x8-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
