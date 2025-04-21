@@ -140,5 +140,6 @@ The EXTI controller can generate:
 # References
 
 [1] ‘Introduction to Microcontrollers - Interrupts - Mike Silva’. Accessed: Apr. 21, 2025. [Online]. Available: https://www.embeddedrelated.com/showarticle/469.php
+
 [2] ST Microelectronics, ‘RM0091 Reference Manual’. May 2022. [Online]. Available: https://www.st.com/resource/en/reference_manual/rm0091-stm32f0x1stm32f0x2stm32f0x8-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
 
