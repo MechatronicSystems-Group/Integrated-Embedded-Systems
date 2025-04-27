@@ -1,0 +1,67 @@
+:toc:
+:toc-placement!:
+
+This Asciidoc file is where you will place your answers to written questions for practical 6. An AsciiDoc is a plain text markup language that is like markdown, however the output of Asciidoc is standardised unlike markdown. If you open this file in GitHub you will see it has been beautified into an HTML output. Make sure you delete filler text.
+
+toc::[]
+
+== Question 1: ADCs
+What type of ADC does the STM32F051x6 have? How does it operate, i.e. how does it convert an integer value from an analog voltage?
+
+[NOTE]
+====
+Place your answer here.
+====
+
+*Maximum Score = 3*
+
+== Question 2: Calibration
+Write down two lines of code that are used to calibrate the ADC?
+
+[,C]
+----
+place your code here
+----
+
+*Maximum Score = 2*
+
+== Question 3: Memory
+What is the endianness of a word stored in the memory of an STM32F0x1 microcontroller? What does this mean?
+
+[NOTE]
+====
+Place your answer here.
+====
+
+*Maximum Score = 2*
+
+== Question 4: Priority
+The NVIC has priorities for all the possible interrupts on the SMT32Fx1. Which of the following has the greater priority: `EXTI0_1` or `TIM_2`?
+
+[NOTE]
+====
+Place your answer here.
+====
+
+*Maximum Score = 1*
+
+== Question 5: Timing
+What is a racing condition and why are they undesirable?
+
+[NOTE]
+====
+Place your answer here.
+====
+
+*Maximum Score = 2*
+
+== Question 6: Memory Part 2 
+What is DMA and why is it useful?
+
+[NOTE]
+====
+Place your answer here.
+====
+
+*Maximum Score = 1*
+
