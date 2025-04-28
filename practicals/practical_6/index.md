@@ -114,10 +114,10 @@ SMTJHN001_MEC4126F_Practical_6
         └── SMTJHN001_answers.asciidoc # Your answers for written questions
 ```
 
-You can download the template for `SMTJHN001_main.c` from the [IES website repository](./Resources/Prac6.c) and the template for `SMTJHN001_answers.asciidoc` from the [IES website repository](./Resources/Prac6.asciidoc). Once you have downloaded the templates and renamed them, you can tell git to make that directory a Git repository by running `git init` (***make sure that your current working directory is ../SMTJHN001_MEC4126F_Practical_6/***). In summary, you should complete the following:
+You can download the template for `SMTJHN001_main.c` from the [IES website repository](https://github.com/MechatronicSystems-Group/Integrated-Embedded-Systems/blob/main/practicals/practical_6/Resources/SMTJHN001_main.c) and the template for `SMTJHN001_answers.asciidoc` from the [IES website repository](https://github.com/MechatronicSystems-Group/Integrated-Embedded-Systems/blob/main/practicals/practical_6/Resources/SMTJHN001_answers.asciidoc). Once you have downloaded the templates and renamed them, you can tell git to make that directory a Git repository by running `git init` (***make sure that your current working directory is ../SMTJHN001_MEC4126F_Practical_6/***). In summary, you should complete the following:
 
 * Make a new directory called `SMTJHN001_MEC4126F_Practical_6`
-* Download the `Prac6.c` file and the `Prac6.asciidoc` template from [here](./Resources/Prac6.c) and [here](./Resources/Prac6.asciidoc) and rename them with the given file convention.
+* Download the `Prac6.c` file and the `Prac6.asciidoc` template from [here](https://github.com/MechatronicSystems-Group/Integrated-Embedded-Systems/blob/main/practicals/practical_6/Resources/SMTJHN001_main.c) and [here](https://github.com/MechatronicSystems-Group/Integrated-Embedded-Systems/blob/main/practicals/practical_6/Resources/SMTJHN001_answers.asciidoc) and rename them with the given file convention.
 * Initialize a new git repository in your directory using `git init`.
 
 An example of how to do this in the Linux terminal is shown below (similar commands can be used in Windows Powershell).
@@ -126,9 +126,9 @@ An example of how to do this in the Linux terminal is shown below (similar comma
 $ mkdir ./SMTJHN001_MEC4126F_Practical_6 # make the directory
 $ cd ./SMTJHN001_MEC4126F_Practical_6 # change your working directory
 $ git init # start git
-$ wget https://GitHub.com/MechatronicSystems-Group/STM32-Programming-Template/blob/main/Core/Src/main.c # download main.c template to your repository
+$ wget https://github.com/MechatronicSystems-Group/Integrated-Embedded-Systems/blob/main/practicals/practical_6/Resources/SMTJHN001_main.c # download main.c template to your repository
 $ mv prac6.c SMTJHN001_main.c # rename main.c
-$ wget https://GitHub.com/MechatronicSystems-Group/STM32-Programming-Template/blob/main/Core/Src/main.c # download prac6.asciidoc template to your repository
+$ wget https://github.com/MechatronicSystems-Group/Integrated-Embedded-Systems/blob/main/practicals/practical_6/Resources/SMTJHN001_answers.asciidoc # download prac6.asciidoc template to your repository
 $ mv prac6.asciidoc SMTJHN001_answers.asciidoc # rename prac7.asciidoc 
 ```
 
