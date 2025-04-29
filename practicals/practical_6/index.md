@@ -296,7 +296,7 @@ flowchart TD
 Each question is scored on tasks that are required to complete the question, see the [Marksheet](#marksheet) for further details of the grading of this practical. The mark scheme is intentionally vague: rather than giving a blow-by-blow for each question, you have to decide yourself what steps are necessary!
 
 {:.caution}
-> - Make sure that you use the [template file](./Resources/Prac6.c) to answer these questions. Failure to do so may result in the deduction of points and will make answering these questions more difficult.
+> - Make sure that you use the [template file](https://github.com/MechatronicSystems-Group/Integrated-Embedded-Systems/blob/main/practicals/practical_6/Resources/SMTJHN001_main.c) to answer these questions. Failure to do so may result in the deduction of points and will make answering these questions more difficult.
 > - Ensure that ***at least*** your student number is located within the file.
 
 ### Question 1: Display Your Student Number on The LCD Display
