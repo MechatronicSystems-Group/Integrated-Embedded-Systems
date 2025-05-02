@@ -12,7 +12,7 @@
 
 //Includes
 #include "stm32f0xx.h"											   
-#include "lcd_stm32f0.c"
+#include "lcd_stm32f0.h"
 #include <stdint.h>
 
 //Global Variables
