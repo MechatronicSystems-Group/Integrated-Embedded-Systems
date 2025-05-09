@@ -22,6 +22,7 @@ Table of Contents
 * [Programming the STM32](#programming-the-stm32)
 * [Submitting to Gradescope](#submitting-to-gradescope)
 * [Marksheet](#marksheet)
+
 ## The block diagram
 
 The hardware setup for this practical is shown in the following hardware block diagram:
@@ -41,7 +42,7 @@ The brushed DC motor is driven by the H-Bridge circuit which is controlled by th
 
 The STM32 microcontroller will be programmed using the standard STM32 programming template, and will need to perform the tasks shown in the diagram below:
 
-![STM32 Microcontroller Tasks](./Resources/stm32-functions.jpg)
+![STM32 Microcontroller Tasks](./Resources/STM32-functions.jpg)
 
 At a functional level, during the operation of the system, the STM32 needs to:
 
