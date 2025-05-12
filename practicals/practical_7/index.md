@@ -99,9 +99,14 @@ Using this [template file](https://github.com/MechatronicSystems-Group/Integrate
    \frac{O(z)}{E(z)} = K_p \left(\frac{(2+IT_s)z + (IT_s-2)}{2z - 2}\right)
    $$
 
-   where $T_s$ is the sample time of the controller. Ensure that the controller is executed at a frequency of 1 kHz. Further, $K_p$ should be set to 50 and $I$ should be set to 1. Implement the controller as a difference equation in a function called `PI_control()`. You will need to choose an appropriate architecture for this function in terms of arguments and return values.
+   where $T_s$ is the sample time of the controller. Ensure that the controller is executed at a frequency of 1 kHz. Further, set `K_p = 50` and `I = 1`. Implement the controller as a difference equation in a function called `PI_control()`. You will need to choose an appropriate architecture for this function in terms of arguments and return values.
+
+   If you are certain that your code and circuit work correctly but your system is unstable, you can try to tune the controller parameters to improve the system performance by lowering the proportional gain and/or the integral gain.
 
 > #### **Question 4**
+> What effects do the proportional and integral gains have on the system? What effect does the sample time have on the system?
+
+> #### **Question 5**
 > Plan and describe your code structure using a flowchart or pseudocode.
 
 
