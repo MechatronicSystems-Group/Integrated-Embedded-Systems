@@ -107,6 +107,13 @@ Using this [template file](https://github.com/MechatronicSystems-Group/Integrate
 > What effects do the proportional and integral gains have on the system? What effect does the sample time have on the system?
 
 > #### **Question 5**
+> If your system is now operational and stable, commit your code with a commit message, "Q4 implemented". 
+>
+> a) Now, using the LM358 datasheet, and introducing a new specification that the signal level change time on the drive signals of the H-Bridge must be less than 1% of the period of the PWM signal, determine the maximum frequency of the PWM signal that can be used. Calculate a new PSC value to implement this. Ensure you state the signal level change time and the period and frequency of the PWM signal in your answer.
+>
+> b) Update your program to implement this new specification and commit your code with a commit message, "Q5 implemented" once complete. What do you observe about the system performance? Measure the signal level change time and the period and frequency of the PWM signal in your answer. Comment on how they compare to the calculated values.
+
+> #### **Question 6**
 > Plan and describe your code structure using a flowchart or pseudocode.
 
 
