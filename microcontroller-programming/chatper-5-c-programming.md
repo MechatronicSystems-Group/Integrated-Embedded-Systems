@@ -2,7 +2,7 @@
 layout: page
 title: "Chapter 5: C Programming for Embedded Systems"
 parent: Microcontroller Programming
-nav_order: 2
+nav_order: 1
 ---
 
 # C Programming for Embedded Systems

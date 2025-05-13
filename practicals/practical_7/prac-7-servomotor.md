@@ -1,6 +1,6 @@
 ---
 title: "Practical 7: Servomotor Control"
-nav_order: 11
+nav_order: 8
 parent: Practicals
 ---
 
@@ -71,13 +71,13 @@ The interface electronics for this system should be designed to meet the followi
 * The feedback potentiometer is connected to PA5. (Ensure that the potentiometer is appropriately labelled on your circuit diagram.)
 * The position command potentiometer is connected to PA6. (Ensure that the potentiometer is appropriately labelled on your circuit diagram. Check the schemati for the UCT board if necessary.)
 
-> #### **Question 1**
+> #### **Question 1 [6 marks]**
 > Draw a circuit diagram, based on the block diagram and the requirements above, of the interface electronics for the motor rig. Ensure that your circuit diagram includes all the components needed to build the drive electronics and that the circuit is compatible with the STM32 microcontroller. Ensure all supply voltages are appropriate for the components and functional requirements.
 
-> #### **Question 2**
+> #### **Question 2 [3 marks]**
 > Using a table populated with parameters measured from your circuitry, demonstrate that your comparator-based level-shifting circuit works correctly.
 
-> #### **Question 3**
+> #### **Question 3 [3 marks]**
 > Using a table populated with parameters measured from your circuitry, demonstrate that your H-Bridge circuit works correctly.
 
 
@@ -103,18 +103,18 @@ Using this [template file](https://github.com/MechatronicSystems-Group/Integrate
 
    If you are certain that your code and circuit work correctly but your system is unstable, you can try to tune the controller parameters to improve the system performance by lowering the proportional gain and/or the integral gain.
 
-> #### **Question 4**
+> #### **Question 4 [6 marks]**
 > What effects do the proportional and integral gains have on the system? What effect does the sample time have on the system?
 
-> #### **Question 5**
+> #### **Question 5 [10 marks]**
 > If your system is now operational and stable, commit your code with a commit message, "Q4 implemented". 
 >
 > a) Now, using the LM358 datasheet, and introducing a new specification that the signal level change time on the drive signals of the H-Bridge must be less than 1% of the period of the PWM signal, determine the maximum frequency of the PWM signal that can be used. Calculate a new PSC value to implement this. Ensure you state the signal level change time and the period and frequency of the PWM signal in your answer.
 >
-> b) Update your program to implement this new specification and commit your code with a commit message, "Q5 implemented" once complete. What do you observe about the system performance? Measure the signal level change time and the period and frequency of the PWM signal in your answer. Comment on how they compare to the calculated values.
+> b) Update your program to implement this new specification and commit your code with a commit message, "Q5 implemented" once complete. What do you observe about the system performance? Measure the signal level change time and the period and frequency of the PWM signal in your answer. Do they match the calculated values?
 
-> #### **Question 6**
-> Plan and describe your code structure using a flowchart or pseudocode.
+> #### **Question 6 [14 marks]**
+> Plan and describe your code structure at the conclusion of Question 5 using a flowchart or pseudocode.
 
 
 ## Demonstration and Submission
@@ -128,7 +128,8 @@ Using this [template file](https://github.com/MechatronicSystems-Group/Integrate
 > - You have not and shall not allow others to plagiarise your work.
 > - You have not used an AI language model to generate the code submitted.
 
-Before your demonstration, upload your code and answers to Gradescope. Your answers should be contained within a single PDF file added to your GitHub repository. 
+{:.important}
+> Before your demonstration, upload your code and answers to Gradescope. Your answers to the **six** questions above should be contained within a single PDF file added to the route directory of your GitHub repository. 
 
 ### Submitting to Gradescope
 
@@ -142,7 +143,7 @@ Use the following recipe to submit your code from GitHub to Gradescope:
 5. Select upload.
 
 {:.caution}
-> - Make sure that you use the template file provided.
+> - Make sure that you use the code template file provided.
 > - Ensure that ***at least*** your student number is located within the file.
 
 {:.caution}
@@ -152,4 +153,11 @@ Use the following recipe to submit your code from GitHub to Gradescope:
 When you are ready to demonstrate, call over tutor. You will then be asked to run ***your C code*** on a UCT STM32 Dev board. The tutor will then assign a demonstration mark as described by the [marksheet](#marksheet). The tutor will then ask a series of questions based on your submitted C code and ask to see your Git commit history on Github.
 
 ## Marksheet
-The marks awarded for this practical remain TBD but will be updated here and alongside each question as soon as they are available.
+This practical has a maximum of 51 marks available. The marks for each question can be seen in the question. This scheme is intentionally vague: rather than giving a blow-by-blow for each question, you have to decide yourself what steps are necessary!
+
+As for demonstrating, the following marks are up for grabs:
+- [ ] That the comparator circuit works correctly(**3 marks**)
+- [ ] That the H-Bridge circuit works correctly(**+3 marks**)
+- [ ] That the PI controller works correctly(**+3 marks**)
+
+During your demonstration, your tutor will ask you a series of questions about your submitted code. For each wrong answer you give or you can not explain what a line means a mark will be deducted from your score.

@@ -1,6 +1,6 @@
 ---
 title: "Practical 4: Linear Voltage Regulators"
-nav_order: 7
+nav_order: 5
 parent: Practicals
 ---
 

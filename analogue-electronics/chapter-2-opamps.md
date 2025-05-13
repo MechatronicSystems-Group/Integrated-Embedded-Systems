@@ -2,7 +2,7 @@
 layout: page
 title: "Chapter 2: Operational Amplifiers"
 parent: Analogue Electronics
-nav_order: 3
+nav_order: 2
 ---
 
 # Chapter 2: Operational Amplifiers 

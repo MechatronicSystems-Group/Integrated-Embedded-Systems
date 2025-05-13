@@ -1,6 +1,6 @@
 ---
 title: IDE Setup
-nav_order: 2
+nav_order: 0
 parent: Practicals
 ---
 

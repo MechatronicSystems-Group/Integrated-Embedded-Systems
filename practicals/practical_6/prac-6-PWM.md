@@ -1,6 +1,6 @@
 ---
 title: "Practical 6: Pulse Width Modulation (PWM)"
-nav_order: 10
+nav_order: 7
 parent: Practicals
 ---
 

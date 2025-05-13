@@ -2,7 +2,7 @@
 layout: page
 title: "Chapter 4: Filter Circuits"
 parent: Analogue Electronics
-nav_order: 5
+nav_order: 4
 ---
 # Chapter 4: Filter Circuits
 

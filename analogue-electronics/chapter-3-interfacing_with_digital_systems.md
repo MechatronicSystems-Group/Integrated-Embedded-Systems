@@ -2,7 +2,7 @@
 layout: page
 title: "Chapter 3: Interfacing with Digital Systems"
 parent: Analogue Electronics
-nav_order: 4
+nav_order: 3
 ---
 
 # Chapter 3: Interfacing with Digital Systems

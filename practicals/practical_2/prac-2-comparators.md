@@ -1,7 +1,7 @@
 ---
 title: "Practical 2: Comparator Circuits"
 parent: Practicals
-nav_order: 5
+nav_order: 3
 ---
 
 # Practical 2: Comparator Circuits

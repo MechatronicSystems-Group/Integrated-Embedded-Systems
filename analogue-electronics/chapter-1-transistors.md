@@ -2,7 +2,7 @@
 layout: page
 title: "Chapter 1: Transistors"
 parent: Analogue Electronics
-nav_order: 2
+nav_order: 1
 ---
 
 # Chapter 1: Transistors
