@@ -156,8 +156,8 @@ When you are ready to demonstrate, call over tutor. You will then be asked to ru
 This practical has a maximum of 51 marks available. The marks for each question can be seen in the question. This scheme is intentionally vague: rather than giving a blow-by-blow for each question, you have to decide yourself what steps are necessary!
 
 As for demonstrating, the following marks are up for grabs:
-- [ ] That the comparator circuit works correctly(**3 marks**)
-- [ ] That the H-Bridge circuit works correctly(**+3 marks**)
-- [ ] That the PI controller works correctly(**+3 marks**)
+- [ ] That the comparator circuit works correctly [**3 marks**]
+- [ ] That the H-Bridge circuit works correctly [**3 marks**]
+- [ ] That the PI controller works correctly [**3 marks**]
 
 During your demonstration, your tutor will ask you a series of questions about your submitted code. For each wrong answer you give or you can not explain what a line means a mark will be deducted from your score.
