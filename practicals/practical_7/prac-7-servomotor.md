@@ -147,7 +147,7 @@ Use the following recipe to submit your code from GitHub to Gradescope:
 > - Ensure that ***at least*** your student number is located within the file.
 
 {:.caution}
-> - The time at which you demonstrate will be the time taken for submission. If you do not demonstrate before ***17:00 on Monday (19/05/2025)***, your mark will be capped to 50% as dictated by the course outline.
+> - The time at which you demonstrate will be the time taken for submission. If you do not demonstrate before ***17:00 on Tuesday (20/05/2025)***, you will receive no mark due to the extension that was granted.
 > - No demonstration will result in no mark.
 
 When you are ready to demonstrate, call over tutor. You will then be asked to run ***your C code*** on a UCT STM32 Dev board. The tutor will then assign a demonstration mark as described by the [marksheet](#marksheet). The tutor will then ask a series of questions based on your submitted C code and ask to see your Git commit history on Github.
