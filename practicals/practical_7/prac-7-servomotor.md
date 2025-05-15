@@ -103,18 +103,18 @@ Using this [template file](https://github.com/MechatronicSystems-Group/Integrate
 
    If you are certain that your code and circuit work correctly but your system is unstable, you can try to tune the controller parameters to improve the system performance by lowering the proportional gain and/or the integral gain.
 
-> #### **Question 4 [6 marks]**
+> #### **Question 4 [14 marks]**
+> Plan and describe your code structure to implement the requirements above using a flowchart.
+
+> #### **Question 5 [6 marks]**
 > What effects do the proportional and integral gains have on the system? What effect does the sample time have on the system?
 
-> #### **Question 5 [10 marks]**
+> #### **Question 6 [10 marks]**
 > If your system is now operational and stable, commit your code with a commit message, "Q4 implemented". 
 >
 > a) Now, using the LM358 datasheet, and introducing a new specification that the signal level change time on the drive signals of the H-Bridge must be less than 1% of the period of the PWM signal, determine the maximum frequency of the PWM signal that can be used. Calculate a new PSC value to implement this. Ensure you state the signal level change time and the period and frequency of the PWM signal in your answer.
 >
 > b) Update your program to implement this new specification and commit your code with a commit message, "Q5 implemented" once complete. What do you observe about the system performance? Measure the signal level change time and the period and frequency of the PWM signal in your answer. Do they match the calculated values?
-
-> #### **Question 6 [14 marks]**
-> Plan and describe your code structure at the conclusion of Question 5 using a flowchart or pseudocode.
 
 
 ## Demonstration and Submission
