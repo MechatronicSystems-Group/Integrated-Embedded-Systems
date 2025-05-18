@@ -129,7 +129,7 @@ Using this [template file](https://github.com/MechatronicSystems-Group/Integrate
 > - You have not used an AI language model to generate the code submitted.
 
 {:.important}
-> Before your demonstration, upload your code and answers to Gradescope. Your answers to the **six** questions above should be contained within a single PDF file added to the route directory of your GitHub repository. 
+> Before your demonstration, upload your code and answers to Gradescope. Your answers to the **six** questions above should be contained within a single PDF file added to the root directory of your GitHub repository. 
 
 ### Submitting to Gradescope
 
