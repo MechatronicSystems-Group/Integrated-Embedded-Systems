@@ -129,7 +129,7 @@ Using this [template file](https://github.com/MechatronicSystems-Group/Integrate
 > - You have not used an AI language model to generate the code submitted.
 
 {:.important}
-> Before your demonstration, upload your code and answers to Gradescope. Your answers to the **six** questions above should be contained within a single PDF file added to the root directory of your GitHub repository. 
+> Before your demonstration, upload your code and answers to Gradescope. Your answers to the **six** questions above should be contained within a single PDF file added to the root directory of your GitHub repository. This file should be named `peoplesoft_number_Prac7.pdf`, where `peoplesoft_number` is your unique student number. Ensure that you use the template provided [here](./Resources/MEC4126F_Prac_7_template.pdf).
 
 ### Submitting to Gradescope
 
