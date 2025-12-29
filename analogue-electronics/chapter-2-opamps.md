@@ -5,7 +5,7 @@ parent: Analogue Electronics
 nav_order: 2
 ---
 
-# Chapter 2: Operational Amplifiers 
+# Chapter 2: Operational Amplifiers
 
 Operational amplifiers (op-amps for short) are essential building blocks
 of modern electronic circuitry. They have a few simple properties. These
@@ -18,7 +18,7 @@ _Figure 2.1: Op-amp schematic_
 
 '+' input: non-inverting input
 
-$V_{out}=A_v(V_+-V_-)$ -- the op-amp equation
+**$V_{out}=A_v(V_+-V_-)$** — *the fundamental op-amp equation*
 
 The other pins are connected to the supply rails.
 
@@ -33,12 +33,13 @@ is not exactly the case and will be discussed later.
 From the above equation:
 
 {: .note }
-- If $V_+ > V_-$ : $V_{out}$ goes as high as it can (limited by the positive supply voltage), unless $V_+-V_-$ is very, very small
--  If $V_- > V_+$ : $V_{out}$ goes as low as it can (limited by the negative supply voltage), unless $V_--V_+$ is very, very small
+
+- If $V_+ > V_-$: $V_{out}$ goes as high as it can (limited by the positive supply voltage), unless $(V_+ - V_-)$ is on the order of microvolts due to the very high gain.
+- If $V_- > V_+$: $V_{out}$ goes as low as it can (limited by the negative supply voltage), unless $(V_- - V_+)$ is on the order of microvolts due to the very high gain.
 
 ## Negative feedback
 
-A buffer is an example of _negative feedback_:
+A buffer is an example of *negative feedback*:
 
 <img src="./images/2.2.png" width="50%" alt="Buffer circuit"/>
 _Figure 2.2: Buffer circuit_
@@ -64,22 +65,22 @@ about equal to $V_-$ .
 For example, if $V_{in}=10.0$ V, and $A_v=100000$ then the following
 will be the outcome:
 
-1.  $V_{out}=10.0\times {100000}/{(1+100000)}=9.9999$ V
+1. $V_{out}=10.0\times {100000}/{(1+100000)}=9.9999$ V
 
 (This follows from the equation
 $V_{out}=(V_{in}-V_{out})\times A_v  => V_{out}=V_{in}\frac{A_v}{1+A_v}$)
 
-1.  $V_+-V_-=V_{in}-V_{out}=0.0001$ V
+1. $V_+-V_-=V_{in}-V_{out}=0.0001$ V
 
 (If it bothers you that 10.0 -- 9.9999 = 0.0001, and 0.0001 x 100 000 =
 10.0 which is not equal to 9.9999; this inconsistency is simply because
 the calculations above are not done to infinite accuracy. The precise
 answers would have been:
 
-1.  $V_{out}=10.0\times {100\ 000}/{(1+100\ 000)}=9.99990000099999000009999900000999990\dots \ V$
-    
+1. $V_{out}=10.0\times {100\ 000}/{(1+100\ 000)}=9.99990000099999000009999900000999990\dots \ V$
 
-2.  $V_+-V_-=V_{in}-V_{out}=0.00009999900000999990000099999000009\dots \ V$
+2. $V_+-V_-=V_{in}-V_{out}=0.00009999900000999990000099999000009\dots \ V$
+
 </div>
 
 In most cases, it will be good enough to simply work with $V_-=V_+$ in the case of negative feedback, therefore $V_{out}=V_{in}=$ 10.0 V in this example.
@@ -90,10 +91,10 @@ The ideal op-amp has zero output impedance, implying a very low output impedance
 
 These rules allow us to analyse just about any op-amp circuit.
 
-The last circuit above is called a _buffer_ or a _voltage follower_.
+The last circuit above is called a *buffer* or a *voltage follower*.
 
 It is used to change a high impedance point to a low impedance output,
-for example when a _regulated voltage_ is required. Anyone of the following circuits will do this:
+for example when a *regulated voltage* is required. Anyone of the following circuits will do this:
 
 <img src="./images/2.3.png" width="100%" alt="Buffer or voltage follower circuit"/>
 _Figure 2.3: Buffer or voltage follower circuit_
@@ -101,7 +102,7 @@ _Figure 2.3: Buffer or voltage follower circuit_
 In the first example the ratio of the resistors will determine the
 regulated voltage.
 
-In the $2^{nd}$ example the voltage of the Zener diode will determine
+In the second example the voltage of the Zener diode will determine
 the regulated voltage provided that $V_{s+}$ (the positive supply
 voltage to the op-amp) is higher than the Zener voltage. The resistor
 must be chosen that the current through the Zener is adequate --
@@ -129,7 +130,8 @@ is possible to find better comparators (e.g. faster switching).
 <img src="./images/2.4.png" width="50%" alt="Powered op-amp comparator circuit"/>
 _Figure 2.4: Powered op-amp comparator circuit_
 
-If $V_+ > V_-:   V_{out}$ is high If $V_- > V_+:  V_{out}$ is low
+- If $V_+ > V_-$: $V_{out}$ is high
+- If $V_- > V_+$: $V_{out}$ is low
 
 'High' means "a voltage close to $V_{s+}$" and 'low' means "a voltage
 close to $V_{s-}$".
@@ -149,9 +151,10 @@ The function of the Window Comparator is to indicate when a signal
 ($V_{in}$ in this circuit) is between two limits.
 
 <img src="./images/2.6.png" width="50%" alt="Window comparator circuit"/>
-_Figure 2.6: Window comparator circuit_   
+_Figure 2.6: Window comparator circuit_
 
-If $V_{in}>V_1: V_{out1}$ is high If $V_{in}<V_2 : V_{out2}$ is high
+- If $V_{in} > V_1$: $V_{out1}$ is high
+- If $V_{in} < V_2$: $V_{out2}$ is high
 
 Thus if $V_{in}$ is within the limits of $V_1$ and $V_2$, the output of
 the OR gate is low.
@@ -160,6 +163,7 @@ It can be used to drive a light (like a red LED) indicating when a
 signal is out of limits.
 
 > #### **Question 2.1**
+>
 > Design an equivalent Window Comparator, by swopping the inputs to the op-amps and by using a NAND gate.
 
 ### The Inverting Amplifier
@@ -184,7 +188,7 @@ negative potential: $$\therefore V_{out}=0-\frac{V_{in}R_2}{R_1}$$ Gain
 is the ratio of the output voltage to the input voltage:
 
 {: .note }
-$$Gain=\frac{V_{out}}{V_{in}}=-\frac{R_2}{R_1}$$ 
+$$Gain=\frac{V_{out}}{V_{in}}=-\frac{R_2}{R_1}$$
 
 We can set the gain of the circuit independently of *$A_{v}$* simply with the ratio of resistors (because $A_{v}$ is very large and the current flowing into $V_-$ is very small).
 
@@ -206,7 +210,7 @@ $$V_{out}=V_{acrossR1}+V_{acrossR2}$$ $$=V_{in}+\frac{V_{in}R_2}{R_1}$$
 $$=V_{in}(1+\frac{R_2}{R_1})$$
 
 {: .note }
-$$Gain=\frac{V_{out}}{V_{in}}=1+\frac{R_2}{R_1}$$ 
+$$Gain=\frac{V_{out}}{V_{in}}=1+\frac{R_2}{R_1}$$
 
 No inversion occurs and the minimum gain is 1.
 
@@ -218,11 +222,12 @@ Once again you should note that the op-amp parameters have no effect on the circ
 _Figure 2.9: Differential amplifier circuit_
 
 {: .note }
-$$V_{out}=\frac{R_2}{R_1}(V_2-V_1)$$ 
+$$V_{out}=\frac{R_2}{R_1}(V_2-V_1)$$
 
 This circuit is useful for signal conditioning (for example with common noise present on $V_{1}$ and $V_{2}$) as well as for subtracting offsets from signals.
 
 > #### **Question 2.2**
+>
 > Derive the equation given above.
 
 A general differential amplifier is discussed in the next sub-section "A short-cut method".
@@ -243,7 +248,8 @@ You don't have to memorize this equation, but here it is:
 $$\frac{V_{out}}{V_2-V_1}=(1+\frac{2R_1}{R_{gain}})\frac{R_3}{R_2}$$
 Check that if $R_{gain}$ is left out, the gain is $\frac{R_3}{R_2}$ .
 
-> #### **Question**
+> #### **Question 2.2b**
+>
 > Why can the last statement be made, from the equation and from the circuit?
 
 ### A short-cut method
@@ -251,7 +257,7 @@ Check that if $R_{gain}$ is left out, the gain is $\frac{R_3}{R_2}$ .
 Consider the following network:
 
 <img src="./images/2.11.png" width="50%" alt="Example network for short-cut method"/>
-_Figure 2.11: Example network for short-cut method_   
+_Figure 2.11: Example network for short-cut method_
 
 The sum of all the currents flowing into any one point should be zero
 (KCL).
@@ -277,32 +283,33 @@ leaving the expansion possibility for more connections.
 The left-hand side of the equation can be applied to any high impedance
 point in a circuit.
 
-Note that *Z* can be equal to $R, sL, 1/(sC), R+sL, R+1/(sC)$ -- in fact
-any impedance.
+Note that *Z* represents a complex impedance used in frequency domain (phasor) analysis. It can be equal to $R, sL, 1/(sC), R+sL, R+1/(sC)$ — in fact, any impedance.
 
 {: .note }
-"s" in these terms is the Laplace operator. It is connected to frequency by the equation $s=i\omega$, with "*i*" the imaginary number $\sqrt{-1}$ and $\omega =2\pi f$, with $\omega$ in rad/s and *f* in Hz.
+"s" in these terms is the Laplace operator. It is connected to frequency by the equation $s=j\omega$, with $j$ the imaginary number $\sqrt{-1}$ and $\omega = 2\pi f$, with $\omega$ in rad/s and *f* in Hz.
+
+*Note: In electrical engineering, $j$ is used instead of $i$ for the imaginary unit to avoid confusion with current.*
 
 If you have a gain or a transfer as a function of Laplace s:
 
 {: .note }
-1.  Replacing s = 0 will give you the gain at DC or very low
-    frequencies.
-2.  Replacing s $\infty$ will give you the gain at very high
-    frequencies.
+
+1. Replacing $s = 0$ will give you the gain at DC or very low frequencies.
+2. Replacing $s \to \infty$ will give you the gain at very high frequencies.
 
 For this course you must memorize that:
 
 {: .note }
-1.  The impedance of an inductor $=sL$, with $L$ the inductance in H
+
+1. The impedance of an inductor $=sL$, with $L$ the inductance in H
     (henry) \[you should be familiar with $i\omega$L as the
     impedance\]
-2.  The impedance of a capacitor $={1}/{(sC)}$ , with $C$ the
+2. The impedance of a capacitor $={1}/{(sC)}$ , with $C$ the
     capacitance in F (farad) \[you should be familiar with
     1/(i$\omega$C) as the impedance\]
-3.  The impedance of two components connected in series is the sum of
+3. The impedance of two components connected in series is the sum of
     the two impedances
-4.  $1/s$ is representing an integral
+4. $1/s$ is representing an integral
 
 As a first example, apply the short-cut method to an **inverting gain** op-amp network:
 
@@ -322,15 +329,13 @@ $$\text{Therefore } 0 = \frac{V_1}{R_1} + \frac{V_2}{R_2}$$
 
 $$\therefore V_2 = V_1\left(-\frac{R_2}{R_1}\right) \quad \therefore \frac{V_2}{V_1} = -\frac{R_2}{R_1}$$
 
-
-
 {: .note }
 When there is only one feedback from the output to the op-amp inputs, it must be to the --input. If there are feedbacks to both the --input and the +input, the feedback to the --input must be "dominant". If not, it will be positive feedback and the circuitry will simply drive the op-amp signals to the supply rails.
 
 For example, this is wrong:
 
 <img src="./images/2.13.png" width="50%" alt="Incorrect op-amp network"/>
-_Figure 2.13: Incorrect op-amp network_
+_Figure 2.13: Incorrect op-amp network — the feedback to the non-inverting input dominates, causing positive feedback which drives the output to saturation at the supply rails._
 
 Checking:
 
@@ -338,9 +343,9 @@ It is always good to check your calculations afterwards.
 
 Quick checks are to determine the transfer function
 
-1.  at zero frequency (Laplace *s* = 0) and/or
+1. at zero frequency (Laplace *s* = 0) and/or
 
-2.  at very high frequency (*s* -\>$\infty$).
+2. at very high frequency ($s \to \infty$).
 
 It can often be seen from op-amp networks what the low and/or high
 frequency responses should be (capacitor impedance either infinite or
@@ -389,7 +394,7 @@ required with the short-cut method.
 **Integrator:**
 
 <img src="./images/2.17.png" width="50%" alt="Integrator circuit"/>
-_Figure 2.17: Integrator circuit_ 
+_Figure 2.17: Integrator circuit_
 
 $$0 = V_1\left(\frac{1}{R}\right) + V_2(sC)$$
 
@@ -400,7 +405,7 @@ This is an integrator with a gain of $-\frac{1}{RC}$.
 Check:
 $$\left.\frac{V_2}{V_1}\right|_{s=0} \to -\infty \quad \checkmark$$
 
-$$\left.\frac{V_2}{V_1}\right\|_{s\to \infty} \to 0 \quad \checkmark$$
+$$\left.\frac{V_2}{V_1}\right|_{s \to \infty} \to 0 \quad \checkmark$$
 
 **1st order low-pass filter:**
 
@@ -428,7 +433,7 @@ with a DC gain of K.
 Check:
 $$\left.\frac{V_2}{V_1}\right|_{s=0} = 1+\frac{R_2}{R_1} \quad \checkmark$$
 
-$$\left.\frac{V_2}{V_1}\right\|_{s \to \infty} \to 0 \quad \checkmark$$
+$$\left.\frac{V_2}{V_1}\right|_{s \to \infty} \to 0 \quad \checkmark$$
 
 Therefore, at low frequency there will be a gain greater than 1.0, but
 at higher frequency, the gain will become smaller and smaller. So it is
@@ -445,6 +450,7 @@ following circuits may work, but the second one will be more accurate.
 _Figure 2.19: Inverting amplifier circuit with transistor_
 
 > #### **Question 2.3**
+>
 > Do you agree with the equation:
 > $$V_{out} = -\frac{R_2}{R_1}V_{in} - 0.7$$
 
@@ -452,17 +458,19 @@ _Figure 2.19: Inverting amplifier circuit with transistor_
 _Figure 2.20: More accurate inverting amplifier circuit with transistor_
 
 > #### **Question 2.4**
+>
 > Do you agree with the equation: $$V_{out} = -\frac{R_2}{R_1}V_{in}$$
 > What happened to the 0.7 V in the last case?
 
 > #### **Question 2.5**
+>
 > How would you combine NPN and PNP transistors with an Op-amp to allow positive and negative current through the load?
 
 ## Designing and selecting components
 
 Resistors, capacitors, inductors and zener diodes come only in certain
 values, also depending on the accuracy of the components. These are
-given in the Appendix \"Number series\...\"
+given in the Appendix "Number series..."
 
 It is obvious from the transfer functions derived above, that different
 orders of for example resistors can give the same transfer function on
@@ -471,10 +479,10 @@ $\frac{33\,\Omega}{10\,\Omega} = \frac{33\,k\Omega}{10\,k\Omega}$. But
 there are obvious reasons why the $k\Omega$ resistors is a far better
 choice when working with op-amps than the $\Omega$ only resistors:
 
-1.  For given voltages, larger resistors dissipate less power than
+1. For given voltages, larger resistors dissipate less power than
     smaller resistors -- wasting energy is not sensible.
 
-2.  Op-amps can only supply or sink current in the order of 10 mA, so
+2. Op-amps can only supply or sink current in the order of 10 mA, so
     with resistors in the $\Omega$ only range only very small signals
     can be handled.
 
@@ -506,7 +514,7 @@ Why are single supply op-amps useful?
 
 Simply because dual supplies are more expensive and require more space.
 
-Can you use dual supplies on a single supply op-amp? Yes, provided you don't exceed the maximum _total_ supply voltage ($V_{s+} - V_{s-}$) allowed for the op-amp.
+Can you use dual supplies on a single supply op-amp? Yes, provided you don't exceed the maximum *total* supply voltage ($V_{s+} - V_{s-}$) allowed for the op-amp.
 
 Single supply op-amps, such as the LM358, will give some distortions
 when crossing over from positive to negative or negative to positive
@@ -519,16 +527,16 @@ specification: $0.5\,\text{V} \leq V_{out} \leq 9.5\,\text{V}$:
 <img src="./images/2.23.png" width="50%" alt="Dual supply op-amp example circuit"/>
 _Figure 2.23: Dual supply op-amp example circuit_
 
-1.  The allowable range for $V_{in}$ is from 0.05 V to 0.95 V
+1. The allowable range for $V_{in}$ is from 0.05 V to 0.95 V
     (restricted by the limited range of $V_{out}$).
 
-But the input to an op-amp [circuit]{.underline} usually has different
+But the input to an op-amp **circuit** usually has different
 restrictions than the inputs to the op-amp themselves.
 
 Consider this circuit with a single supply op-amp:
 
 <img src="./images/2.24.png" width="50%" alt="Single supply op-amp example circuit"/>
-_Figure 2.24: Single supply op-amp example circuit_   
+_Figure 2.24: Single supply op-amp example circuit_
 
 $V_{in}$ can be negative because that will cause $V_{out}$ to be
 positive. $V_{-}$ will be forced to ground and thus, from the op-amp's
@@ -601,14 +609,14 @@ comparator applications.
 
 There are devices called comparators which are similar to op-amps but
 are used in applications where the output is only high or low. Examples
-include the LM311 and LM393. They often have \"open collector\" and
-\"open emitter\" outputs.
+include the LM311 and LM393. They often have "open collector" and
+"open emitter" outputs.
 
 To use them you have to connect the collector to the supply and a
-pull-down resistor from the emitter to ground (the $2^\text{nd}$ diagram
+pull-down resistor from the emitter to ground (the second diagram
 below). So this is a comparator followed by an emitter follower. It can
-also be connected as in the $1^\text{st}$ diagram, with then the output
-the inverse of the circuit of the $2^\text{nd}$ diagram.
+also be connected as in the first diagram, with then the output
+the inverse of the circuit of the second diagram.
 
 Their slew rate can be as high as 30 V/µs.
 
@@ -621,7 +629,7 @@ rise time can be reduced by reducing $R_1$ at the cost of larger current
 wastage through the comparator's output. Typically $R_1$ will be about
 1k.
 
-The $1^\text{st}$ diagram looks suspicious in terms of the comparator
+The first diagram looks suspicious in terms of the comparator
 component output driving the transistor without any resistor. Presumably
 the comparator output has sufficient internal resistance.
 
@@ -669,15 +677,18 @@ even handle the case where $R_1$ and $R_2$ are not given, but must be
 calculated -- see the tips below.
 
 > #### **Question 2.6**
+>
 > Suppose a temperature sensor of 0.1 V/$^\circ\text{C}$ with output 2.5 V at $50^\circ\text{C}$. Let $R_1=R_2=10\,\text{k}\Omega$. Design $R_f$ so that the thresholds for controlling the fan will be at $47^\circ\text{C}$ and $53^\circ\text{C}$. Do the design for two cases:
-> 1.  Output of comparator is either 0 V or 5 V
-> 2.  Output of comparator is either 0.2 V or 4.8 V
-> 
+>
+> 1. Output of comparator is either 0 V or 5 V
+> 2. Output of comparator is either 0.2 V or 4.8 V
+>
 > Tips:
 > $$V_{sensor}\left(\frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_f}\right)=5\left(\frac{1}{R_1}\right)+V_0\left(\frac{1}{R_f}\right)$$
 > and apply this at the two given conditions:
-> 1.  $V_{sensor}$ corresponding with the low temperature, while $V_0$ the low voltage
-> 2.  $V_{sensor}$ corresponding with the high temperature, while $V_0$ the high voltage
+>
+> 1. $V_{sensor}$ corresponding with the low temperature, while $V_0$ the low voltage
+> 2. $V_{sensor}$ corresponding with the high temperature, while $V_0$ the high voltage
 >
 > In the most general case, this will give you 2 equations and 3 unknowns:
 > $R_1$, $R_2$ and $R_f$.
