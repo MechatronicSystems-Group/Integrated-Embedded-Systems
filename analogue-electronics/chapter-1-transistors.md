@@ -11,10 +11,10 @@ Transistors are used as basic building blocks in amplifiers. They can also be us
 
 ## Bipolar Junction Transistors
 
-The BJT (Bipolar Junction Transistor) is a very common current controlled transistor. A small current flowing through the base ($I_{b}$) allows a much larger current to flow between the collector and the emitter. The amount of current allowed to flow is related to the gain, often shown as $\beta$ or $H_{fe}$, of the transistor. The important formula to remember, with $I_{c}$ the collector current, is:
+The BJT (Bipolar Junction Transistor) is a very common current controlled transistor. A small current flowing into the base ($I_{b}$) controls a much larger current flowing from the collector to the emitter. The amount of current allowed to flow is related to the gain, often shown as $\beta$ or $H_{fe}$, of the transistor. The important formula to remember, with $I_{c}$ the collector current, is:
 
 {: .note }
-$I_{c} = \beta\times I_{b}$ , valid when the transistor is operated in its linear mode.
+$I_{c} = \beta\times I_{b}$ , valid when the transistor is operated in its linear (active) mode.
 
 When the transistor is used in its saturated mode (in other words not in
 linear mode), the collector current will be restricted by the supply
@@ -30,7 +30,7 @@ _Figure 1.1: Different types of BJT packages showing various sizes and mounting 
 
 The SOT-23 is a very small surface mount package, as can be seen looking
 at its legs, which are to be soldered on a flat surface. The two types
-of BJT transistors are NPN and PNP. We will begin discussing the NPN
+of BJT transistors are NPN and PNP. We will begin by discussing the NPN
 transistor. The emitter is indicated by the arrow in the transistor
 symbol (see the picture top right above) and shows the direction of
 current flow, with current direction defined as the flow of positive
@@ -42,15 +42,14 @@ will point from the emitter to the base.
 ## NPN transistor: The Saturated Switch Circuit
 
 In the saturated switch application, the transistor is operated like a
-switch -- it is supposed to be either on (when in the figure below
-$V_{in}$ = HIGH) or off (when $V_{in}$ = LOW). The resistors will have
+switch -- it is supposed to be either on (when $V_{in}$ = HIGH, as shown in Figure 1.2) or off (when $V_{in}$ = LOW). The resistors will have
 to be designed to ensure saturation. When in saturation mode, it means
 that the transistor is not operating in its linear mode. The emitter
 follower, discussed in the next section (4 pages on), is an example of
 the transistor operating in linear mode.
 
 Current flows through the transistor from collector to emitter in the
-direction of the arrows. $V_e$ is the lowest voltage in the circuit. 
+direction of the arrows. $V_e$ is the lowest voltage in this circuit configuration. 
 
 <img src="./images/1.2.png" width="50%" alt="Saturated switch circuit with an NPN transistor"/>
 _Figure 1.2: Saturated switch circuit with an NPN transistor_
@@ -65,12 +64,12 @@ This 0.7 V depends on the transistor, a bit on the value of $I_b$, the
 temperature of the transistor and is an approximate value, but can for
 most applications be regarded as a constant. The formula also assumes
 that $V_{in} > V_e + 0.7\ V$ otherwise $V_{be}$ won't be
-roundabout 0.7 V.
+approximately 0.7 V.
 
 {: .note }
 $i_e=i_c+i_b$ , since it is obeying Kirchoff's Current Law (KCL).
 
-The transistor has i.e. for small $i_b$ a much bigger $i_c$ will flow.
+The transistor amplifies current: for a small $i_b$, a much larger $i_c$ will flow.
 The ratio of $\frac{i_c}{i_b}$ is $\beta$ which is the current gain. A
 typical specified value of $\beta$ for a 2N3904 transistor is about 100.
 You are not going to necessarily get this value of $\beta$ in a circuit,
@@ -116,9 +115,8 @@ $$\beta=\frac{0.8 A}{I_{b}}.$$
 </div>
 
 {: .note }
-Depending on the transistor specifications, 0.2 V to 0.5 V is the
-smallest $V_{ce}$ can be. If the transistor is not saturated, $V_{ce}$
-will be bigger because then it will be in the linear mode.
+Depending on the transistor specifications, the smallest $V_{ce}$ can be is typically 0.2 V to 0.5 V (this is called the saturation voltage, $V_{CE(sat)}$). If the transistor is not saturated, $V_{ce}$
+will be larger because it will then be in the linear mode.
 
 So, with the transistor in saturated mode:
 
@@ -160,10 +158,10 @@ $\therefore$ the effective gain is,
 $$\ \beta =\frac{i_c}{i_b}=\frac{(12-0.2)/12.0}{(2.4-0.7)/39}=22.6$$
 </div>
 
-Note that the effective value of $\beta$ may be smaller than the given minimum value of $\beta$: it is possible because the design is for the saturation mode. What will happen if we replace the 12 $\Omega$ load with a higher resistance load, like 22 $\Omega$ for example, withoutchanging $R_b$?
+Note that the effective value of $\beta$ may be smaller than the given minimum value of $\beta$: it is possible because the design is for the saturation mode. What will happen if we replace the 12 $\Omega$ load with a higher resistance load, like 22 $\Omega$ for example, without changing $R_b$?
 
 The $\beta$ of the transistor will effectively decrease because $V_{ce}$
-can't go smaller than a certain value (like 0.2 V typically). So if the transistor is saturated (very much switched on), thus $V_{ce}$ is the minimum it can be, $\beta$ can effectively be even smaller than theminimum given in the spec sheet of the transistor.
+can't go smaller than a certain value (like 0.2 V typically). So if the transistor is saturated (very much switched on), thus $V_{ce}$ is the minimum it can be, $\beta$ can effectively be even smaller than the minimum given in the spec sheet of the transistor.
 
 This is possible because the minimum given for $\beta$ in the spec sheet
 is for the condition of _non-saturation_ or _linear mode_.
@@ -175,12 +173,12 @@ One may even use the effective value of $\beta$ to determine whether the transis
 > Assuming that $V_{ce}$ can't be smaller than 0.2 V, calculate the effective $\beta$ in this case (specified $\beta = 25$) if $R_{load} = 22\ \Omega$ and $R_{b} = 33\ \Omega$. A 12 V supply is at the top of the load.
 
 > #### **Question 1.2:**
-> Assuming that $V_{ce}$ can't be smaller than 0.2 V, calculate theeffective $\beta$ in this case (specified $\beta = 25$) if $R_{load} = 5\ \Omega$ and $R_{b} = 33\ \Omega$. A 12 V supply is at the top of the load. Also calculate *$V_{ce}$ .*
+> Assuming that $V_{ce}$ can't be smaller than 0.2 V, calculate the effective $\beta$ in this case (specified $\beta = 25$) if $R_{load} = 5\ \Omega$ and $R_{b} = 33\ \Omega$. A 12 V supply is at the top of the load. Also calculate *$V_{ce}$ .*
 
 These two questions are significant because they represent working in
 the two modes of saturation and linear operation respectively.
 
-A standard microcontroller can't supply 50 mA (0.05 A) from its portpins, so the example circuit above wouldn't work in practice when trying to drive it directly from a microcontroller. What would be useful is a transistor circuit which gives much higher current gain. The Darlington transistor can help in achieving this.
+A standard microcontroller can't supply 50 mA (0.05 A) from its port pins, so the example circuit above wouldn't work in practice when trying to drive it directly from a microcontroller. What would be useful is a transistor circuit which gives much higher current gain. The Darlington transistor can help in achieving this.
 
 The Darlington transistor consists of two transistors connected as follows:
 
@@ -194,7 +192,7 @@ a much bigger current to flow in the collector of T2.
 The current gain of this circuit will then approximately be the product
 of the current gains of T1 and T2. T1 can be a low power transistor and
 T2 a power transistor. T1 only carries T2's base current. The Darlington
-transistor has two base-emitter drops in series -- thus 1.4 V.
+transistor has two base-emitter drops in series — thus approximately 1.4 V (2 × 0.7 V).
 
 {: .note }
 $\therefore V_b-V_e \approx 1.4\ V$, provided
@@ -209,7 +207,7 @@ Some Darlingtons incorporate extra base-emitter resistors in order to
 speed them up.
 
 > #### **Question 1.4:**
-> Redo the previous example with the 12 $\Omega$ load, but this time use a TIP122 Darlington with a $\beta> 1000.$ In other words, in the diagram below, the transistor must be replaced by a Darlington transistor. The supply is 12 V and $V_{in} = 2.4\ V$. Determine $R {b}$ (select from the E12 series) and the effective $\beta$.
+> Redo the previous example with the 12 $\Omega$ load, but this time use a TIP122 Darlington with a $\beta> 1000.$ In other words, in the diagram below, the transistor must be replaced by a Darlington transistor. The supply is 12 V and $V_{in} = 2.4\ V$. Determine $R_b$ (select from the E12 series) and the effective $\beta$.
 
 <img src="./images/1.5.png" width="50%" alt="BJT transistor replaced by a Darlington transistor"/>
 _Figure 1.5: BJT transistor replaced by a Darlington transistor_
@@ -328,12 +326,12 @@ circuit:
 <img src="./images/1.8.png" width="50%" alt="Saturated switch circuit with a PNP transistor"/>
 _Figure 1.8: Saturated switch circuit with a PNP transistor_
 
-In this case $V_b$ must be 0.7 V than $V_e$.
+In this case $V_b$ must be 0.7 V lower than $V_e$.
 
 Requirement: $V_{in}<V_e-0.7$ V for current to flow in the load.
 
 This can be used to turn a load on and off in response to a digital
-signal have the load and the control ($V_{in}$) sharing a ground.
+signal, with the load and the control ($V_{in}$) sharing a common ground.
 
 If needed a resistor can be connected across the emitter and base to
 alter the switch-on point for $V_{in}.$
@@ -451,7 +449,7 @@ $V^{+}$ and $V^{-}$.
 > If $V^{+} = 12.0\ V$ and $V^{-} = 0.0\ V$, assuming the levels of the
 > Drive Signals are also $V^{+}$ or $V^{-}$, and Darlingtons with
 > $\beta = 1000$ are used, show that the 8 resistors in the H-bridge can
-> be four 180 $\Omega$ ($R_{1}$) and four 1.0 k$\Omega$ ($R_{2}$ resistors. Also show that a load of 5 $\Omega$ can be driven by this amplifier.
+> be four 180 $\Omega$ ($R_{1}$) and four 1.0 k$\Omega$ ($R_{2}$) resistors. Also show that a load of 5 $\Omega$ can be driven by this amplifier.
 
 Be careful; if a different supply voltage is used, or if a smaller load
 resistance must be driven, the resistors must be redesigned. But the
@@ -531,7 +529,7 @@ _Figure 1.14: The first PWM scheme: DS1 and DS2 out of phase_
     will correspond with half the maximum negative voltage across the
     load if the sign is negative. \*The inverse will be necessary if the
     sign is changed, because 0% duty cycle with one sign will mean 100%
-    duty cycle with the other sign. To explain this: Say e.g. DS2 is low just before the sign change. DS1 is mostly low because the load voltage is close to zero. If the load voltage must now change to a small negative value, DS2 must go high. Then DS1 can't stay mostly low, because this will cause a large negative voltage across the load. Therefore the PWM signal to DS1 must be inversed.
+    duty cycle with the other sign. To explain this: Say e.g. DS2 is low just before the sign change. DS1 is mostly low because the load voltage is close to zero. If the load voltage must now change to a small negative value, DS2 must go high. Then DS1 can't stay mostly low, because this will cause a large negative voltage across the load. Therefore the PWM signal to DS1 must be inverted.
 
 <img src="./images/1.15.png" width="80%" alt="The second PWM scheme: DS1 (or DS2) driven by a PWM signal with the other acting as a direction signal"/>
 _Figure 1.15: The second PWM scheme: DS1 (or DS2) driven by a PWM signal with the other acting as a direction signal_
@@ -705,7 +703,7 @@ _Figure 1.19: N-channel and P-channel depletion mode MOSFETs_
 Again $I_{D}$ as shown here with the P-channel, will be negative.
 
 <div class="example" markdown="1">
-#### **Examples 1.4** 
+#### **Example 1.4** 
 \\
 If an N-channel, *enhancement mode*, MOSFET with threshold voltage of 2 to 4 V is to be used in saturated mode, with the load connected between a positive supply and the drain, and the source of the MOSFET connected to ground, $V_{GS} < 1.0\ V$ will have it switched off completely, and $V_{GS} = 10\ V$ will have it switched on completely.
 
