@@ -7,776 +7,506 @@ nav_order: 1
 
 # Chapter 1: Transistors
 
-Transistors are used as basic building blocks in amplifiers. They can also be used as switches.
+Transistors serve as the fundamental building blocks of modern analogue electronics. In mechatronic systems, they function primarily as amplifiers—boosting weak sensor signals to usable levels—or as electronic switches, controlling power to actuators, motors, and other loads. Understanding how to design with transistors is essential for any engineer working at the interface between electronics and mechanical systems.
 
 ## Bipolar Junction Transistors
 
-The BJT (Bipolar Junction Transistor) is a very common current controlled transistor. A small current flowing into the base ($I_{b}$) controls a much larger current flowing from the collector to the emitter. The amount of current allowed to flow is related to the gain, often shown as $\beta$ or $H_{fe}$, of the transistor. The important formula to remember, with $I_{c}$ the collector current, is:
+The Bipolar Junction Transistor (BJT) remains one of the most widely used transistor types in analogue applications. It operates as a current-controlled device: a small current flowing into the base terminal ($i_b$) regulates a much larger current flowing from the collector to the emitter ($i_c$). The relationship between these currents is governed by the transistor's current gain, denoted as $\beta$ or $H_{fe}$:
 
 {: .note }
-$I_{c} = \beta\times I_{b}$ , valid when the transistor is operated in its linear (active) mode.
+$i_c = \beta \times i_b$, valid when the transistor operates in its _linear (active) region_.
 
-When the transistor is used in its saturated mode (in other words not in
-linear mode), the collector current will be restricted by the supply
-voltage and the components (e.g. a resistor) that are connected to the
-transistor. More of this will follow shortly. Transistors come in all
-shapes and sizes. The bigger the physical package the larger the
-possible power dissipation without damaging the transistor. If mounted
-on a heatsink, even more power can be dissipated. The following picture
-shows some transistor packages taken from a variety of data sheets.
+When operated in _saturation mode_, effectively using the transistor as a switch rather than an amplifier, the collector current becomes limited by external circuit elements such as supply voltage and load resistance, rather than by the transistor's intrinsic gain. This mode of operation will be explored in detail throughout the following sections.
+
+BJTs are manufactured in an enormous variety of physical packages, each suited to different power dissipation requirements. As a general principle, larger packages can dissipate more heat without damage. When additional heat sinking is provided, even higher power levels can be managed safely. Figure 1.1 illustrates several common package types found in engineering practice.
 
 <img src="./images/1.1.png" width="80%" alt="Different types of BJT packages showing various sizes and mounting styles"/>
 _Figure 1.1: Different types of BJT packages showing various sizes and mounting styles_
 
-The SOT-23 is a very small surface mount package, as can be seen looking
-at its legs, which are to be soldered on a flat surface. The two types
-of BJT transistors are NPN and PNP. We will begin by discussing the NPN
-transistor. The emitter is indicated by the arrow in the transistor
-symbol (see the picture top right above) and shows the direction of
-current flow, with current direction defined as the flow of positive
-charge. In the NPN the arrow will point from the base to the emitter. In
-the picture of the symbol above (top right picture), pin 3 is the
-collector, pin 2 the base and pin 1 the emitter. In the PNP the arrow
-will point from the emitter to the base.
+The SOT-23 package shown is typical of surface-mount devices, with its small footprint and flat-mounted leads suitable for automated assembly. The choice between through-hole packages (such as the TO-92) and surface-mount alternatives depends on manufacturing requirements, thermal considerations, and accessibility for prototyping.
 
-## NPN transistor: The Saturated Switch Circuit
+BJTs are categorised into two complementary types: NPN and PNP. In the NPN transistor, conventional current flows into the collector and base, and out through the emitter. The direction of current flow is indicated by the arrow on the emitter in circuit symbols, pointing from base to emitter for NPN devices. For PNP transistors, this arrow reverses, pointing from emitter to base, indicating that current flows out of the collector and base, and into the emitter. Throughout this chapter, we begin with NPN transistors before examining their PNP counterparts.
 
-In the saturated switch application, the transistor is operated like a
-switch — it is supposed to be either on (when $V_{in}$ = HIGH, as shown in Figure 1.2) or off (when $V_{in}$ = LOW). The resistors will have
-to be designed to ensure saturation. When in saturation mode, it means
-that the transistor is not operating in its linear mode. The emitter
-follower, discussed in the next section (4 pages on), is an example of
-the transistor operating in linear mode.
+## NPN Transistor: The Saturated Switch Circuit
 
-Current flows through the transistor from collector to emitter in the
-direction of the arrows. $V_e$ is the lowest voltage in this circuit configuration.
+In switching applications, the transistor operates in saturation mode—fully conducting when the input voltage $V_{in}$ is HIGH, and completely off when $V_{in}$ is LOW. The circuit design must ensure that sufficient base current is provided to drive the transistor into saturation, rather than leaving it in the linear region where it would dissipate excessive power.
+
+When saturated, the voltage across the transistor from collector to emitter drops to a small value, and the collector current is determined primarily by the supply voltage and load resistance, not by $\beta \times i_b$.
 
 <img src="./images/1.2.png" width="50%" alt="Saturated switch circuit with an NPN transistor"/>
 _Figure 1.2: Saturated switch circuit with an NPN transistor_
 
-The maximum voltage across the base-emitter junction is about 0.7 V.
+For silicon BJTs, the base-emitter junction exhibits a forward voltage drop of approximately:
 
 {: .note }
-$\therefore V_b-V_e\approx \ 0.7 \ V$ , provided
-$V_{in} >V_{e} + 0.7 \ V$.
+$V_b - V_e \approx 0.7\ \text{V}$, provided $V_{in} > V_e + 0.7\ \text{V}$.
 
-This 0.7 V depends on the transistor, a bit on the value of $I_b$, the
-temperature of the transistor and is an approximate value, but can for
-most applications be regarded as a constant. The formula also assumes
-that $V_{in} > V_e + 0.7\ V$ otherwise $V_{be}$ won't be
-approximately 0.7 V.
+This 0.7 V value is characteristic of silicon PN junctions, though it varies slightly with temperature, base current, and the specific transistor type. For most engineering calculations, treating it as a constant introduces negligible error. Applying Kirchhoff's Current Law at the emitter node gives:
 
 {: .note }
-$i_e=i_c+i_b$ , since it is obeying Kirchoff's Current Law (KCL).
+$i_e = i_c + i_b$, since it obeys Kirchhoff's Current Law.
 
-The transistor amplifies current: for a small $i_b$, a much larger $i_c$ will flow.
-The ratio of $\frac{i_c}{i_b}$ is $\beta$ which is the current gain. A
-typical specified value of $\beta$ for a 2N3904 transistor is about 100.
-You are not going to necessarily get this value of $\beta$ in a circuit,
-as you will see in the next example. Therefore we talk of a specified
-$\beta$ and an effective $\beta$. We normally run this circuit in
-"saturated mode". In this mode the supply voltage can provide enough
-current $i_c$ so that $i_c$ is limited by the resistance or impedance of
-the load, not by the transistor. In other words the voltage across the
-transistor, from the collector to the emitter, will be small.
+The fundamental amplification property of the BJT is evident here: a small base current controls a much larger collector current. The ratio $i_c / i_b$ defines the current gain $\beta$. For a common general-purpose transistor such as the 2N3904, the datasheet typically specifies $\beta \approx 100$ for linear operation. However, in saturation mode, the effective gain is always lower than the specified value because the transistor is deliberately driven beyond the conditions where the simple $i_c = \beta i_b$ relationship holds.
 
-To illustrate this:
+To understand why saturation mode is desirable for switching, consider the following illustration:
 
 <div class="example" markdown="1">
 #### **Example 1.1**
 
-Suppose we have a 12 $\Omega$ load and a 12 V supply:
+Suppose we have a $12\ \Omega$ load connected to a 12 V supply:
 
 <img src="./images/1.3a.png" width="30%" alt="Current flowing through a resistor"/>
 _Figure 1.3a: Current flowing through a resistor_
 
 By Ohm's Law:
 
-$$i={V}/{R}=\frac{12\ \mathrm{V}}{12\ \mathrm{\Omega }}=1\ A$$
-Take the same load and put it into a transistor switch circuit, with
-still 12 V at the top:
+$$i = \frac{V}{R} = \frac{12\ \text{V}}{12\ \Omega} = 1\ \text{A}$$
+
+Now consider the same load placed in a transistor switch circuit, with the supply voltage remaining at 12 V:
 
 <img src="./images/1.3b.png" width="50%" alt="Current flowing through a transistor switch circuit"/>
 _Figure 1.3b: Current flowing through a transistor switch circuit_
 
-We want to specify the base current so that we allow at least almost 1 A
-to flow through the load. If we give the base even more current, almost
-1 A will still flow through the transistor. It can't be more because the
-voltage from collector to emitter can't be negative in this case (NPN
-transistor). If we make $R_{b}$ too big, it will cause $I_{b}$ to be too
-small to ensure almost 1 A in the collector. Then,
-
-$$\beta \times I_b< 1\ A,$$
-for example 0.8 A. This means $V_{ce}$ will be,
-
-$$12.0 - 0.8\times 12 = 2.4\ V.$$
-The effective $\beta$ will be,
-$$\beta=\frac{0.8 A}{I_{b}}.$$
+The base resistor must be chosen to supply enough base current to allow at least 1 A through the collector. If the base current is insufficient—specifically, if $\beta \times i_b < 1\ \text{A}$—the transistor remains in the linear region. For instance, if the effective collector current is limited to 0.8 A, then by Ohm's Law, the voltage across the load is $0.8 \times 12 = 9.6\ \text{V}$, leaving $V_{ce} = 12 - 9.6 = 2.4\ \text{V}$ across the transistor. The effective gain in this case would be $\beta_{\text{eff}} = 0.8 / i_b$.
 </div>
 
 {: .note }
-Depending on the transistor specifications, the smallest $V_{ce}$ can be is typically 0.2 V to 0.5 V (this is called the saturation voltage, $V_{CE(sat)}$). If the transistor is not saturated, $V_{ce}$
-will be larger because it will then be in the linear mode.
+Depending on transistor specifications, the minimum achievable collector-emitter voltage in saturation ($V_{CE(\text{sat})}$) typically ranges from 0.2 V to 0.5 V. If the transistor is not saturated, $V_{ce}$ will be significantly higher, indicating linear-mode operation with consequent power dissipation.
 
-So, with the transistor in saturated mode:
+When a transistor operates in saturation:
 
-1. $V_{ce}$ will be roundabout 0.2 V to 0.5 V; and
-
-2. the effective $\beta$ will be less than the $\beta$ as specified for
-    the transistor in linear mode.
+1. $V_{ce}$ settles between approximately 0.2 V and 0.5 V; and
+2. The effective $\beta$ falls below the manufacturer's specified value for linear operation.
 
 <div class="example" markdown="1">
 #### **Example 1.2**
 
-In the circuit above suppose that the transistor is a TIP31C
-power transistor. We need a power transistor to handle 1 A loads.
+Consider the circuit above using a TIP31C power transistor to handle the 1 A load current. The TIP31C datasheet specifies a minimum $\beta$ of 25 and a maximum $V_{CE(\text{sat})}$ of 0.2 V.
 
-The TIP31C has a minimum (specified) $\beta$ of 25, and a minimum
-$V_{ce}$ of 0.2 V.
-
-Suppose that $V_{in}$ comes from a microcontroller which guarantees a
-minimum high level output of 2.4 V. If this output is high, we want
-maximum current to flow through the load. With low level maximum 0.5 V from the micro, the voltage across the load must be 0 V. What value of $R_b$ should we use?
-
-What is the effective $\beta$ of the transistor now?
+The input $V_{in}$ comes from a microcontroller guaranteed to provide at least 2.4 V when HIGH (and no more than 0.5 V when LOW). We wish to switch the load fully on when the microcontroller output is HIGH. Determine the required base resistor value and calculate the effective gain.
 
 **Solution:**
 
-We require that,
-$$i_b>\frac{i_c}{\beta} \therefore \ i_b>\frac{1.0}{25} \therefore i_b>0.04\ A$$
+To ensure saturation, the base current must satisfy:
 
-Using Ohm's Law and Kirchoff's Voltage Law (KVL):
+$$i_b > \frac{i_c}{\beta} \therefore i_b > \frac{1.0}{25} = 0.04\ \text{A}$$
 
-$$i_b={\left(V_{in}-0.7\right)}/{R_b} ={(2.4-0.7)}/{R_b}>0.04$$
-$${\therefore R}_b< 42.5\ \Omega$$
+Applying Kirchhoff's Voltage Law to the base circuit and Ohm's Law:
 
-In practice the closest standard resistor value $< 42.5\ \Omega$
-is 39 $\Omega$ (from the E12 series — see the Appendix), so choose
-$R_b = 39\ \Omega$. Still assume 12 V at the top.
+$$i_b = \frac{V_{in} - 0.7}{R_b} = \frac{2.4 - 0.7}{R_b} > 0.04$$
 
-$\therefore$ the effective gain is,
+$$\therefore R_b < \frac{1.7}{0.04} = 42.5\ \Omega$$
 
-$$\ \beta =\frac{i_c}{i_b}=\frac{(12-0.2)/12.0}{(2.4-0.7)/39}=22.6$$
+The closest standard E12 series resistor value below 42.5 $\Omega$ is 39 $\Omega$, so we select $R_b = 39\ \Omega$.
+
+With this resistor, the actual base current is:
+
+$$i_b = \frac{2.4 - 0.7}{39} = 0.0436\ \text{A}$$
+
+The collector current is limited by the load:
+
+$$i_c = \frac{12 - 0.2}{12} = 0.983\ \text{A}$$
+
+Therefore, the effective gain is:
+
+$$\beta_{\text{eff}} = \frac{i_c}{i_b} = \frac{0.983}{0.0436} \approx 22.6$$
 </div>
 
-Note that the effective value of $\beta$ may be smaller than the given minimum value of $\beta$: it is possible because the design is for the saturation mode. What will happen if we replace the 12 $\Omega$ load with a higher resistance load, like 22 $\Omega$ for example, without changing $R_b$?
+Note that the effective $\beta$ in saturation (22.6) is lower than even the minimum specified linear gain (25). This is expected and correct: saturation occurs precisely when the external circuit limits the collector current to less than $\beta \times i_b$.
 
-The $\beta$ of the transistor will effectively decrease because $V_{ce}$
-can't go smaller than a certain value (like 0.2 V typically). So if the transistor is saturated (very much switched on), thus $V_{ce}$ is the minimum it can be, $\beta$ can effectively be even smaller than the minimum given in the spec sheet of the transistor.
-
-This is possible because the minimum given for $\beta$ in the spec sheet
-is for the condition of _non-saturation_ or _linear mode_.
+What happens if we replace the $12\ \Omega$ load with a higher resistance, say $22\ \Omega$, without changing $R_b$? The collector current demand decreases, while the available base current remains fixed. The transistor remains saturated, but now with an even lower effective $\beta$ because $V_{ce}$ cannot drop below $V_{CE(\text{sat})}$. This demonstrates an important principle: the specified minimum $\beta$ applies to linear operation, whereas saturation mode can yield effective gains below this value.
 
 {: .note }
-One may even use the effective value of $\beta$ to determine whether the transistor is saturated or not: If the effective $\beta$ is smaller than the minimum of $\beta$ in the spec sheet, the transistor is saturated. Another condition for saturation is that $V_{ce}$ is the minimum it can be.
+A practical test for saturation: if the measured effective $\beta$ is less than the manufacturer's minimum specified $\beta$, the transistor is saturated. Alternatively, if $V_{ce}$ is at or near $V_{CE(\text{sat})}$, saturation is confirmed.
 
 > #### **Question 1.1:**
 >
-> Assuming that $V_{ce}$ can't be smaller than 0.2 V, calculate the effective $\beta$ in this case (specified $\beta = 25$) if $R_{load} = 22\ \Omega$ and $R_{b} = 33\ \Omega$. A 12 V supply is at the top of the load.
+> Assuming $V_{CE(\text{sat})} = 0.2\ \text{V}$ and specified $\beta = 25$, calculate the effective $\beta$ when $R_{\text{load}} = 22\ \Omega$ and $R_b = 33\ \Omega$, with a 12 V supply.
 
 > #### **Question 1.2:**
 >
-> Assuming that $V_{ce}$ can't be smaller than 0.2 V, calculate the effective $\beta$ in this case (specified $\beta = 25$) if $R_{load} = 5\ \Omega$ and $R_{b} = 33\ \Omega$. A 12 V supply is at the top of the load. Also calculate $V_{ce}$.
+> Assuming $V_{CE(\text{sat})} = 0.2\ \text{V}$ and specified $\beta = 25$, calculate the effective $\beta$ and $V_{ce}$ when $R_{\text{load}} = 5\ \Omega$ and $R_b = 33\ \Omega$, with a 12 V supply.
 
-These two questions are significant because they represent working in
-the two modes of saturation and linear operation respectively.
+These two questions address fundamentally different operating regimes: Question 1.1 explores deep saturation with a light load, while Question 1.2 examines the boundary where insufficient base current may leave the transistor in linear mode.
 
-A standard microcontroller can't supply 50 mA (0.05 A) from its port pins, so the example circuit above wouldn't work in practice when trying to drive it directly from a microcontroller. What would be useful is a transistor circuit which gives much higher current gain. The Darlington transistor can help in achieving this.
+A practical limitation emerges from the preceding example: the required base current of approximately 40 mA exceeds what most microcontroller GPIO pins can safely source. Standard microcontroller outputs typically provide only a few milliamperes. This constraint motivates the Darlington configuration, which offers dramatically increased current gain.
 
-The Darlington transistor consists of two transistors connected as follows:
+The Darlington transistor pairs two BJTs such that the emitter current of the first transistor feeds the base of the second:
 
 <img src="./images/1.4.png" width="50%" alt="Darlington transistor"/>
 _Figure 1.4: Darlington transistor_
 
-When we force a current into the base of T1 it causes a current to flow
-in the emitter of T1. This current goes into the base of T2 which allows
-a much bigger current to flow in the collector of T2.
-
-The current gain of this circuit will then approximately be the product
-of the current gains of T1 and T2. T1 can be a low power transistor and
-T2 a power transistor. T1 only carries T2's base current. The Darlington
-transistor has two base-emitter drops in series — thus approximately 1.4 V (2 × 0.7 V).
+When current enters the base of T1, it produces an amplified current at T1's emitter. This current becomes the base current for T2, which provides further amplification. The overall current gain approximates the product of the individual gains: $\beta_{\text{total}} \approx \beta_1 \times \beta_2$. T1 can be a small-signal transistor, while T2 handles the power requirements. The Darlington configuration exhibits one notable characteristic: two base-emitter junctions in series result in approximately 1.4 V drop (rather than 0.7 V) from base to emitter.
 
 {: .note }
-$\therefore V_b-V_e \approx 1.4\ V$, provided
-$V_{in}>V_{e} + 1.4\ V$, with $V_{in}$ connected to $V_{b}$
-through a resistor.
+$\therefore V_b - V_e \approx 1.4\ \text{V}$, provided $V_{in} > V_e + 1.4\ \text{V}$.
 
 > #### **Question 1.3:**
 >
-> Prove that $\beta =\beta_1\left(\beta_2+1\right)+\beta_2\cong \beta_1\beta_2$, for a Darlington in linear mode.
+> Prove that $\beta = \beta_1(\beta_2 + 1) + \beta_2 \cong \beta_1\beta_2$ for a Darlington pair operating in linear mode.
 
-Some Darlingtons incorporate extra base-emitter resistors in order to
-speed them up.
+Some integrated Darlington devices incorporate base-emitter resistors to improve switching speed by providing a discharge path for stored charge.
 
 > #### **Question 1.4:**
 >
-> Redo the previous example with the 12 $\Omega$ load, but this time use a TIP122 Darlington with a $\beta> 1000.$ In other words, in the diagram below, the transistor must be replaced by a Darlington transistor. The supply is 12 V and $V_{in} = 2.4\ V$. Determine $R_b$ (select from the E12 series) and the effective $\beta$.
+> Redesign the previous example with the $12\ \Omega$ load using a TIP122 Darlington transistor with $\beta > 1000$. The supply is 12 V and $V_{in} = 2.4\ \text{V}$. Determine $R_b$ (select from the E12 series) and calculate the effective $\beta$.
 
 <img src="./images/1.5.png" width="50%" alt="BJT transistor replaced by a Darlington transistor"/>
 _Figure 1.5: BJT transistor replaced by a Darlington transistor_
 
 {: .note }
-$\beta$ is a fairly unreliable figure. It will vary from
-transistor to transistor of the same type and it will vary with
-parameters such as temperature. For this reason, you always use the
-worst-case $\beta$ for your designs. For this same reason you generally
-only operate this circuit in "digital mode" — i.e. the load is either
-fully on (transistor saturated) or fully off.
+$\beta$ is inherently a variable parameter. It varies between devices of the same type, changes with temperature, and depends on operating conditions. Therefore, robust designs always employ the worst-case (minimum) $\beta$ value. This variability also explains why saturated switching is generally preferred over linear operation for digital control applications—the load is either fully on or fully off, minimizing sensitivity to gain variations.
 
-## NPN transistor: Linear Mode Current Amplification — the Emitter Follower
+## NPN Transistor: Linear Mode Current Amplification — The Emitter Follower
 
-Some applications require that the voltage across the load is linearly
-variable. It is useful to be able to control this voltage from a low
-power signal. In other words we want to control a high power (high
-current) signal from a low power signal.
+Many mechatronic applications require continuous, linear variation of voltage or current rather than simple on-off control. The emitter follower configuration (also called a common-collector amplifier) provides this capability. Unlike the saturated switch where the load connects to the collector, the emitter follower places the load between the emitter and ground.
 
-The emitter follower circuit (where the load is connected to the
-emitter, not to the collector as above) does this. The voltage supplied
-by the emitter to the load is almost the same as the voltage at the
-base, but much higher current is possible.
-
-In this case the transistor is not saturated, thus it operates in the
-linear mode.
+The key characteristic of the emitter follower is that the output voltage at the emitter tracks the input voltage at the base, minus the base-emitter drop, while providing substantial current gain. This makes it ideal for controlling high-power loads from low-power signals.
 
 <img src="./images/1.6.png" width="50%" alt="Emitter follower circuit"/>
 _Figure 1.6: Emitter follower circuit_
 
-As before: $V_e\approx V_b-0.7\ V$
+As before, the base-emitter relationship holds:
+
+$$V_e \approx V_b - 0.7\ \text{V}$$
+
+The emitter current relates to base and collector currents through:
 
 {: .note }
-As before: $i_e=i_c+i_b$ and $i_c=\beta i_b$
-$$\therefore \ i_e=\left(\beta +1\right)i_b=\frac{\beta +1}{\beta }i_c$$
+$i_e = i_c + i_b$ and $i_c = \beta i_b$
 
-The important thing to notice in this circuit is that the voltage across
-the load can be varied linearly by varying the base voltage. In addition
-we only need a low current into the base to control a much greater
-current through the load.
+$$\therefore i_e = (\beta + 1)i_b = \frac{\beta + 1}{\beta}i_c$$
 
-By KVL it can be shown that the voltage across the transistor ($V_{ce}$)
-must vary as the load voltage varies. The transistor takes up the
-"spare" voltage, such that $V_{supply}=V_{ce}+V_{load}$. $V_{supply}$ is
-of course fixed and constant.
+The emitter follower enables linear control of load voltage by varying the base voltage. Only a small base current is required to control a significantly larger emitter current. Applying Kirchhoff's Voltage Law reveals that $V_{ce}$ must vary as the load voltage changes, since $V_{\text{supply}} = V_{ce} + V_{\text{load}}$ remains constant.
 
-For electronic devices power P = VI. In this case the power dissipated
-(as heat) by the transistor is the product of the current through the
-transistor (which is the same as the current through the load) and the
-voltage across the transistor ($V_{ce}$), that is
+The power dissipated in the transistor is the product of the voltage across it and the current through it. Since the load current equals the emitter current:
 
-$$P_T=V_{ce}\times i_e.$$
+$$P_T = V_{ce} \times i_e$$
 
-A more accurate equation for the power dissipated in a transistor is:
+A more precise expression accounting for both junctions is:
 
 {: .note }
-$$P_T=(V_{be}\times i_b)+(V_{ce}\times i_c)$$
+$$P_T = (V_{be} \times i_b) + (V_{ce} \times i_c)$$
 
-Note that in this formula the collector current is used, not the emitter
-current. This latter formula can be proven by taking the power in the
-transistor to be the power provided by the sources to the circuit (the
-input and the supply) minus the power dissipated in the other components
-(e.g. the load):
+This can be derived by considering power conservation: the total power supplied to the transistor (from the base signal and the collector supply) minus the power delivered to the load:
 
-$$P_T=\left(V_b\times i_b\right)+\left(V_c\times i_c\right)-\left(i_b+i_c\right)\times V_e=\left(V_b-V_e\right)\times i_b+\left(V_c-V_e\right)\times i_c$$
-$$\ \ \ \ \ \ =(V_{be}\times i_b)+(V_{ce}\times i_c)$$
+$$P_T = (V_b \times i_b) + (V_c \times i_c) - (i_b + i_c) \times V_e$$
+
+$$= (V_b - V_e) \times i_b + (V_c - V_e) \times i_c$$
+
+$$= (V_{be} \times i_b) + (V_{ce} \times i_c)$$
 
 <div class="example" markdown="1">
 #### **Example 1.3**
 
-For the circuit above when we are using a 10 $\Omega$ load and a TIP31
-transistor (with a minimum $\beta$ of 25), 12 V supply and 5 V base
-voltage:
+An emitter follower circuit uses a 10 $\Omega$ load, a TIP31 transistor (minimum $\beta = 25$), a 12 V supply, and a 5 V control signal applied to the base.
 
-1. What voltage is present across the 10 $\Omega$ load?
-
-2. What current flows in the load?
-
-3. What current does the 5 V control signal need to provide?
-
+1. What voltage appears across the load?
+2. What current flows through the load?
+3. What current must the control signal provide?
 4. How much power does the transistor dissipate?
 
 **Solution:**
 
-1. $5\ V - 0.7\ V = 4.3\ V$
+1. $V_{\text{load}} = V_b - 0.7\ \text{V} = 5 - 0.7 = 4.3\ \text{V}$
 
-2. $I = V/R = 4.3/10 = 430\ mA$
+2. $i_{\text{load}} = \frac{V}{R} = \frac{4.3}{10} = 430\ \text{mA}$
 
-3. If $\beta$ = 25 (minimum): $0.43/(25+1) = 17 \ mA$ (maximum)
+3. Using the minimum $\beta = 25$: $i_b = \frac{i_e}{\beta + 1} = \frac{0.43}{26} \approx 16.5\ \text{mA}$
 
-4. $P = VI = (12 - 4.3) \times 0.43 = 7.7 \times 0.43 = 3.31 \ W$,
-    or with the better formula:
-    $P = (V_{be}\times i_b)+(V_{ce}\times i_c) = 0.017 \times 0.7 + (0.43 - 0.017) \times (12 - 4.3) = 3.19 \ W$
+4. $P_T = V_{ce} \times i_e = (12 - 4.3) \times 0.43 = 7.7 \times 0.43 \approx 3.31\ \text{W}$
 
+   Or using the more accurate formula:
+   $P_T = (0.7 \times 0.0165) + (7.7 \times 0.4135) \approx 0.012 + 3.18 = 3.19\ \text{W}$
 </div>
 
-As a rough guide — in practice don't let the TO220 (package of the
-TIP31) power transistor dissipate more than 1 W without mounting it on a
-heatsink.
+As a practical guideline, TIP31 transistors in TO-220 packages should not dissipate more than approximately 1 W continuously without a heat sink. The calculated 3.3 W would require proper thermal management to prevent device failure.
 
 ## PNP Transistors
 
-PNP transistors allow current to flow through them in the opposite
-direction to NPN transistors.
+PNP transistors complement NPN devices by allowing current flow in the opposite direction. While NPN transistors switch current sinking to ground, PNP transistors switch current sourcing from the positive supply.
 
-<img src="./images/1.7.png" width="50%" alt="Emitter follower circuit"/>
-_Figure 1.7: PNP transistor_
+<img src="./images/1.7.png" width="50%" alt="PNP transistor"/>
+_Figure 1.7: PNP transistor symbol_
 
-For PNP devices the emitter is connected
-to the highest voltage. Current flows through the device in the
-direction indicated by the emitter's arrow, thus it flows out of the
-collector and out of the base. We can use a PNP transistor to make a
-saturated switch to control ground-connected loads. Here is such a
-circuit:
+In PNP circuits, the emitter connects to the highest voltage in the circuit. Current flows in the direction of the emitter arrow—out of the emitter, and out of both the collector and base terminals. This complementary behaviour enables PNP transistors to switch loads connected to ground, with the control signal also referenced to ground.
 
 <img src="./images/1.8.png" width="50%" alt="Saturated switch circuit with a PNP transistor"/>
 _Figure 1.8: Saturated switch circuit with a PNP transistor_
 
-In this case $V_b$ must be 0.7 V lower than $V_e$.
+For PNP transistors, the base must be approximately 0.7 V below the emitter for conduction:
 
-**Requirement:** $V_{in} < V_e - 0.7$ V for current to flow in the load.
+**Requirement:** $V_{in} < V_e - 0.7\ \text{V}$ for current to flow in the load.
 
-This can be used to turn a load on and off in response to a digital
-signal, with the load and the control ($V_{in}$) sharing a common ground.
+This configuration enables digital control of loads that must be connected to the positive supply rail, with both the load and control signal sharing a common ground reference.
 
-If needed a resistor can be connected across the emitter and base to
-alter the switch-on point for $V_{in}$.
+A base-emitter resistor can be added to modify the turn-on threshold or ensure reliable turn-off when the control signal is in a high-impedance state.
 
-We can also make a PNP emitter follower and a Darlington transistor
-(e.g. TIP127) with PNP transistors. Now with the emitter follower the
-load is connected between the emitter and the supply voltage:
+PNP transistors can also be configured as emitter followers and in Darlington pairs (such as the TIP127). In the PNP emitter follower, the load connects between the emitter and the positive supply:
 
 <img src="./images/1.9a.png" width="30%" alt="PNP emitter follower circuit"/>
 _Figure 1.9a: PNP emitter follower circuit_
+
 <img src="./images/1.9b.png" width="30%" alt="PNP Darlington transistor"/>
 _Figure 1.9b: PNP Darlington transistor_
 
 > #### **Question 1.5:**
 >
-> Why do we need to use a base resistor in the case of the ground-connected load on the previous page, but not necessarily in the case of a supply-connected load?
+> Explain why a base resistor is required when driving a ground-connected load with a PNP switch, but may be omitted in certain supply-connected load configurations.
 
-## Bi-directional operation, including H-bridges
+## Bi-Directional Operation, Including H-Bridges
 
-With a single transistor (including Darlington) emitter follower we can
-only actively switch current through the load in one direction. If the
-load is something such as a DC motor, then we may wish to drive it in
-both directions.
+The single-transistor emitter follower, whether NPN or PNP, can only actively drive current in one direction. For loads such as DC motors that require reversible operation, we need circuits capable of sourcing or sinking current as required.
 
-We can combine the NPN and PNP emitter followers to get linear mode
-bi-directional operation.
+Combining complementary NPN and PNP emitter followers creates a half-bridge configuration capable of linear bi-directional operation:
 
 <img src="./images/1.10.png" width="50%" alt="The Half-bridge: bi-directional operation with NPN and PNP emitter followers"/>
 _Figure 1.10: The Half-bridge: bi-directional operation with NPN and PNP emitter followers_
 
-Note that there will be a deadband in the signal applied to the load if
-the input is between −0.7 V and +0.7 V. Note that two supplies are
-required in this case — for the positive and negative supplies.
+This circuit exhibits a deadband when the input voltage lies between $-0.7\ \text{V}$ and $+0.7\ \text{V}$, as neither transistor has sufficient base-emitter voltage to conduct. Note that dual power supplies are required for this configuration.
 
-If we want to run our system off a single supply rail (V- = ground in
-circuit below) we can combine two of these double-ended emitter
-followers, therefore configuring an H-bridge.
+For single-supply operation, two half-bridges can be combined to form an H-bridge:
 
 <img src="./images/1.11.png" width="80%" alt="The Full-bridge: bi-directional operation with NPN and PNP emitter followers"/>
 _Figure 1.11: The Full-bridge: bi-directional operation with NPN and PNP emitter followers_
 
-Drive Signal 1 and Drive Signal 2 are basically driven in anti-phase (if
-the one is high, the other is low, and vice versa, but there are
-exceptions -- see further on). Their levels will typically be possible
-to vary between about $V^{+}$ and $V^{-}$. $V^{-}$ may of course be zero
-(ground) in this circuit. Then Drive Signal 1 and 2 will have to vary
-around the value $\frac{V^{+}}{2}$.
+Drive Signal 1 and Drive Signal 2 are typically operated in anti-phase—when one is high, the other is low, and vice versa. Their voltage levels usually span the range from $V^{+}$ to $V^{-}$, where $V^{-}$ may be ground. In single-supply systems, the drive signals must be centred around $V^{+}/2$.
 
-A disadvantage of this H-bridge, especially if Darlingtons are used
-instead of transistors, is that the maximum possible voltage across the
-load is quite a bit less than $V^{+} - V^{-}$. It is about
-($V^{+} - V^{-} - 2 \times 0.7$) in the case of transistors and
-($V^{+} - V^{-} - 2 \times 1.4$) in the case of Darlingtons, if the
-Drive Signals have extreme values of $V^{+}$ and $V^{-}$. It is
-important that you understand why the maximum possible voltage across
-the load is not for example ($V^{+} - V^{-} - 2 \times 0.2$).
+A significant limitation of the emitter-follower H-bridge is the voltage drop across the conducting transistors. The maximum voltage available to the load is reduced by two base-emitter drops:
 
-It is probably not a good solution to solve this by letting the Drive
-Signals have larger voltage levels than the H-bridge supply, because
-this will require extra supplies. The problem of deadband will also be
-present in this emitter follower H-bridge when used in the linear mode.
-Using the H-bridge in saturated mode only, will be when the Drive
-Signals are designed to be only as close as possible to $V^{+}$ or to
-$V^{-}$ ; not any other voltage in between.
+- For single transistors: approximately $V^{+} - V^{-} - 2 \times 0.7\ \text{V}$
+- For Darlington pairs: approximately $V^{+} - V^{-} - 2 \times 1.4\ \text{V}$
 
-Therefore, the following is a better H-bridge configuration, but now
-resistors are required between the drive signals, the supply voltages
-and the transistor bases. Note that the NPN and PNP transistors have
-been swopped.
+It is important to understand why the drop is based on the base-emitter voltage (0.7 V) rather than the saturation voltage (0.2 V): in the emitter follower configuration, the base must be driven above (for NPN) or below (for PNP) the emitter by one junction drop. Increasing the drive signal amplitude beyond the supply rails is generally impractical, as it would require additional power supplies.
+
+The deadband issue also persists in linear operation. However, if the H-bridge is operated only in saturation—where Drive Signals are always at or near the supply rails—this becomes less problematic.
+
+An alternative H-bridge configuration, better suited to saturated switching, swaps the transistor positions and adds base resistors:
 
 <img src="./images/1.12.png" width="80%" alt="The PNP driven H-bridge configuration"/>
 _Figure 1.12: The PNP driven H-bridge configuration_
 
 > #### **Question 1.6:**
 >
-> Why can't the Drive Signals be directly connected to the bases such as with the emitter follower H-bridge?
+> Explain why the drive signals cannot be connected directly to the transistor bases in this configuration, unlike the emitter follower H-bridge.
 
-Whereas the emitter follower H-bridge can be used in the linear or
-saturated mode, the last H-bridge is only well-suited for the saturated
-mode, such as when driving it with a PWM signal (Pulse Width Modulated,
-see below).
+While the emitter follower H-bridge supports both linear and saturated operation, this alternative design is optimised for saturated switching, such as with PWM control.
 
-Resistors are also required in the last H-bridge between the base and
-emitter pins of each transistor or Darlington to prevent high current to
-flow straight from the top to the bottom transistor in any of the legs
-of the H-bridge. This may occur:
+Additional base-emitter resistors are essential in this configuration to prevent destructive currents flowing through series-connected transistors during switching transitions or when drive signals are disconnected. These resistors must be dimensioned such that:
 
-1. when the drive signal is momentarily halfway between $V^{+}$ and
-    $V^{-}$ while switching from $V^{+}$ to $V^{-}$ or vice versa — not
-    necessarily a problem because the switching may be fast enough, or
+1. When drive signals are at mid-rail ($\frac{V^{+} + V^{-}}{2}$), the base-emitter voltage remains below the turn-on threshold (below 0.7 V for single transistors, below 1.4 V for Darlingtons—design targets of 0.5 V and 1.0 V respectively provide margin).
 
-2. when the drive signals are not connected for testing purposes or by
-    accident.
+2. When Drive Signal = $V^{-}$, only the upper transistors conduct; when Drive Signal = $V^{+}$, only the lower transistors conduct.
 
-Therefore the resistors must be designed such that if the Drive Signal =
-$\frac{V^{+} + V^{-}}{2}$, the voltage between the emitter and base must
-be less than 0.7 V in the case of a transistor, and less than 1.4 V in
-the case of a Darlington. (0.5 V and 1.0 V are respectively
-recommended.) Also, if the Drive Signal = $V^{-}$, only the top
-transistor or Darlington must be fully switched on, and if the Drive
-Signal = $V^{+}$, only the bottom transistor or Darlington must be fully
-switched on.
+3. Sufficient base current is available to support the required load current.
 
-Keep also in mind that there must be sufficient base current so that the
-required current to the load can be supplied.
-
-The maximum possible voltage across the load is still a bit less than
-$V^{+} - V^{-}$, but it should be better than with the emitter follower
-H-bridge.
-
-It is about ($V^{+} - V^{-} - 2 \times 0.5$) if we assume that $V_{ce}$
-(saturated) is 0.5 V, if the Drive Signals have extreme values of
-$V^{+}$ and $V^{-}$.
+The maximum load voltage in this configuration is approximately $V^{+} - V^{-} - 2 \times 0.5\ \text{V}$ (assuming $V_{CE(\text{sat})} = 0.5\ \text{V}$), which represents an improvement over the emitter follower topology.
 
 > #### **Question 1.7:**
 >
-> If $V^{+} = 12.0\ V$ and $V^{-} = 0.0\ V$, assuming the levels of the
-> Drive Signals are also $V^{+}$ or $V^{-}$, and Darlingtons with
-> $\beta = 1000$ are used, show that the 8 resistors in the H-bridge can
-> be four 180 $\Omega$ ($R_{1}$) and four 1.0 k$\Omega$ ($R_{2}$) resistors. Also show that a load of 5 $\Omega$ can be driven by this amplifier.
+> Given $V^{+} = 12.0\ \text{V}$, $V^{-} = 0.0\ \text{V}$, Darlington transistors with $\beta = 1000$, and drive signals at supply rails, demonstrate that four $180\ \Omega$ resistors ($R_1$) and four $1.0\ \text{k}\Omega$ resistors ($R_2$) provide a functional design. Show that this configuration can drive a $5\ \Omega$ load.
 
-Be careful; if a different supply voltage is used, or if a smaller load
-resistance must be driven, the resistors must be redesigned. But the
-design will work for the same supply but a bigger load resistance.
+Note that resistor values must be recalculated if the supply voltage changes or if lower load resistances must be accommodated. The design is tolerant of higher load resistances.
 
 ## PWM (Pulse Width Modulation)
 
-A PWM signal may be generated by electronically comparing a signal with
-a triangular wave. This is demonstrated below.
+In analogue circuits, PWM signals may be generated by comparing a control signal against a high-frequency triangular waveform. When the signal exceeds the triangular wave, the PWM output is HIGH; otherwise, it is LOW.
 
-The big advantage of PWM is that less heat is generated, or power
-wasted, in the amplifier transistors, because the transistors are only
-fully on or fully off. If they are fully on, the voltage across them is
-low, therefore although the current is high, the power dissipated in the
-transistors is low. If they are fully off, the current through them is
-very low, although the voltage across them is high, therefore the power
-dissipated in them is again low.
+The fundamental benefit of PWM is reduced power dissipation in the switching transistors. Since the transistors in an H-Bridge operate only in fully-on or fully-off states:
 
-A comparator generating a PWM signal, can be explained as follows:
+- When ON: voltage across the transistor is low ($V_{CE(\text{sat})}$), so although current is high, power dissipation ($P = iV$) remains low.
+- When OFF: current through the transistor is negligible, so although voltage is high, power dissipation is again low.
 
-1. If the signal is bigger than the triangular wave, the PWM signal has
-    a high value.
-
-2. If the signal is smaller than the triangular wave, the PWM signal
-    has a low value.
-
-The triangular wave is usually of much higher frequency than the
-bandwidth (highest frequency) of the signal that must be converted to a
-PWM signal.
-
-Example signals:
+The triangular wave frequency is typically much higher than the bandwidth of the control signal being modulated.
 
 <img src="./images/1.13.png" width="80%" alt="Example PWM signal"/>
 _Figure 1.13: Example PWM signal_
 
-On average, or low-pass filtered, the PWM signal is just the same as the
-original signal.
+After low-pass filtering—or when applied to an inductive load such as a motor—the average voltage equals the original control signal value.
 
 {: .note }
-The duty cycle of a PWM signal is the ratio of the time the signal is
-high to the period of the triangular wave. If the duty cycle is
-constant, the period of the repeating PWM signal will be equal to the
-period of the triangular wave. This is important to know because the
-triangular wave will not always be visible (or even exist depending on
-how it was generated).
+The **duty cycle** of a PWM signal is the ratio of HIGH time to the total period. For constant duty cycle, the PWM period matches the triangular wave period. This relationship is important because the triangular wave may not be explicitly visible in digital implementations.
 
-The duty cycle of the PWM signal changed from almost 100% to almost 0%
-in this example. With a duty cycle of 50% the average will be halfway
-between the maximum and the minimum of the PWM signal.
+In the example shown, duty cycle varies from nearly 100% to nearly 0%. A 50% duty cycle produces an average value midway between the PWM HIGH and LOW levels.
 
-The reason why less power is dissipated in the transistors of the
-amplifier driven with a PWM signal compared to a continuous signal, is
-that when high current is flowing through the transistor, the voltage
-across the transistor is low, and when the voltage across the transistor
-is big, the current through it is very small. Therefore P = VI for the
-transistor stays small.
+**H-bridges may be driven with two PWM schemes:**
 
-**H-bridges may be driven with two possible PWM schemes:**
-
-1. The first PWM scheme is to control Drive Signals 1 and 2 to be
-    always out of phase, with one Drive Signal equal to the PWM signal
-    (though signal conditioning may be necessary), and the second Drive
-    Signal the inverse of the first. Then 50% duty cycle will correspond
-    with 0 V DC across the load on average, 0% will correspond with
-    maximum negative voltage and 100% with maximum positive voltage
-    across the load.
+**Scheme 1:** Drive Signals 1 and 2 are operated in anti-phase. One carries the PWM signal (with appropriate level translation), the other carries the inverse. In this scheme:
+- 50% duty cycle produces 0 V average across the load
+- 0% duty cycle produces maximum negative voltage
+- 100% duty cycle produces maximum positive voltage
 
 <img src="./images/1.14.png" width="80%" alt="The first PWM scheme: DS1 and DS2 out of phase"/>
 _Figure 1.14: The first PWM scheme: DS1 and DS2 out of phase_
 
-1. The second PWM scheme is to control one Drive Signal with the PWM
-    signal or its inverse\* (signal conditioning may be necessary) and
-    to let the second Drive Signal be either positive or negative
-    depending on the required sign of the voltage across the load. Then
-    50% duty cycle will correspond with half the maximum positive
-    voltage across the load if the sign is positive, but 50% duty cycle
-    will correspond with half the maximum negative voltage across the
-    load if the sign is negative. \*The inverse will be necessary if the
-    sign is changed, because 0% duty cycle with one sign will mean 100%
-    duty cycle with the other sign. To explain this: Say e.g. DS2 is low just before the sign change. DS1 is mostly low because the load voltage is close to zero. If the load voltage must now change to a small negative value, DS2 must go high. Then DS1 can't stay mostly low, because this will cause a large negative voltage across the load. Therefore the PWM signal to DS1 must be inverted.
+**Scheme 2:** One Drive Signal carries the PWM signal (or its inverse), while the other acts as a direction control, held at either the positive or negative rail. In this scheme:
+- 50% duty cycle produces half the maximum voltage in the direction determined by the fixed signal
+- Changing direction requires signal inversion to maintain consistent scaling
 
 <img src="./images/1.15.png" width="80%" alt="The second PWM scheme: DS1 (or DS2) driven by a PWM signal with the other acting as a direction signal"/>
 _Figure 1.15: The second PWM scheme: DS1 (or DS2) driven by a PWM signal with the other acting as a direction signal_
 
-The second scheme will require more code if the PWM is generated in a micro-processor, but the resolution will be double that of the first scheme. PWM controller chips can be found that do all of these, but you must understand how it works to use it best.
+The second scheme requires more complex software if implemented in a microcontroller, but offers double the effective PWM resolution since both edges of the PWM period contribute to the output. Dedicated motor driver ICs implement these schemes internally, but understanding their operation is essential for proper application.
 
 ## Current Sources
 
-Some loads produce an effect related to the current that is driven
-through them. Examples include:
+Certain loads produce effects proportional to the current through them rather than the voltage across them:
 
-1. LEDs: The light output is related to current
+1. **LEDs:** Light output correlates with forward current
+2. **DC Motors:** Developed torque is proportional to armature current
+3. **Heating Elements:** Some applications require precise current control
 
-2. Motors: (DC) Torque is proportional to current
-
-3. Heating elements: Some applications require constant current to be
-    used
-
-A circuit which drives a constant current through the load, independent
-of the load (up to certain limits), is called a "constant current
-source" or "current source". Depending on the direction of the current
-through the load it may also be called a "current sink".
-
-Below is a simple current source (actually current sink) circuit:
+A circuit that maintains constant current through the load, independent of load resistance (within bounds), is termed a **constant current source** (or **current sink** if current flows into the circuit).
 
 <img src="./images/1.16.png" width="30%" alt="Simple current source circuit"/>  
 _Figure 1.16: Simple current source circuit_
 
-Here: $V_e=V_b-0.7$ V and $i_1=\frac{V_e}{R_1}=\frac{V_b-0.7}{R_1}$
+In this circuit, the emitter voltage is set by the base voltage minus the base-emitter drop:
 
-For high $\beta$ transistors $i_1\approx i_2$ (because
-$i_1=\frac{\beta_1+1}{\beta_1}i_2$)
-$$\therefore i_2\approx \frac{V_b-0.7}{R_1}$$ The current in the load
-$i_2$ , is not affected by the load's resistance. As the load resistance
-changes, the voltage across it automatically changes to compensate.
+$$V_e = V_b - 0.7\ \text{V}$$
 
-There is a limit to this: The sum of the voltage across the emitter
-resistor, the voltage across the load and the saturation voltage of the
-transistor can never be greater than the supply voltage. The maximum
-voltage which the current source can put across the load is called the
-"compliance" of the source.
+The current through the emitter resistor is:
 
-If the supply voltage changes then the current through the load will
-also be constant, although the compliance will be reduced when the
-supply drops, or will be increased when the supply increases.
+$$i_1 = \frac{V_e}{R_1} = \frac{V_b - 0.7}{R_1}$$
 
-This is called a voltage controlled current source because the current
-through the load is determined by the voltage $V_{b}$.
+For transistors with high $\beta$, $i_1 \approx i_2$ since $i_1 = \frac{\beta + 1}{\beta} i_2$. Therefore:
+
+$$\therefore i_2 \approx \frac{V_b - 0.7}{R_1}$$
+
+The load current $i_2$ remains constant regardless of load resistance. As load resistance changes, the voltage across it adjusts automatically to maintain the current.
+
+This regulation has limits: the sum of the voltage across the emitter resistor, the voltage across the load, and the transistor saturation voltage cannot exceed the supply voltage. The maximum voltage the current source can sustain across the load is called its **compliance voltage**.
+
+If the supply voltage varies, the load current remains constant (assuming sufficient compliance), though the available voltage range changes accordingly.
+
+This configuration is a **voltage-controlled current source**, as the load current is determined by the control voltage $V_b$.
 
 > #### **Question 1.8:**
 >
-> Give the more accurate formula for $i_2$ as a function of $V_{b}$, $R_{1}$ and $\beta$ (in other words, don't assume that $\beta$ is necessarily very high).
+> Derive the exact expression for $i_2$ as a function of $V_b$, $R_1$, and $\beta$ (without assuming $\beta$ is necessarily large).
 >
 > **Follow-up:**
 >
-> 1. Give the accurate formula for $i_2$ if $R_{1}$ is moved from the emitter to the base.
-> 2. Why is this latter case a worse current source compared to the previous case?
+> 1. Derive the accurate formula for $i_2$ if $R_1$ is moved from the emitter to the base circuit.
+> 2. Explain why this modified configuration provides inferior current regulation.
 
 ## Voltage Amplification
 
-We can use a transistor's current amplification to produce voltage
-amplification. Consider the following circuit:
+The current gain of a BJT can be exploited to achieve voltage amplification. Consider the common-emitter configuration:
 
 <img src="./images/1.17.png" width="30%" alt="Voltage amplification circuit"/>
 _Figure 1.17: Voltage amplification circuit_
 
-For $V_b = 1.7\ V$: $V_e = 1\ V$ and $i_e = 1 mA$. Therefore $i_c$ will be
-approximately 1 mA.
+For $V_b = 1.7\ \text{V}$: $V_e = 1.0\ \text{V}$ and $i_e = 1\ \text{mA}$, making $i_c \approx 1\ \text{mA}$.
 
-By Ohm's Law, the voltage across the collector resistor is 10 V.
+The voltage across the collector resistor is then $10\ \text{k}\Omega \times 1\ \text{mA} = 10\ \text{V}$.
 
-If we increase $V_b$ by 1 V, thus to 2.7 V, the voltage across the
-collector resistor will then be 20 V.
+If $V_b$ increases by 1 V to 2.7 V, the emitter voltage rises to 2.0 V, giving $i_e = 2\ \text{mA}$. The voltage across the collector resistor becomes 20 V.
 
-Again the combination of the supply voltage and the saturation voltage
-of the transistor will be a limiting factor.
+The collector voltage changes by 10 V in response to a 1 V change at the input, suggesting a voltage gain of 10. In practice, this gain is determined by the ratio of collector to emitter resistances, though transistor non-idealities typically reduce the actual gain.
 
-From this we see that the voltage on the collector has changed by 10 V
-in response to a 1 V change in the input signal. The gain of this
-circuit is determined by the ratio of the resistors. This is not very
-accurate as various transistor effects tend to reduce gain.
+As with previous circuits, the combination of supply voltage and transistor saturation voltage limits the operating range.
 
-Much more accurate results are possible with Operational Amplifiers —
-to be discussed in Chapter 2.
+Significantly improved accuracy and performance are achieved with Operational Amplifiers—the subject of Chapter 2.
 
 > #### **Question 1.9:**
 >
-> With $V_{s}$ the supply voltage, $V_{b}$ and $V_{c}$ the base and collector voltages, and $R_{c}$ and $R_{e}$ the resistors connected to the collector and the emitter:
+> Given $V_s$ as the supply voltage, $V_b$ and $V_c$ as base and collector voltages, and $R_c$ and $R_e$ as the collector and emitter resistors:
 >
-> 1. Derive $\frac{V_s-V_c}{V_b-0.7}$ in terms of $R_{c}$, $R_{e}$ and $\beta$.
-> 2. Derive the minimum and maximum $V_{b}$ may be, in terms of $V_{s}$, $R_{c}$, $R_{e}$ and $\beta$ for the formula above to be still valid, with $V_{ce}$ minimum assumed to be 0.2 V.
+> 1. Derive $\frac{V_s - V_c}{V_b - 0.7}$ in terms of $R_c$, $R_e$, and $\beta$.
+> 2. Determine the minimum and maximum values of $V_b$ for which this expression remains valid, in terms of $V_s$, $R_c$, $R_e$, and $\beta$, assuming $V_{CE(\text{sat})} = 0.2\ \text{V}$.
 
-Answer b):
-$0.7<V_b<0.7+\frac{V_s-0.2}{1+\frac{\beta }{\beta +1}.\frac{R_c}{R_e}}$
+Answer for part (b):
+$$0.7 < V_b < 0.7 + \frac{V_s - 0.2}{1 + \frac{\beta}{\beta + 1} \cdot \frac{R_c}{R_e}}$$
 
 ## Field Effect Transistors
 
-### N-channel, P-channel, Enhancement Mode, Depletion Mode
+### N-Channel, P-Channel, Enhancement Mode, Depletion Mode
 
-The FET (Field Effect Transistor) is a common voltage controlled
-transistor. With FETs we talk of drain, gate and source for its 3
-terminals, not of collector, base and emitter as with BJTs. A voltage
-between its gate and its source ($V_{GS}$) allows a large current to
-flow between the drain and the source. The amount of current allowed to
-flow is related to the forward transconductance, often identified as
-$g_{FS}$(in A/V or S for siemens, or mho coming from ohm in reverse).
-$V_{GS}$ must exceed a threshold value ($V_{GS(th)}$, in V) before drain
-current will flow. The important formula to remember, with $I_{D}$ the
-drain current, is:
+Field Effect Transistors (FETs) provide voltage-controlled alternatives to the current-controlled BJT. Rather than collector, base, and emitter, FETs have drain, gate, and source terminals. A voltage applied between gate and source ($V_{GS}$) controls the current flowing between drain and source ($i_D$).
+
+The relationship between gate voltage and drain current is characterised by the forward transconductance $g_{FS}$ (measured in Siemens, S), with units of A/V:
 
 {: .note }
-$I_{D}$ = ($V_{GS}$ -- $V_{GS(th)}$) $g_{FS}$, valid when the transistor
-is operated in its linear mode.
+$i_D = (V_{GS} - V_{GS(\text{th})}) \times g_{FS}$, valid in the linear (triode) region of operation.
 
-When the transistor is used in its saturated mode, the drain current
-will be restricted by the components (e.g. a resistor) that are
-connected to the transistor.
+The gate-source voltage must exceed a threshold $V_{GS(\text{th})}$ before significant drain current flows. When operated in saturation mode, the drain current is limited by external circuit elements.
 
-The JFET (Junction Field Effect Transistor) was first developed, and was
-later mostly superseded by the MOSFET (Metal-Oxide Semiconductor Field
-Effect Transistor). Many more types of FETs are found, but all won't be
-discussed or used in this course.
+The Junction FET (JFET) was the first field-effect device developed, but has been largely superseded by the Metal-Oxide-Semiconductor FET (MOSFET) for power applications. Numerous FET variants exist, though we focus on the most commonly used types.
 
-The MOSFET has very large input impedance, in other words the gate
-current is very low.
+A defining characteristic of MOSFETs is their extremely high input impedance at the gate—the gate current is negligible for most practical purposes.
 
 {: .note }
-$\therefore I_S=I_D$ is a valid approximation, with $I_S$ the source
-current.
+$\therefore i_S = i_D$ is a valid approximation for MOSFETs.
 
-Similar to NPN and PNP BJTs, one also gets N-channel and P-channel FETs.
-As in BJTs where the direction of the current flow in NPN and PNP is
-opposite, in FETs the direction of the current flow in N-channel and
-P-channel is also opposite.
+Similar to the NPN/PNP distinction in BJTs, FETs come in N-channel and P-channel varieties, with opposite current flow directions. The N-channel device conducts electrons from source to drain, while the P-channel conducts holes from drain to source.
 
-The last subtypes I would mention here are the Enhancement Mode and
-Depletion Mode MOSFETs. The blocked formulas above are applicable to
-both these subtypes, but the difference lies in $V_{GS(th)}:$
+MOSFETs are further classified by their conduction mode:
 
-- **Enhancement Mode N-channel:** $V_{GS(th)}$ is positive with
-    $V_{GS} = 0\ V$ switching the transistor off and $V_{GS} > V_{GS(th)}$ switching it on.
+**Enhancement Mode N-channel:** $V_{GS(\text{th})}$ is positive. The device is off with $V_{GS} = 0\ \text{V}$; applying $V_{GS} > V_{GS(\text{th})}$ turns it on.
 
-- **Enhancement Mode P-channel:** $V_{GS(th)}$ is negative with
-    $V_{GS} = 0\ V$ switching the transistor off and
-    $V_{GS} < V_{GS(th)}$ switching it on.
+**Enhancement Mode P-channel:** $V_{GS(\text{th})}$ is negative. The device is off with $V_{GS} = 0\ \text{V}$; applying $V_{GS} < V_{GS(\text{th})}$ turns it on.
 
-- **Depletion Mode N-channel:** $V_{GS(th)}$ is 0 V with
-    $V_{GS} < 0\ V$ switching the transistor off and
-    $V_{GS} > 0\ V$ switching it on.
+**Depletion Mode N-channel:** $V_{GS(\text{th})}$ is approximately 0 V. The device conducts with $V_{GS} = 0\ \text{V}$; applying $V_{GS} < 0\ \text{V}$ turns it off.
 
-- **Depletion Mode P-channel:** $V_{GS(th)}$ is 0 V with
-    $V_{GS} > 0\ V$ switching the transistor off and
-    $V_{GS} < 0\ V$ switching it on.
-
-These are the symbols of N-channel and P-channel enhancement mode
-MOSFETs:
+**Depletion Mode P-channel:** $V_{GS(\text{th})}$ is approximately 0 V. The device conducts with $V_{GS} = 0\ \text{V}$; applying $V_{GS} > 0\ \text{V}$ turns it off.
 
 <img src="./images/1.18.png" width="80%" alt="N-channel and P-channel enhancement mode MOSFETs"/>
 _Figure 1.18: N-channel and P-channel enhancement mode MOSFETs_
 
-For a P-channel, the arrow in the symbol is turned around, and for depletion mode, the dashed lines will be solid.
+In schematic symbols, the P-channel arrow points outward, and depletion mode devices are distinguished by solid rather than dashed channel lines.
 
 {: .note }
-Although the current is still shown here to flow from drain to source for the P-channel, in datasheets the current will be specified as negative, so the current will actually flow from source to drain.
-
-Therefore, a positive supply will be connected to the source, and the load will be connected between the drain and ground.
-
-These are the symbols of N-channel and P-channel depletion mode MOSFETs:
+Although conventional current is shown flowing from drain to source for P-channel devices in schematic symbols, datasheet specifications typically treat this current as negative, reflecting the actual electron flow from source to drain. For P-channel MOSFETs in switching applications, the source connects to the positive supply and the load connects between drain and ground.
 
 <img src="./images/1.19.png" width="80%" alt="N-channel and P-channel depletion mode MOSFETs"/>
 _Figure 1.19: N-channel and P-channel depletion mode MOSFETs_
 
-Again $I_{D}$ as shown here with the P-channel, will be negative.
+As noted, $i_D$ for P-channel devices is conventionally negative.
 
 <div class="example" markdown="1">
 #### **Example 1.4**
 
-If an N-channel, _enhancement mode_, MOSFET with threshold voltage of 2 to 4 V is to be used in saturated mode, with the load connected between a positive supply and the drain, and the source of the MOSFET connected to ground, $V_{GS} < 1.0\ V$ will have it switched off completely, and $V_{GS} = 10\ V$ will have it switched on completely.
+Consider an N-channel enhancement mode MOSFET with threshold voltage between 2 V and 4 V, used as a saturated switch with the load connected between a positive supply and the drain, and the source grounded.
 
-If an N-channel, _depletion mode_, MOSFET is to be used in saturated mode, with the load
-connected between a positive supply and the drain, and the source of the
-MOSFET connected to ground, typically $V_{GS} < -2.0\ V$ will have it
-switched off completely, and $V_{GS} = 5\ V$ will have it switched on
-completely.
+To ensure reliable operation:
+- $V_{GS} < 1.0\ \text{V}$ ensures the device is fully off (well below the minimum threshold)
+- $V_{GS} = 10\ \text{V}$ ensures the device is fully on (providing adequate overdrive)
+
+For an N-channel depletion mode MOSFET in the same circuit:
+- $V_{GS} < -2.0\ \text{V}$ typically switches the device off
+- $V_{GS} = 5\ \text{V}$ ensures the device is fully on
 
 <img src="./images/1.20.png" width="50%" alt="MOSFETs in a saturated switch circuit"/>
 _Figure 1.20: MOSFETs in a saturated switch circuit_
 
-_It is fine to indicate FETs as in this diagram, whenever hand drawn_
+_These simplified FET symbols are acceptable for hand-drawn schematics._
 </div>
 
-### FETs in an H-bridge
+### FETs in an H-Bridge
 
-H-bridges can also be designed with MOSFETs, especially enhancement mode
-MOSFETs as in the circuit below.
+H-bridge circuits can also be constructed using MOSFETs, with enhancement mode devices being particularly well-suited to this application:
 
-Parts list:
-
-- Q2, Q4, P-channel MOSFET IRF9630 (6.5 A, 200 V)
-- Q1, Q3, N-channel MOSFET IRF630 (9 A, 200 V)
-- Q5, Q6, 2N2222A NPN bipolar transistor
+Parts list for the example circuit:
+- Q2, Q4: P-channel MOSFET IRF9630 (6.5 A, 200 V)
+- Q1, Q3: N-channel MOSFET IRF630 (9 A, 200 V)
+- Q5, Q6: 2N2222A NPN bipolar transistors (level shifters)
 
 <img src="./images/1.21.png" width="80%" alt="MOSFET H-bridge circuit using enhancement mode MOSFETs"/>
 _Figure 1.21: MOSFET H-bridge circuit using enhancement mode MOSFETs_
 
-It is easy to design these resistors, because the Gate current here is
-so small, it can be neglected. Therefore, the resistors can also have
-much higher values, saving current from the supply. Except if higher
-switching speeds are required -- the next circuit is an example of this.
+Gate resistor design is simplified because the gate current is essentially zero (except during switching transients when charging or discharging gate capacitance). Consequently, much higher resistor values can be used, reducing quiescent power consumption. However, if rapid switching is required, lower resistance values or dedicated gate driver circuits become necessary.
 
-This scheme of controlling the Gates of the FETs can't be used with BJT
-or Darlington H-bridges in saturated mode, because the bases of the
-latter can't be connected together since this will cause the transistors
-on one side of the load to be on at the same time.
+This gate drive scheme—connecting complementary MOSFET gates together through resistors—cannot be directly applied to BJT or Darlington H-bridges. In those technologies, connecting bases together would result in both transistors on one side conducting simultaneously, causing shoot-through currents.
 
-In practice it seems to be very hard to find P-channel and N-channel
-FETs that have good complementary characteristics. But the design can
-often work even though the characteristics are not exactly
-complementary, as in the given circuit.
+Practical designs often face difficulty in sourcing perfectly complementary N-channel and P-channel MOSFETs with matched characteristics. Fortunately, exact matching is not always necessary for functional motor drive applications, as demonstrated by the IRF630/IRF9630 pairing shown.
 
-The potential problem of this circuit is also that at the switching
-moment when the collector of Q5 or Q6 is sitting at 6 V, the FETs above
-and below on the same side of the motor will both be switched on,
-causing a current spike from the 12 V supply to ground through Q2 and Q1
-or through Q4 and Q3. In practice it seems that this is not a problem,
-probably because the Gate signals switch fast enough.
+A potential concern with this circuit is the brief interval during switching when the collector of Q5 or Q6 sits at approximately half the supply voltage, potentially turning on both the upper and lower MOSFETs on one side simultaneously. This would create a short-circuit path from 12 V to ground. In practice, this is rarely problematic because the switching transitions occur rapidly enough that the resulting current spikes remain within acceptable limits.
 
-We shall return to level adjusters in the next chapter, but they are
-required between the drive signals and the H-bridges if the drive
-signals don't have voltage levels equal to the supply voltages of the
-H-bridges. Each BJT and the two resistors connected to it form a level
-adjuster. Compared to the saturated mode Darlington H-bridge, where more
-complex level adjusters are required, this MOSFET H-bridge has the
-following advantages:
+Level translation between control logic and power stages will be discussed in greater detail in Chapter 2. In this circuit, each NPN transistor with its associated resistors forms a simple level shifter. Compared to saturated-mode Darlington H-bridges requiring more elaborate level translation, this MOSFET implementation offers several advantages:
 
-1. Wider range of supply voltages
-
-2. Wider range of load currents
-
-3. Less voltage drop over the transistors, therefore less heat loss in the transistors
-
-4. Faster switching, therefore it can handle higher PWM frequency
-
-5. Less components
+1. Wider usable range of supply voltages
+2. Greater flexibility in load current capability
+3. Lower voltage drop across switching devices, reducing heat generation
+4. Faster switching speeds, enabling higher PWM frequencies
+5. Reduced component count
