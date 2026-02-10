@@ -13,7 +13,7 @@ This chapter explores the complete power supply chain: from AC mains conversion 
 
 ## AC Mains Supply
 
-In many applications, electronic systems derive their power from the AC mains supply. In South Africa and many other regions, the mains supply provides $230\ \text{V}_{\text{RMS}}$ alternating current at 50 Hz. To use this with DC circuits, the voltage must be transformed to a lower level, converted to DC through rectification, smoothed to reduce ripple, and finally regulated to provide a stable output.
+In many applications, electronic systems derive their power from the AC mains supply. In South Africa and many other regions, the mains supply provides $230\ \text{V}_{\text{RMS}}$ alternating current at $50\ \text{Hz}$. To use this with DC circuits, the voltage must be transformed to a lower level, converted to DC through rectification, smoothed to reduce ripple, and finally regulated to provide a stable output.
 
 <img src="./images/2.1.png" width="80%" alt="Complete AC to DC power supply block diagram showing transformer, rectifier, smoothing capacitor, and regulator stages"/>
 _Figure 2.1: Complete AC to DC power supply block diagram showing transformer, rectifier, smoothing capacitor, and regulator stages_
@@ -27,14 +27,14 @@ The first stage steps down the AC mains voltage to a level closer to the desired
 {: .note }
 $V_{\text{peak}} = V_{\text{RMS}} \times \sqrt{2} = 230 \times 1.414 \approx 325\ \text{V}$
 
-Direct rectification without transformation would produce approximately 325 V DC (ignoring diode drops)—far too high for typical electronic circuits. For a $12\ \text{V}$ DC output, the transformer must step down the voltage by a factor of approximately 27.
+Direct rectification without transformation would produce approximately $325\ \text{V DC}$ (ignoring diode drops)—far too high for typical electronic circuits. For a $12\ \text{V DC}$ output, the transformer must step down the voltage by a factor of approximately 27 which is not practical physically.
 
 {: .warning }
 **MAINS CAN BE LETHAL!** When working with mains-connected circuits, always take appropriate safety precautions. Ensure proper isolation, use insulated tools, and never work on live equipment alone.
 
 ### Rectification Stage
 
-The rectifier converts the bidirectional AC waveform into a unidirectional pulsating DC using a diode bridge configuration. This clever arrangement routes current such that the output is always positive, regardless of the input polarity.
+The rectifier converts the bidirectional AC waveform into a unidirectional pulsating DC using a diode bridge configuration. This arrangement routes current such that the output is always positive, regardless of the input polarity.
 
 <img src="./images/2.2.png" width="60%" alt="Bridge rectifier circuit showing four diodes converting AC to pulsating DC"/>
 _Figure 2.2: Bridge rectifier circuit showing four diodes converting AC to pulsating DC_
@@ -43,14 +43,14 @@ Since current must pass through two diodes in series during each half-cycle, the
 
 ### Smoothing Stage
 
-The pulsating DC from the rectifier contains significant ripple at twice the mains frequency ($100\ \text{Hz}$ for 50 Hz mains). A large electrolytic capacitor connected across the output stores charge during the voltage peaks and releases it during the troughs, substantially reducing the ripple amplitude.
+The pulsating DC from the rectifier contains significant ripple at twice the mains frequency ($100\ \text{Hz}$ for $50\ \text{Hz}$ mains). A large electrolytic capacitor connected across the output stores charge during the voltage peaks and releases it during the troughs, substantially reducing the ripple amplitude.
 
 <img src="./images/2.3.png" width="60%" alt="Smoothed DC output showing ripple voltage after capacitor filtering"/>
 _Figure 2.3: Smoothed DC output showing ripple voltage after capacitor filtering_
 
 The remaining ripple voltage depends on the load current, capacitance value, and ripple frequency:
 
-$$V_{\text{ripple}} \approx \frac{I_{\text{load}}}{f_{\text{ripple}} \times C}$$
+$$V_{\text{ripple}} \approx \frac{i_{\text{load}}}{f_{\text{ripple}} \times C}$$
 
 While smoothing improves the DC quality, the voltage still varies with mains fluctuations and load changes. Sensitive electronic circuits require additional regulation.
 
@@ -125,13 +125,13 @@ $$V_{\text{out}} = 5.6 \times \left(\frac{1.2}{1.5} + 1\right) = 5.6 \times 1.8 
 Linear regulators achieve voltage reduction by dissipating the voltage difference as heat in the pass transistor. This fundamental characteristic limits their efficiency, particularly when the input-output voltage difference is large.
 
 {: .note }
-$P_{\text{dissipated}} = (V_{\text{in}} - V_{\text{out}}) \times I_{\text{load}}$
+$P_{\text{dissipated}} = (V_{\text{in}} - V_{\text{out}}) \times i_{\text{load}}$
 
 The total efficiency is:
 
-$$\eta = \frac{P_{\text{out}}}{P_{\text{in}}} = \frac{V_{\text{out}} \times I_{\text{out}}}{V_{\text{in}} \times I_{\text{in}}}$$
+$$\eta = \frac{P_{\text{out}}}{P_{\text{in}}} = \frac{V_{\text{out}} \times i_{\text{out}}}{V_{\text{in}} \times i_{\text{in}}}$$
 
-For linear regulators, $I_{\text{in}} \approx I_{\text{out}}$ (plus a small quiescent current), so:
+For linear regulators, $i_{\text{in}} \approx i_{\text{out}}$ (plus a small quiescent current), so:
 
 $$\eta \approx \frac{V_{\text{out}}}{V_{\text{in}}}$$
 
@@ -226,7 +226,7 @@ _Figure 2.9: Adjustable voltage regulator using LM317 with resistor divider for 
 
 The LM317 maintains $1.25\ \text{V}$ between its output and adjustment terminals. With minimal current into the ADJ pin ($\approx 50\ \mu\text{A}$), the output voltage is:
 
-$$V_{\text{out}} = 1.25 \times \left(1 + \frac{R_2}{R_1}\right) + I_{\text{adj}} \times R_2$$
+$$V_{\text{out}} = 1.25 \times \left(1 + \frac{R_2}{R_1}\right) + i_{\text{adj}} \times R_2$$
 
 Standard design practice sets $R_1$ between $200-330\ \Omega$ to establish a reasonable bias current, then calculates $R_2$ for the desired output.
 
@@ -452,7 +452,7 @@ When specifying solid-state relays, several parameters require attention:
 
 **Current rating:** Unlike EMRs, SSRs generate significant heat due to their ON-state voltage drop ($1-2\ \text{V}$). The semiconductor junction must be kept below its maximum temperature through appropriate heatsinking.
 
-$$P_{\text{dissipated}} = V_{\text{ON}} \times I_{\text{load}}$$
+$$P_{\text{dissipated}} = V_{\text{ON}} \times i_{\text{load}}$$
 
 For a $10\ \text{A}$ SSR with $1.5\ \text{V}$ drop, $15\ \text{W}$ must be dissipated—requiring substantial heatsinking.
 
