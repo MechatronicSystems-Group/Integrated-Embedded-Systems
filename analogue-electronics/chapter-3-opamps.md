@@ -1,17 +1,17 @@
 ---
 layout: page
-title: "Chapter 2: Operational Amplifiers"
+title: "Chapter 3: Operational Amplifiers"
 parent: Analogue Electronics
-nav_order: 2
+nav_order: 3
 ---
-
-# Chapter 2: Operational Amplifiers
+    
+# Chapter 3: Operational Amplifiers
 
 Operational amplifiers (op-amps for short) are essential building blocks
 of modern electronic circuitry. They have a few simple properties. These
 are:
 
-<img src="./images/2.1.png" width="40%" alt="Op-amp"/>
+<img src="./images/3.1.png" width="40%" alt="Op-amp"/>
 _Figure 2.1: Op-amp schematic_
 
 '-' input: inverting input
@@ -41,7 +41,7 @@ From the above equation:
 
 A buffer is an example of *negative feedback*:
 
-<img src="./images/2.2.png" width="50%" alt="Buffer circuit"/>
+<img src="./images/3.2.png" width="50%" alt="Buffer circuit"/>
 _Figure 2.2: Buffer circuit_
 
 The inverting and non-inverting amplifiers discussed further on, are
@@ -96,7 +96,7 @@ The last circuit above is called a *buffer* or a *voltage follower*.
 It is used to change a high impedance point to a low impedance output,
 for example when a *regulated voltage* is required. Anyone of the following circuits will do this:
 
-<img src="./images/2.3.png" width="100%" alt="Buffer or voltage follower circuit"/>
+<img src="./images/3.3.png" width="100%" alt="Buffer or voltage follower circuit"/>
 _Figure 2.3: Buffer or voltage follower circuit_
 
 In the first example the ratio of the resistors will determine the
@@ -127,7 +127,7 @@ In a comparator, two signals are compared, and the output indicates
 which one is bigger. An op-amp can be used as a comparator, although it
 is possible to find better comparators (e.g. faster switching).
 
-<img src="./images/2.4.png" width="50%" alt="Powered op-amp comparator circuit"/>
+<img src="./images/3.4.png" width="50%" alt="Powered op-amp comparator circuit"/>
 _Figure 2.4: Powered op-amp comparator circuit_
 
 - If $V_+ > V_-$: $V_{out}$ is high
@@ -138,7 +138,7 @@ close to $V_{s-}$".
 
 Consider the following circuit:
 
-<img src="./images/2.5.png" width="50%" alt="Comparator circuit with voltage divider"/>
+<img src="./images/3.5.png" width="50%" alt="Comparator circuit with voltage divider"/>
 _Figure 2.5: Comparator circuit with voltage divider_
 
 If the voltage at $V_+$ is larger then the voltage at $V_-$ , which is
@@ -150,7 +150,7 @@ the output will go low.
 The function of the Window Comparator is to indicate when a signal
 ($V_{in}$ in this circuit) is between two limits.
 
-<img src="./images/2.6.png" width="50%" alt="Window comparator circuit"/>
+<img src="./images/3.6.png" width="50%" alt="Window comparator circuit"/>
 _Figure 2.6: Window comparator circuit_
 
 - If $V_{in} > V_1$: $V_{out1}$ is high
@@ -173,7 +173,7 @@ inverting input of the op-amp would change in the same direction. You
 can see this by considering R1 and R2 as a voltage divider. Because of
 this we have negative feedback.
 
-<img src="./images/2.7.png" width="50%" alt="Inverting amplifier circuit"/>
+<img src="./images/3.7.png" width="50%" alt="Inverting amplifier circuit"/>
 _Figure 2.7: Inverting amplifier circuit_
 
 Because we have negative feedback we can say that the inverting input
@@ -196,7 +196,7 @@ Since the gain is negative we call this circuit an **inverting amplifier**.
 
 ### The Non-Inverting Amplifier
 
-<img src="./images/2.8.png" width="50%" alt="Non-inverting amplifier circuit"/>
+<img src="./images/3.8.png" width="50%" alt="Non-inverting amplifier circuit"/>
 _Figure 2.8: Non-inverting amplifier circuit_
 
 Negative feedback is present, so the negative input of the op-amp will
@@ -218,7 +218,7 @@ Once again you should note that the op-amp parameters have no effect on the circ
 
 ### The Differential Amplifier
 
-<img src="./images/2.9.png" width="50%" alt="Differential amplifier circuit"/>
+<img src="./images/3.9.png" width="50%" alt="Differential amplifier circuit"/>
 _Figure 2.9: Differential amplifier circuit_
 
 {: .note }
@@ -241,7 +241,7 @@ resistors such as $R_{1}$, $R_{2}$ and $R_{3}$ in the following
 schematic of a typical instrumentation amplifier. $R_{gain}$ is external
 and adjusts the common gain.
 
-<img src="./images/2.10.png" width="80%" alt="Instrumentation amplifier circuit"/>
+<img src="./images/3.10.png" width="80%" alt="Instrumentation amplifier circuit"/>
 _Figure 2.10: Instrumentation amplifier circuit_
 
 You don't have to memorize this equation, but here it is:
@@ -256,7 +256,7 @@ Check that if $R_{gain}$ is left out, the gain is $\frac{R_3}{R_2}$ .
 
 Consider the following network:
 
-<img src="./images/2.11.png" width="50%" alt="Example network for short-cut method"/>
+<img src="./images/3.11.png" width="50%" alt="Example network for short-cut method"/>
 _Figure 2.11: Example network for short-cut method_
 
 The sum of all the currents flowing into any one point should be zero
@@ -313,7 +313,7 @@ For this course you must memorize that:
 
 As a first example, apply the short-cut method to an **inverting gain** op-amp network:
 
-<img src="./images/2.12.png" width="50%" alt="Inverting gain op-amp network"/>
+<img src="./images/3.12.png" width="50%" alt="Inverting gain op-amp network"/>
 _Figure 2.12: Inverting gain op-amp network_  
 
 $$V_m\left(\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{Z_{opamp}}\right) = \frac{V_1}{R_1} + \frac{V_2}{R_2} + \frac{V?}{Z_{opamp}}$$
@@ -334,7 +334,7 @@ When there is only one feedback from the output to the op-amp inputs, it must be
 
 For example, this is wrong:
 
-<img src="./images/2.13.png" width="50%" alt="Incorrect op-amp network"/>
+<img src="./images/3.13.png" width="50%" alt="Incorrect op-amp network"/>
 _Figure 2.13: Incorrect op-amp network — the feedback to the non-inverting input dominates, causing positive feedback which drives the output to saturation at the supply rails._
 
 Checking:
@@ -353,14 +353,14 @@ zero).
 
 **Non-inverting gain:**
 
-<img src="./images/2.14.png" width="50%" alt="Non-inverting gain circuit"/>
+<img src="./images/3.14.png" width="50%" alt="Non-inverting gain circuit"/>
 _Figure 2.14: Non-inverting gain circuit_
 
 $$V_1\left(\frac{1}{R_1} + \frac{1}{R_2}\right) = V_2\left(\frac{1}{R_2}\right) \quad \therefore \frac{V_2}{V_1} = \frac{\frac{1}{R_1}+\frac{1}{R_2}}{\frac{1}{R_2}} = 1 + \frac{R_2}{R_1}$$
 
 **Adder or Summer:**
 
-<img src="./images/2.15.png" width="50%" alt="Adder or summer circuit"/>
+<img src="./images/3.15.png" width="50%" alt="Adder or summer circuit"/>
 _Figure 2.15: Adder or summer circuit_
 
 $$0 \times \left(\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3} + \frac{1}{R_0}\right) = 0 = V_1\left(\frac{1}{R_1}\right) + V_2\left(\frac{1}{R_2}\right) + V_3\left(\frac{1}{R_3}\right) + V_0\left(\frac{1}{R_0}\right)$$
@@ -369,7 +369,7 @@ $$\therefore V_0 = -\left(\frac{R_0}{R_1}V_1 + \frac{R_0}{R_2}V_2 + \frac{R_0}{R
 
 **General differential gain:**
 
-<img src="./images/2.16.png" width="50%" alt="General differential gain circuit"/>
+<img src="./images/3.16.png" width="50%" alt="General differential gain circuit"/>
 _Figure 2.16: General differential gain circuit_
 
 $$V_m\left(\frac{1}{R_2} + \frac{1}{R_4}\right) = V_2\left(\frac{1}{R_2}\right) \text{ and }$$
@@ -393,7 +393,7 @@ required with the short-cut method.
 
 **Integrator:**
 
-<img src="./images/2.17.png" width="50%" alt="Integrator circuit"/>
+<img src="./images/3.17.png" width="50%" alt="Integrator circuit"/>
 _Figure 2.17: Integrator circuit_
 
 $$0 = V_1\left(\frac{1}{R}\right) + V_2(sC)$$
@@ -409,7 +409,7 @@ $$\left.\frac{V_2}{V_1}\right|_{s \to \infty} \to 0 \quad \checkmark$$
 
 **1st order low-pass filter:**
 
-<img src="./images/2.18.png" width="50%" alt="1st order low-pass filter circuit"/>
+<img src="./images/3.18.png" width="50%" alt="1st order low-pass filter circuit"/>
 _Figure 2.18: 1st order low-pass filter circuit_
 
 $$V_m\left(\frac{1}{R_1} + \frac{1}{R_2}\right) = V_2\left(\frac{1}{R_2}\right) \text{ and }$$
@@ -446,7 +446,7 @@ drive a load that requires more current than what an op-amp can supply.
 Therefore a transistor must be combined with the op-amp. Both the
 following circuits may work, but the second one will be more accurate.
 
-<img src="./images/2.19.png" width="50%" alt="Inverting amplifier circuit with transistor"/>
+<img src="./images/3.19.png" width="50%" alt="Inverting amplifier circuit with transistor"/>
 _Figure 2.19: Inverting amplifier circuit with transistor_
 
 > #### **Question 2.3**
@@ -454,7 +454,7 @@ _Figure 2.19: Inverting amplifier circuit with transistor_
 > Do you agree with the equation:
 > $$V_{out} = -\frac{R_2}{R_1}V_{in} - 0.7$$
 
-<img src="./images/2.20.png" width="50%" alt="More accurate inverting amplifier circuit with transistor"/>
+<img src="./images/3.20.png" width="50%" alt="More accurate inverting amplifier circuit with transistor"/>
 _Figure 2.20: More accurate inverting amplifier circuit with transistor_
 
 > #### **Question 2.4**
@@ -495,7 +495,7 @@ by the power supply rails.
 For a common dual rail op-amp (e.g. LM741) neither the input nor output
 voltages will exactly go from rail to rail.
 
-<img src="./images/2.21.png" width="50%" alt="Input/output voltage range for dual supply op-amp"/>
+<img src="./images/3.21.png" width="50%" alt="Input/output voltage range for dual supply op-amp"/>
 _Figure 2.21: Input/output voltage range for dual supply op-amp_
 
 The difference between the dual supply device and the single supply
@@ -504,7 +504,7 @@ voltages.
 
 For a single supply op-amp (e.g. LM358, $V_{s-}$ is usually ground):
 
-<img src="./images/2.22.png" width="50%" alt="Input/output voltage range for single supply op-amp"/>
+<img src="./images/3.22.png" width="50%" alt="Input/output voltage range for single supply op-amp"/>
 _Figure 2.22: Input/output voltage range for single supply op-amp_
 
 Note: Although the input is shown here to be as low as on $V_{s-}$, it
@@ -524,7 +524,7 @@ display this distortion.
 Consider the circuit below, with $V_+ = 10\,\text{V}$, assuming the
 specification: $0.5\,\text{V} \leq V_{out} \leq 9.5\,\text{V}$:
 
-<img src="./images/2.23.png" width="50%" alt="Dual supply op-amp example circuit"/>
+<img src="./images/3.23.png" width="50%" alt="Dual supply op-amp example circuit"/>
 _Figure 2.23: Dual supply op-amp example circuit_
 
 1. The allowable range for $V_{in}$ is from 0.05 V to 0.95 V
@@ -535,7 +535,7 @@ restrictions than the inputs to the op-amp themselves.
 
 Consider this circuit with a single supply op-amp:
 
-<img src="./images/2.24.png" width="50%" alt="Single supply op-amp example circuit"/>
+<img src="./images/3.24.png" width="50%" alt="Single supply op-amp example circuit"/>
 _Figure 2.24: Single supply op-amp example circuit_
 
 $V_{in}$ can be negative because that will cause $V_{out}$ to be
@@ -599,7 +599,7 @@ output. It is typically specified in V/µs. The LM358 has a slew rate of
 Thus, if the LM358's output had to swing sharply from 0 V to 5 V the
 output waveform would look like this:
 
-<img src="./images/2.25.png" width="50%" alt="Slew rate limitation"/>
+<img src="./images/3.25.png" width="50%" alt="Slew rate limitation"/>
 _Figure 2.25: Slew rate limitation_
 
 This will distort square edges and limits the frequency of operation in
@@ -620,7 +620,7 @@ the inverse of the circuit of the second diagram.
 
 Their slew rate can be as high as 30 V/µs.
 
-<img src="./images/2.26.png" width="100%" alt="Dedicated comparator circuits"/>
+<img src="./images/3.26.png" width="100%" alt="Dedicated comparator circuits"/>
 _Figure 2.26: Dedicated comparator circuits_
 
 Remember that the output pin will have some parasitic capacitance. This
@@ -643,7 +643,7 @@ temperature sensor outputs 2.5 V at $50^\circ\text{C}$. We can put
 together the following circuit (the reason for the 2 transistors is to
 eventually be able to supply sufficient current to the fan):
 
-<img src="./images/2.27.png" width="50%" alt="Hysteresis example circuit"/>
+<img src="./images/3.27.png" width="50%" alt="Hysteresis example circuit"/>
 _Figure 2.27: Hysteresis example circuit_
 
 When the fan turns on it causes the temperature to drop, which will then
@@ -658,7 +658,7 @@ mode, since its output will either be maximum or minimum, never in
 between except when switching from one extreme to the other as fast as
 it can.
 
-<img src="./images/2.28.png" width="50%" alt="Hysteresis example circuit with positive feedback"/>
+<img src="./images/3.28.png" width="50%" alt="Hysteresis example circuit with positive feedback"/>
 _Figure 2.28: Hysteresis example circuit with positive feedback_
 
 The output of the op-amp now affects the reference level (the $V_+$

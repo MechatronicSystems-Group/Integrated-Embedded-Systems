@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Chapter 7: Interrupts"
+title: "Chapter 8: Interrupts"
 parent: Microcontroller Programming
 nav_order: 3
 ---

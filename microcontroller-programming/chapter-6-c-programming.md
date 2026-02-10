@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Chapter 5: C Programming for Embedded Systems"
+title: "Chapter 6: C Programming for Embedded Systems"
 parent: Microcontroller Programming
 nav_order: 1
 ---

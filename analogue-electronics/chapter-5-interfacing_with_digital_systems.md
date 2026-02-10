@@ -1,11 +1,11 @@
 ---
 layout: page
-title: "Chapter 3: Interfacing with Digital Systems"
+title: "Chapter 4: Interfacing with Digital Systems"
 parent: Analogue Electronics
-nav_order: 3
+nav_order: 4
 ---
 
-# Chapter 3: Interfacing with Digital Systems
+# Chapter 4: Interfacing with Digital Systems
 
 At the end of Chapter 1, the example of a MOSFET H-bridge was given, and it was mentioned that a microcontroller output with levels 0 V or 3.3 V can provide the Drive Signals for the H-bridge, because a level adjuster was already part of the circuitry given there. The 3.3 V level will however have to be increased if a BJT H-bridge is used.
 
@@ -45,7 +45,7 @@ Therefore $y = \frac{3.3}{24}$(x + 12) = $\frac{3.3}{24}$\[x -- (-12)\].
 
 The following circuit would be good:
 
-<img src="./images/3.1.png" width="50%" alt="Level adjuster based on differential amplifier"/>
+<img src="./images/4.1.png" width="50%" alt="Level adjuster based on differential amplifier"/>
 _Figure 3.1: Level adjuster based on differential amplifier_
 
 </div>
@@ -76,7 +76,7 @@ $$y = \frac{3.3}{20}(x + 10) = \frac{3.3}{20}(x - (-10))$$
 
 A general differential amplifier as shown below would work. Make sure you can analyse and design it.
 
-<img src="./images/3.2.png" width="50%" alt="Level adjuster based on a differential amplifier"/>
+<img src="./images/4.2.png" width="50%" alt="Level adjuster based on a differential amplifier"/>
 _Figure 3.2: Level adjuster based on a differential amplifier_
 
 Applying the equation
@@ -121,7 +121,7 @@ Therefore $y = - \frac{3.3}{24}(x - 12) = \frac{3.3}{24}(12 - x) = - \frac{3.3}{
 
 From the last two representations, it can be seen that it can be implemented with either a differential amplifier and the +12 V as one input, or an inverting adder and the -12 V as the one input:
 
-<img src="./images/3.3.png" width="100%" alt="Level adjusters based on a differential amplifier (a) and an inverting adder (b)"/>
+<img src="./images/4.3.png" width="100%" alt="Level adjusters based on a differential amplifier (a) and an inverting adder (b)"/>
 _Figure 3.3: Level adjusters based on a differential amplifier (a) and an inverting adder (b)_
 </div>
 
@@ -141,7 +141,7 @@ Comparators can also be used to effectively get required gains or attenuations. 
 
 The following circuit will change 0 V and 3.3 V levels to about 0 V and 12 V respectively. It will also produce the inverse of the first comparator's output. This is required if drive signal 1 and drive signal 2 are required to drive a BJT H-bridge in the mode where the one must be the inverse of the other.
 
-<img src="./images/3.4.png" width="50%" alt="Level adjuster based on two comparators"/>
+<img src="./images/4.4.png" width="50%" alt="Level adjuster based on two comparators"/>
 _Figure 3.4: Level adjuster based on two comparators_
 
 The $10 \  k\Omega$ and $62 \  k\Omega$ were calculated to produce a reference voltage of about half the 3.3 V on one of the inputs of each of the two comparators.

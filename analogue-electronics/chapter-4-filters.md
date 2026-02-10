@@ -1,10 +1,10 @@
 ---
 layout: page
-title: "Chapter 4: Filter Circuits"
+title: "Chapter 5: Filter Circuits"
 parent: Analogue Electronics
-nav_order: 4
+nav_order: 5
 ---
-# Chapter 4: Filter Circuits
+# Chapter 5: Filter Circuits
 
 Often, we have small signals which we need to measure. We need to apply
 some special techniques in order to preserve these.
@@ -14,7 +14,7 @@ some special techniques in order to preserve these.
 Noise is one of the biggest problems we have in dealing with small
 signals. We have 2 basic types of noise:
 
-<img src="./images/4.1.png" width="80%" alt="Noise types"/>
+<img src="./images/5.1.png" width="80%" alt="Noise types"/>
 _Figure 4.1: Noise types_
 
 Of course, ideal properties are shown on the graphs -- in practice the
@@ -48,7 +48,7 @@ The simplest method is to place a shield around cables as shown below or
 use metal casings. There are different quality shields available and
 some will perform better against noise than others.
 
-<img src="./images/4.2.png" width="80%" alt="Shielded cable"/>
+<img src="./images/5.2.png" width="80%" alt="Shielded cable"/>
 _Figure 4.2: Shielded cable_
 
 Notice that the shield is connected to ground. Some systems use the
@@ -59,7 +59,7 @@ differential system. This is done by adding a resistor in the ground
 line below, with resistance equal to the output resistance of the signal
 line.
 
-<img src="./images/4.3.png" width="80%" alt="Impedance balanced differential system"/>
+<img src="./images/5.3.png" width="80%" alt="Impedance balanced differential system"/>
 _Figure 4.3: Impedance balanced differential system_
 
 Any noise that affects line A will also affect line B likewise, not only
@@ -68,7 +68,7 @@ more), but also because they are impedance matched.
 
 The following diagram explains how impedance matching reduces noise.
 
-<img src="./images/4.4.png" width="80%" alt="Impedance matching"/>
+<img src="./images/5.4.png" width="80%" alt="Impedance matching"/>
 _Figure 4.4: Impedance matching_
 
 The common noise in line A and line B will be eliminated by the
@@ -81,7 +81,7 @@ in the lower line.
 The best system is to use an impedance matched shielded differential
 system.
 
-<img src="./images/4.5.png" width="80%" alt="Instrumentation amp applied to a differential system in a shielded cable"/>
+<img src="./images/5.5.png" width="80%" alt="Instrumentation amp applied to a differential system in a shielded cable"/>
 _Figure 4.5: Instrumentation amp applied to a differential system in a shielded cable_
 
 Instrumentation amps are great for balanced systems. They can provide
@@ -126,7 +126,7 @@ filters are given at the end of this chapter.
 
 ### The low-pass filter
 
-<img src="./images/4.6.png" width="50%" alt="Low-pass filter circuit"/>
+<img src="./images/5.6.png" width="50%" alt="Low-pass filter circuit"/>
 _Figure 4.6: Low-pass filter circuit_
 
 To analyze a filter we look at its behavior at DC and at an infinite AC
@@ -150,7 +150,7 @@ tail, or end of the graph takes up the most space. However, if we plot
 the same graph over a logarithmic scale we get a much more convenient
 result. The Bode plot of a low-pass filter is shown below. 
 
-<img src="./images/4_lpf.png" width="100%" alt="Bode plot of a low-pass filter"/>
+<img src="./images/5_lpf.png" width="100%" alt="Bode plot of a low-pass filter"/>
 _Figure 4.7: Bode plot of a low-pass filter_
 
 The transfer function of this low-pass filter is:
@@ -169,7 +169,7 @@ the transfer must be calculated with the load taken into account.
 
 ### The high-pass filter
 
-<img src="./images/4.7.png" width="50%" alt="High-pass filter circuit"/>
+<img src="./images/5.7.png" width="50%" alt="High-pass filter circuit"/>
 _Figure 4.8: High-pass filter circuit_
 
 At very high frequencies the capacitor becomes a short circuit from the
@@ -188,7 +188,7 @@ combinations.
 
 The Bode plot of a high-pass filter is shown below.
 
-<img src="./images/4_hpf.png" width="100%" alt="Bode plot of a high-pass filter"/>
+<img src="./images/5_hpf.png" width="100%" alt="Bode plot of a high-pass filter"/>
 _Figure 4.9: Bode plot of a high-pass filter_
 
 The transfer function of this high-pass filter is:
@@ -204,7 +204,7 @@ order high-pass filter with a high frequency gain of 1.**
 
 ### Active $1^{st}$ order low-pass filter
 
-<img src="./images/4.8.png" width="50%" alt="Active $1^{st}$ order low-pass filter circuit"/>
+<img src="./images/5.8.png" width="50%" alt="Active $1^{st}$ order low-pass filter circuit"/>
 _Figure 4.10: Active $1^{st}$ order low-pass filter circuit_
 
 Unlike the passive filters above, this one is active because an op-amp
@@ -284,7 +284,7 @@ $|K|\ \%\ error = \frac{5.13 - 5.0}{5.0} \times 100\% = + 2.6\%$
 
 ### Active $2^{nd}$ order low-pass filter
 
-<img src="./images/4.9.png" width="50%" alt="Active $2^{nd}$ order low-pass filter circuit"/>
+<img src="./images/5.9.png" width="50%" alt="Active $2^{nd}$ order low-pass filter circuit"/>
 _Figure 4.11: Active $2^{nd}$ order low-pass filter circuit_
 
 The transfer function for an active $2^{nd}$ order low-pass filter can be calculated with the short-cut method:
@@ -333,7 +333,7 @@ is obviously wrong.
 
 ### Active $1^{st}$ order high-pass filter
 
-<img src="./images/4.10.png" width="50%" alt="Active $1^{st}$ order high-pass filter circuit"/>
+<img src="./images/5.10.png" width="50%" alt="Active $1^{st}$ order high-pass filter circuit"/>
 _Figure 4.12: Active $1^{st}$ order high-pass filter circuit_
 
 This is an inverting amplifier with negative feedback with the addition
@@ -377,7 +377,7 @@ band-pass filters and higher order filters can be analysed.
 
 ### Active band-pass filter
 
-<img src="./images/4.11.png" width="80%" alt="Active band-pass filter circuit"/>
+<img src="./images/5.11.png" width="80%" alt="Active band-pass filter circuit"/>
 _Figure 4.13: Active band-pass filter circuit_
 
 Can you see that the gains at very low and very high frequencies will
@@ -425,7 +425,7 @@ and this can be proven to be equal to the *K* defined above.
 
 The Bode plot of a band-pass filter is shown below.
 
-<img src="./images/4_bpf.png" width="100%" alt="Bode plot of a band-pass filter"/>
+<img src="./images/5_bpf.png" width="100%" alt="Bode plot of a band-pass filter"/>
 _Figure 4.14: Bode plot of a band-pass filter_
 
 <div class="example" markdown="1">
@@ -477,7 +477,7 @@ $\% K$ error $= \frac{- 3.66 - ( - 3.5)}{- 3.5} \times 100\% = + 4.6\%$
 Here is a $2^{nd}$ example of a band-pass filter.
 
 
-<img src="./images/4.12.png" width="80%" alt="Another active band-pass filter circuit"/>
+<img src="./images/5.12.png" width="80%" alt="Another active band-pass filter circuit"/>
 _Figure 4.15: Another active band-pass filter circuit_
 
 > #### **Question 4.1**
@@ -497,7 +497,7 @@ this you can use a notch filter.
 This can be realized by adding the outputs of a low-pass and high-pass
 filter.
 
-<img src="./images/4.13.png" width="80%" alt="Active notch filter circuit"/>
+<img src="./images/5.13.png" width="80%" alt="Active notch filter circuit"/>
 _Figure 4.16: Active notch filter circuit_
 
 From the equations for the active $1^{st}$ order low-pass and high-pass
@@ -531,7 +531,7 @@ The notch frequency is: $\omega = \sqrt{\frac{1}{R_{1}C_{1}R_{2}C_{2}}}$, in rad
 
 The Bode plot of a notch filter is shown below.
 
-<img src="./images/4_nf.png" width="100%" alt="Bode plot of a notch filter"/>
+<img src="./images/5_nf.png" width="100%" alt="Bode plot of a notch filter"/>
 _Figure 4.17: Bode plot of a notch filter_
 
 > #### **Question 4.2**
@@ -565,7 +565,7 @@ implementation configuration.
 A notch filter can also be realized by subtracting a band-pass filter's
 transfer function from a gain. The following circuit will do this:
 
-<img src="./images/4.14.png" width="80%" alt="Active notch filter circuit formed by subtracting a band-pass filter's transfer function from a gain"/>
+<img src="./images/5.14.png" width="80%" alt="Active notch filter circuit formed by subtracting a band-pass filter's transfer function from a gain"/>
 _Figure 4.18: Active notch filter circuit formed by subtracting a band-pass filter's transfer function from a gain_
 
 The transfer function is:
@@ -629,7 +629,7 @@ lead time constant, and $\tau_{2}$ the lag time constant.
 It can be implemented with either of the following circuits, the first
 producing a negative gain, and the second not.
 
-<img src="./images/4.15.png" width="50%" alt="Compensator networks"/>
+<img src="./images/5.15.png" width="50%" alt="Compensator networks"/>
 _Figure 4.19: Compensator networks_
 
 > #### **Question 4.4**

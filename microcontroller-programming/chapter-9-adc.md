@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Chapter 8: Analog-to-Digital Conversion"
+title: "Chapter 9: Analog-to-Digital Conversion"
 parent: Microcontroller Programming
 nav_order: 4
 ---

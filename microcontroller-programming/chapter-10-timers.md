@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Chapter 9: Timers"
+title: "Chapter 10: Timers"
 parent: Microcontroller Programming
 nav_order: 5    
 ---

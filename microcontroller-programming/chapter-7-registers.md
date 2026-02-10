@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Chapter 6: Microcontroller Registers"
+title: "Chapter 7: Microcontroller Registers"
 parent: Microcontroller Programming
 nav_order: 2
 ---
