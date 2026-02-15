@@ -114,4 +114,62 @@ img + em {
   font-size: 0.9em;
   color: #6c757d;
   margin-top: 0.5em;
+}
+
+/* AI Use Zone styles */
+.green-zone {
+  background: rgba(150, 255, 150, 0.2);
+  border-left: 4px solid #1A7F37;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+  padding: 0.8rem;
+  margin: 1.5rem auto;
+  max-width: 100%;
+  text-align: left;
+}
+
+.green-zone::before {
+  content: "Green Zone";
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #1A7F37
+}
+
+.yellow-zone {
+  background: rgba(255, 223, 128, 0.2);
+  border-left: 4px solid #D4A017;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+  padding: 0.8rem;
+  margin: 1.5rem auto;
+  max-width: 100%;
+  text-align: left;
+}
+
+.yellow-zone::before {
+  content: "Yellow Zone";
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #D4A017
+}
+
+.red-zone {
+  background: rgba(255, 150, 150, 0.2);
+  border-left: 4px solid #CF222E;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+  padding: 0.8rem;
+  margin: 1.5rem auto;
+  max-width: 100%;
+  text-align: left;
+}
+
+.red-zone::before {
+  content: "Red Zone";
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #CF222E
 } 
