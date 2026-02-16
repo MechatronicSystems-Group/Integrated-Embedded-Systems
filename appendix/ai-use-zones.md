@@ -13,6 +13,8 @@ The use of generative AI tools in education presents both opportunities and chal
 
 ## The Three Zones
 
+TBC
+<!--
 ### Green Zone: AI as a Learning Tool
 
 The Green Zone represents appropriate, encouraged use of AI tools to support your learning. In this zone, AI acts as a tutor, debugger, and study aid—not as a replacement for your own thinking.
@@ -189,3 +191,4 @@ The goal of this course is to make you a competent embedded systems engineer. AI
 The UCT Framework for AI in Education can be found here: 
 
 [UCT AI in Education Framework](docs/uct-ai-in-education-framework-june-2025-final.pdf)
+-->
