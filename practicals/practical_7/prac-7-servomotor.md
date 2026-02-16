@@ -2,6 +2,7 @@
 title: "Practical 7: Servomotor Control"
 nav_order: 8
 parent: Practicals
+published: false
 ---
 
 # Practical 7: Servomotor Control

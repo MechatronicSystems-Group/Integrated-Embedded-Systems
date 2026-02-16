@@ -2,6 +2,7 @@
 title: "Practical 2: Comparator Circuits"
 parent: Practicals
 nav_order: 3
+published: false
 ---
 
 # Practical 2: Comparator Circuits

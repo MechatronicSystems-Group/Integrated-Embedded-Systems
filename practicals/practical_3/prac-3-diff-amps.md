@@ -2,6 +2,7 @@
 title: "Practical 3: The Differential Operational Amplifier"
 nav_order: 4
 parent: Practicals
+published: false
 ---
 
 # Practical 3: The Differential Operational Amplifier

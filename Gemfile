@@ -10,3 +10,5 @@ gem "jekyll-sitemap", group: :jekyll_plugins
 gem 'jekyll-spaceship', group: :jekyll_plugins
 gem "csv"
 gem "base64"
+gem "logger"
+gem "ostruct"

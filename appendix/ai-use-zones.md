@@ -2,22 +2,18 @@
 title: "AI Use Zones for MEC4126F"
 parent: Appendices
 nav_order: 3
+published: false
 ---
 
 # AI Use Zones for MEC4126F
 
 The use of generative AI tools in education presents both opportunities and challenges. This framework establishes three zones—Green, Yellow, and Red—to help you understand when and how AI can be used responsibly in this course. These zones are designed to support your learning while maintaining academic integrity and ensuring you develop the skills necessary to become a competent engineer.
 
-{:.caution}
-> The 2025 class data showed a strong correlation between heavy AI use on assignments and poor performance in tests and exams. This framework exists to help you avoid that trap—AI should enhance your learning, not replace it.
-
 ## The Three Zones
 
-TBC
-<!--
 ### Green Zone: AI as a Learning Tool
 
-The Green Zone represents appropriate, encouraged use of AI tools to support your learning. In this zone, AI acts as a tutor, debugger, and study aid—not as a replacement for your own thinking.
+The Green Zone represents appropriate, encouraged use of AI tools to support your learning. In this zone, AI acts as a tutor, debugger, and study aid; not as a replacement for your own thinking.
 
 {:.green-zone}
 > **Appropriate uses in the Green Zone:**
@@ -53,15 +49,14 @@ The Yellow Zone represents situations where AI-generated code may be incorporate
 > 3. **Testing and Verification**: You must thoroughly test AI-generated code and verify it works correctly in your specific context.
 > 4. **Documentation**: You must document which parts of your code were AI-assisted and how you verified its correctness.
 > 5. **No Core Algorithms**: AI should not be used to generate the primary algorithmic or design logic that the assessment is testing.
-
-{:.yellow-zone}
+  
 > **Example Yellow Zone interaction:**
 > 
 > *Student:* "I've implemented the PID controller myself, but I need a helper function to calculate the moving average of my sensor readings. Can you suggest an efficient implementation?"
 > 
 > *AI:* [Provides a moving average function]
 > 
-> *Student:* [Reviews the code, understands how it works, tests it thoroughly, integrates it, and documents the assistance]
+> *Student:* [Reviews the code, understands how it works, tests it thoroughly, integrates it, and documents the assistance. The student is then prepared to explain the code in person to a tutor or examiner.]
 
 {: .note }
 > **Key principle for Yellow Zone:** AI is a tool you use, not a replacement for your expertise. You remain fully responsible for the correctness and quality of the final submission.
@@ -92,23 +87,23 @@ The Red Zone represents uses of AI that undermine the learning objectives of the
 {:.caution}
 > **Key principle for Red Zone:** If AI is doing the thinking, you are not learning. The goal of assessments is to develop your competence, not to produce working code by any means necessary.
 
-## Why This Matters: The 2025 Lesson
+## The 2025 Case Study in MEC4126F
 
-The 2025 class saw widespread use of AI tools on programming assignments. While many students submitted working code, the data revealed a concerning pattern:
+The 2025 class saw widespread use of AI tools on programming parts of the practicals. While many students submitted working code, the data revealed a concerning pattern:
 
-- Students who relied heavily on AI for assignments performed significantly worse in tests and exams.
-- Many could not explain basic concepts they had supposedly "mastered" in assignments.
-- The gap between assignment performance and exam performance was the largest seen in recent years.
+- Students achieved similar marks in practicals to previous years despite increased AI usage.
+- 14 academic misconduct cases were identified and reported for inappropriate AI use.
+- The practical exam performance, where AI use was prohibited, was the lowest in the past 5 years with an average mark of 47% being achieved and a pass rate of 44%.
 
-This pattern suggests that AI use had replaced learning rather than supported it. When these students faced assessments without AI access, they lacked the foundational understanding that assignments were meant to develop.
+This pattern suggests that students were often unable to recognise when their use of AI was inappropriate and further, that AI use had replaced learning rather than supported it. 
 
 ### The Professional Reality
 
 As a mechatronic engineer, you will be expected to:
 
-- Debug hardware and software issues in the field without internet access.
-- Review and sign off on designs where "the AI said it was fine" is not a defense.
-- Solve novel problems that AI tools have not been trained on.
+- Debug hardware and software issues in the field where they may be without internet access.
+- Review and sign off on designs where, "the AI said it was fine" is not a defense.
+
 - Work within safety-critical systems where errors have real consequences.
 
 {: .note }
@@ -118,33 +113,26 @@ As a mechatronic engineer, you will be expected to:
 
 ### Before Using AI, Ask Yourself:
 
-{:.green-zone}
-> 1. **Have I attempted this myself first?** AI should help you get unstuck, not prevent you from ever being stuck.
 
-{:.yellow-zone}
-> 2. **Will I understand the result?** If you cannot explain the AI's output, you should not use it.
+1. *Have I attempted this myself first?* AI should help you get unstuck, not prevent you from ever being stuck.
 
-{:.yellow-zone}
-> 3. **What am I actually learning?** If the answer is "nothing" or "how to prompt AI," reconsider your approach.
+2. *Will I understand the result?* If you cannot explain the AI's output, you should not use it.
 
-{:.red-zone}
-> 4. **Could I do this in an exam?** If not, you need more practice without AI assistance.
+3. *What am I actually learning?* If the answer is "nothing" or "how to prompt AI," reconsider your approach.
+
+4. *Could I do this in an exam?* If not, you need more practice without AI assistance.
 
 ### Building Your AI Literacy
 
-Responsible AI use is itself a skill. To use AI effectively as an engineer:
+Responsible AI use is itself a skill. To use AI effectively as an engineer, here are some guidelines that may help build responsible habits:
 
-{:.green-zone}
-> **Verify everything**: AI can generate plausible-looking nonsense. In embedded systems, that nonsense can damage hardware.
+**Verify everything**: AI can generate plausible-looking nonsense. In embedded systems, that nonsense can damage hardware.
 
-{:.green-zone}
-> **Understand limitations**: AI has no understanding of your specific hardware, constraints, or context.
+**Understand limitations**: AI has no understanding of your specific hardware, constraints, or context unless you specifically tell it these details.
 
-{:.green-zone}
-> **Develop critical evaluation**: Learn to spot when AI output is wrong, inefficient, or inappropriate.
+**Develop critical evaluation**: Learn to spot when AI output is wrong, inefficient, or inappropriate.
 
-{:.red-zone}
-> **Practice without AI**: Regularly solve problems completely on your own to maintain and build your skills.
+**Practice without AI**: Regularly solve problems completely on your own to maintain and build your skills.
 
 ### Documentation Requirements
 
@@ -155,7 +143,7 @@ AI Use Declaration:
 - Used AI to generate the moving average filter function (lines 45-62).
 - Modified the function to use fixed-point arithmetic for performance.
 - Verified correctness against known test cases.
-- Fully understand the implementation and can explain it.
+- Fully understand the implementation and can explain it. (Actually prepare for this as you may be asked to do so.)
 ```
 
 {:.tip}
@@ -175,7 +163,7 @@ Different assessments may have different AI use policies. Always check the speci
 {:.caution}
 > When in doubt, ask. It is always better to clarify before submitting than to face an academic integrity investigation after.
 
-## Summary
+## Summary of AI Use Zones
 
 | Zone | Description | Analogy |
 |------|-------------|---------|
@@ -183,12 +171,12 @@ Different assessments may have different AI use policies. Always check the speci
 | **Yellow** | AI-assisted with transparency; you remain responsible | Using CAD software to design a part you fully understand |
 | **Red** | AI replaces your thinking; academic misconduct | Submitting someone else's work as your own |
 
-The goal of this course is to make you a competent embedded systems engineer. AI is a powerful tool that, used responsibly in the Green and Yellow Zones, can accelerate your learning. Used irresponsibly in the Red Zone, it will leave you unprepared for the challenges of your profession—and the evidence from 2025 shows that the consequences will catch up with you in exams and, ultimately, in your career.
 
 {:.red-zone}
 > Choose your zone wisely. Attempt to always stay in the Green!
 
+## UCT Framework for AI in Education 
+
 The UCT Framework for AI in Education can be found here: 
 
 [UCT AI in Education Framework](docs/uct-ai-in-education-framework-june-2025-final.pdf)
--->
