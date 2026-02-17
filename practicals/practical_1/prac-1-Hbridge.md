@@ -1,12 +1,25 @@
 ---
-layout: page
 title: "Practical 1: Emitter Follower H-Bridge"
 nav_order: 2
 parent: Practicals
-published: false
+published: true
 ---
 
 # Practical 1: Emitter Follower H-Bridge
+
+## The Servomotor
+
+A servomotor is a type of motor that is designed to control the rotational position of its shaft rather than it's rotational speed (as is usually the case with DC motors). There are various types of servomotors but the most common type is the hobbyist servomotor, which is a small, low cost, and easy to use motor that is commonly used in robotics and other hobby projects. The hobbyist servomotor is typically a DC motor with a gearbox and a feedback mechanism that measures the position of its shaft. A small control circuit is used to drive the motor and read the feedback signal, which allows the motor to be precisely controlled. This controller also facilitates communication with the servomotor in order to send it position commands. This is shown in Figure 1 below.
+
+<img width="80%" src="../assets/hobby_servo_parts.webp">
+_Figure 1: A labelled hobby servo motor. Image taken from <a href="https://www.solomotorcontrollers.com/blog/servo-motor/?srsltid=AfmBOop3CP_Lit10OXW7UrRHI2wdlnlDEAnPudQjgdVNHolW6NwZBuAI">here</a>.)_
+
+Over the series of practicals in this course, you will build up a servo motor from its constituent parts, using a DC motor, a potentiometer to read the shaft position and an STM32 microcontroller to control the operation. Various analogue electronic circuits will be used to interface the microcontroller with the motor and potentiometer, and to control the power supplied to the motor. The figure below shows the hardware block diagram of the system.
+
+<img width="100%" src="./Resources/servomotor-block-diagram_P1.png">
+_Figure 2: A block diagram representation of a servo motor._
+
+The first of these circuits is the H-Bridge, which is used to control the direction and speed of the DC motor.
 
 This practical aims to introduce you to the functionality of an Emitter Follower H-Bridge. This type of circuit is extremely useful and is predominately used to drive a motor. In this practical we will only drive a resistor but later on in this practical series we will use this circuit to drive your servomotor.
 
@@ -26,17 +39,17 @@ Table of Contents
 * [Mark Scheme](#mark-scheme)
 
 ## Background
-The H-Bridge is a simple circuit that is used to alter the polarity of the voltage that is applied to load (usually a motor). The H-Bridge achieves this by using four devices that can act as a switch (like a toggle switch, relay, or transistor) such as shown in [Figure 1](./Resources/H_bridge.png).
+The H-Bridge is a simple circuit that is used to alter the polarity of the voltage that is applied to load (usually a motor). The H-Bridge achieves this by using four devices that can act as a switch (like a toggle switch, relay, or transistor) such as shown in [Figure 3](./Resources/H_bridge.png).
 
 The state of the switches are used to control the polarity and magnitude (on/off) of the voltage applied to the load. When two diagonally opposite switches are closed a voltage is applied across the load, the polarity of the voltage is controlled by each diagonal pair of switches. When the load is a motor we can also use the H-Bridge to brake the motor or coast the motor, you can check out the full truth table for driving a motor here [here](https://en.wikipedia.org/wiki/H-bridge#DC_motor_Driver).
 
 <img width="40%" src="./Resources/H_bridge.png">
-_Figure 1: A basic representation of a H-Bridge._
+_Figure 3: A basic representation of a H-Bridge._
 
-As mentioned, the switches shown in Figure 1 can be implemented through several technologies. In this practical we will use the Darlington Transistor, specifically the TIP122 and TIP127. This requires that we use two NPN and PNP transistors are used in a complimentary transistor pair as shown in [Figure 2](./Resources/H_bridge_darl.png).
+As mentioned, the switches shown in Figure 3 can be implemented through several technologies. In this practical we will use the Darlington Transistor, specifically the TIP122 and TIP127. This requires that we use two NPN and PNP transistors are used in a complimentary transistor pair as shown in [Figure 4](./Resources/H_bridge_darl.png).
 
 <img width="40%" src="./Resources/H_bridge_darl.png">
-_Figure 2: A transistor H-Bridge._
+_Figure 4: A transistor H-Bridge._
 
 Two drive signals are used to bias the transistors to turn them on or off. These dive signals are always anti-phase (i.e. when one is high the other is low) for our application. The voltage of the drive signals should be as close as possible to the rail voltages as to ensure that the transistors are properly biased.
 
@@ -58,14 +71,14 @@ The following components will be provided to you on the **Monday when this pract
 {:.important}
 > Due to protest action, component collection will be at a later point in time. Stay tuned on Amathuba for a relevant announcement.
 
-## Question 1: Emitter Follower H-Bridge
+## Question 1: Emitter Follower Half-Bridge
 
 We will first make what is commonly referred to as a half bridge, otherwise known as a class B amplifier. These are able to control high current input to a DC motor but only in one direction: the motor can be enabled, the speed can be controlled with PWM, but it can only be driven forward and cannot reverse.
 
-We shall use one TIP 122 and one TIP 127 for this layout as shown in [Figure 3](./Resources/Half-bridge.png), read the [datasheet](./Resources/TIP120-D.PDF) to figure out which transistor to place where and how. Connect the output of the half bridge to one lead of your 100 Ω resistor and connect the other lead to ground, as shown in [Figure 3](./Resources/Half-bridge.png). In this case the 2W resistor is a stand in for a DC motor and is able to support a high current without exploding (do not use the normal ¼ watt resistors!).
+We shall use one TIP 122 and one TIP 127 for this layout as shown in [Figure 5](./Resources/Half-bridge.png), read the [datasheet](./Resources/TIP120-D.PDF) to figure out which transistor to place where and how. Connect the output of the half bridge to one lead of your 100 Ω resistor and connect the other lead to ground, as shown in [Figure 5](./Resources/Half-bridge.png). In this case the 2W resistor is a stand in for a DC motor and is able to support a high current without exploding (do not use the normal ¼ watt resistors!).
 
 <img width="40%" src="./Resources/Half-bridge.png">
-_Figure 3: A Darlington transistor half bridge._
+_Figure 5: A Darlington transistor half bridge._
 
 {:.tip}
 > You will be using your breadboard for several practicals, it is suggested that you use the bus strips (the two long rows on either side of your breadboard) as a place to draw/sink power to/from. This will make your breadboard easier to use and to debug. Do note that most breadboards have a split in the middle of both rails on either side, so you will need to bridge these if you want power all the way along your board.
@@ -79,10 +92,10 @@ _Figure 3: A Darlington transistor half bridge._
 > If you successfully see a ~3.6 V output across the resistor when input is high, see if you can toggle the output by connecting the input to ground. You should now see 0V across the "motor" (resistor).
 
 ## Question 2: Completing the circuit
-You can now construct the full H-Bridge by creating another half-bridge to create a circuit as shown in Figure 4. Depending on the combination of inputs (as both sides should now have an input signal) you should be able to drive your hypothetical motor forwards AND backwards!
+You can now construct the full H-Bridge by creating another half-bridge to create a circuit as shown in Figure 6. Depending on the combination of inputs (as both sides should now have an input signal) you should be able to drive your hypothetical motor forwards AND backwards!
 
 <img width="40%" src="./Resources/H_bridge_darl.png">
-_Figure 4: A Darlington transistor H-Bridge._
+_Figure 6: A Darlington transistor H-Bridge._
 
 
 > ### **Question 2.1**
