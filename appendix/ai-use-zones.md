@@ -2,7 +2,7 @@
 title: "AI Use Zones for MEC4126F"
 parent: Appendices
 nav_order: 3
-published: false
+published: true
 ---
 
 # AI Use Zones for MEC4126F
@@ -24,6 +24,8 @@ The Green Zone represents appropriate, encouraged use of AI tools to support you
 > 4. **Approach Critique**: Asking AI to explain why your approach to a problem may not be working after you've tried it.
 > 5. **Documentation Help**: Understanding library functions, register definitions, etc.
 > 6. **Study Aid**: Generating practice problems or explaining solutions to past exam questions.
+> 7. **Helping with Time/Project management** Using an AI to assist with planning your time so that you can complete your various tasks on time.
+> 8. **Grammar and Syntax** Using an AI to help you write with more correct grammar or to identify how you haven't adhered to the programming language requirements.
 
 {:.green-zone}
 > **Example Green Zone interaction:**
@@ -35,7 +37,7 @@ The Green Zone represents appropriate, encouraged use of AI tools to support you
 > *Student:* [Uses the explanation to fix their own code and learns from the mistake]
 
 {: .note }
-> **Key principle for Green Zone:** You must understand and be able to explain any code or concept you submit. If you cannot explain your solution line-by-line, you have not used AI appropriately. Pracs are marked through demonstration of your solution, where questions may be asked.
+> **Key principle for Green Zone:** AI is used as a learning tool.You must understand and be able to explain any code or concept you submit. If you cannot explain your solution line-by-line, you have not used AI appropriately. Pracs are marked through demonstration of your solution, where questions may be asked.
 
 ### Yellow Zone: AI-Assisted Work with Full Understanding
 
@@ -73,7 +75,7 @@ The Red Zone represents uses of AI that undermine the learning objectives of the
 > 3. **Obfuscation**: Using AI to modify code in an attempt to hide that it was AI-generated.
 > 4. **Exam and Test Use**: Using AI during any closed-book assessment, including in-person tests and exams.
 > 5. **False Attribution**: Claiming AI-generated work as entirely your own without disclosure.
-> 6. **Bypassing Learning**: Using AI to complete assignments without engaging with the underlying concepts.
+> 6. **Bypassing Learning**: Using AI to complete assignments without engaging with the underlying concepts. 
 
 {:.red-zone}
 > **Example Red Zone violation:**
