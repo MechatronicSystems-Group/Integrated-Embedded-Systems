@@ -34,7 +34,7 @@ Table of Contents
 * [Question 1: Emitter Follower H-Bridge](#question-1-emitter-follower-h-bridge)
 * [Question 2: Completing the circuit](#question-2-completing-the-circuit)
 * [Question 3: Extending the Circuit](#question-3-extending-the-circuit)
-* [Question 4: Extension Question](#question-4-extension-question)
+<!--* [Question 4: Extension Question](#question-4-extension-question)-->
 * [Demonstrating your circuit](#demonstrating-your-circuit)
 * [Mark Scheme](#mark-scheme)
 
@@ -68,8 +68,6 @@ The following components will be provided to you on the **Monday when this pract
 - 1 x 100 Ω, 2 W Resistor
 - Wire
 
-{:.important}
-> Due to protest action, component collection will be at a later point in time. Stay tuned on Amathuba for a relevant announcement.
 
 ## Question 1: Emitter Follower Half-Bridge
 
@@ -97,8 +95,6 @@ You can now construct the full H-Bridge by creating another half-bridge to creat
 <img width="40%" src="./Resources/H_bridge_darl.png">
 _Figure 6: A Darlington transistor H-Bridge._
 
-
-> ### **Question 2.1**
 > You can test this circuit in two manners:
 > * If you are at home, use your STM32 dev board as a power supply again. Connect the 5V pin on your dev board to both power the H-Bridge and one input pin. Then connect the circuit’s ground and the other input pin to the ground pin on your dev board. You should then be then able to read around 2.2 V across the resistor and -2.2 V across the resistor when you switch around the inputs.
 > * If you are in the lab, use the same steps as before but just with the DC power supply and multimeter that is provided on the work bench.
@@ -109,12 +105,12 @@ _Figure 6: A Darlington transistor H-Bridge._
 {:.important}
 > Remember which multimeter lead you are connecting to where so the polarity sense stays the same between tests.
 
+
 ## Question 3: Extending the Circuit
 You may have noticed that we always drive the H-Bridge with a voltage that is near the power supply voltage. This is to ensure that the transistors are properly biased (we want to lose the least amount of power across the transistors). This creates a significant issue since this limits the voltage that we can supply to the H-Bridge to the voltage we can drive the H-Bridge with. Since most μ-Controllers can only output 3V3, we can not transfer significant power to our load. Therefore, we require a method to step up our drive signal voltage from 3V3 to whatever we decided to power the H-Bridge with.
 
 To complete this we will use a BJT level adjuster circuit using a [P2N2222 transistor](./Resources/P2N2222A-D.PDF).
 
-> ### **Question 3.1**
 > For this part of the practical you are required to design a level adjusting circuit using a PN2222 transistor. This level adjuster should be used to drive a H-Bridge that is connected to a 20 V power supply from a μ-Controller that outputs 3V3. Draw the circuit on a piece of paper and calculate the values of the two resistors required to bias this circuit, assuming a β of 10, I<sub>E</sub> of 100 mA, V<sub>CE(sat)</sub> of 0.3V and V<sub>BE</sub> of 0.7V. Show this circuit to the tutor during your demonstration and explain how you would integrate this circuit to the H-Bridge.
 
 **You do not need to actually build the circuit!**
@@ -122,6 +118,8 @@ To complete this we will use a BJT level adjuster circuit using a [P2N2222 trans
 {:.note2}
 > You will notice that the logic of the drive signal is altered because of this circuit.
 
+
+<!--
 ## Question 4: Extension Question
 **This Question is not compulsory!**
 
@@ -132,11 +130,15 @@ You may have noticed that the drive signals that we use are always in anti-phase
 
 ## Demonstrating your circuit
 When you are happy with your full h-bridge circuit you can demonstrate the operation of your circuit to a tutor. If you have completed the extension question bring it along as well. When you are ready, you are required to power your circuit from the DC power supply with 10 V. Connect one input to 10 V and the other to ground. Read the voltage across the resistor, it should be around 7.2 V. Then switch the inputs and read the voltage across the resistor, it should be around -7.2 V.
+-->
+
+
+
+### **Mark Scheme**
 
 {:.caution}
 > You only have two attempts to demonstrate your circuit (with an associated mark deduction on the second attempt), please familiarise yourself with the [Mark Scheme](#mark-scheme) before you demonstrate your circuit.
 
-### **Mark Scheme**
 The following mark scheme will be used to mark your practicals:
 
 ```mermaid
@@ -151,14 +153,6 @@ flowchart TD
     E --> F
     F --> |Yes|G[+1]
     F --> |No|H[+0]
-    G --> I{Is the resitor values correct?}
-    I --> |Yes|J[+2]
-    I --> |No|K[+0]
-    J --> L{Is the circuit for the extenstion question correct?}
-    K --> L
-    H --> L
-    L --> |Yes|M[+1]
-    L --> |No|N[+0]
-    M --> O[Final Mark]
-    N --> O[Final Mark]
+    G --> O
+    H --> O[Final Mark]
 ```
