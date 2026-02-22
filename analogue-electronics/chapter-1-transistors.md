@@ -152,7 +152,7 @@ A practical test for saturation: if the measured effective $\beta$ is less than 
 
 > #### **Question 1.1:**
 >
-> Assuming $V_{CE(\text{sat})} = 0.2\ \text{V}$ and specified $\beta = 25$, calculate the effective $\beta$ when $R_{\text{load}} = 22\ \Omega$ and $R_b = 33\ \Omega$, with a 12 V supply.
+> Assuming the same circuit layout as in Example 1.1, with $V_{in}= 3.3\ \text{V}$, $V_{CE(\text{sat})} = 0.2\ \text{V}$ and specified $\beta = 25$, calculate the effective $\beta$ when $R_{\text{load}} = 22\ \Omega$ and $R_b = 33\ \Omega$, with a 12 V supply. Is the collector current limitted here by the load resistance or the transistor (through the base current)?
 
 > #### **Question 1.2:**
 >
@@ -180,7 +180,7 @@ Some integrated Darlington devices incorporate base-emitter resistors to improve
 
 > #### **Question 1.4:**
 >
-> Redesign the previous example with the $12\ \Omega$ load using a TIP122 Darlington transistor with $\beta > 1000$. The supply is 12 V and $V_{in} = 2.4\ \text{V}$. Determine $R_b$ (select from the E12 series) and calculate the effective $\beta$.
+> Redesign the previous example (Fig. 1.3) with the $12\ \Omega$ load using a TIP122 Darlington transistor with $\beta > 1000$. Ensure that the transistor is saturated. The supply is 12 V and $V_{in} = 2.4\ \text{V}$. Determine $R_b$ (select from the E12 series) and calculate the effective $\beta$. Assume $V_{CE(\text{sat})} = 0.2\ \text{V}.$
 
 <img src="./images/1.5.png" width="50%" alt="BJT transistor replaced by a Darlington transistor"/>
 _Figure 1.5: BJT transistor replaced by a Darlington transistor_
