@@ -32,6 +32,8 @@ Knowledge items that are highlighted like this are knowledge items that you shou
 {: .example }
 Examples are provided to illustrate the concepts discussed in the notes. These are not exhaustive, but should be sufficient to help you understand the concepts. They are highlighted like this.
 
+Solutions to the examples are provided in a separate file, linked at the end of each chapter.
+
 ### Questions
 
 > #### **Question**

@@ -412,15 +412,6 @@ If the supply voltage varies, the load current remains constant (assuming suffic
 
 This configuration is a **voltage-controlled current source**, as the load current is determined by the control voltage $V_b$.
 
-> #### **Question 1.8:**
->
-> Derive the exact expression for $i_2$ as a function of $V_b$, $R_1$, and $\beta$ (without assuming $\beta$ is necessarily large).
->
-> **Follow-up:**
->
-> 1. Derive the accurate formula for $i_2$ if $R_1$ is moved from the emitter to the base circuit.
-> 2. Explain why this modified configuration provides inferior current regulation.
-
 ## Voltage Amplification
 
 The current gain of a BJT can be exploited to achieve voltage amplification. Consider the common-emitter configuration:
@@ -440,15 +431,11 @@ As with previous circuits, the combination of supply voltage and transistor satu
 
 Significantly improved accuracy and performance are achieved with Operational Amplifiers—the subject of Chapter 2.
 
-> #### **Question 1.9:**
+> #### **Question 1.8:**
 >
-> Given $V_s$ as the supply voltage, $V_b$ and $V_c$ as base and collector voltages, and $R_c$ and $R_e$ as the collector and emitter resistors:
->
-> 1. Derive $\frac{V_s - V_c}{V_b - 0.7}$ in terms of $R_c$, $R_e$, and $\beta$.
-> 2. Determine the minimum and maximum values of $V_b$ for which this expression remains valid, in terms of $V_s$, $R_c$, $R_e$, and $\beta$, assuming $V_{CE(\text{sat})} = 0.2\ \text{V}$.
+> Given $V_s$ as the supply voltage, $V_b$ and $V_c$ as base and collector voltages, and $R_c$ and $R_e$ as the collector and emitter resistors: Derive $\frac{V_s - V_c}{V_b - 0.7}$ in terms of $R_c$, $R_e$, and $\beta$.
 
-Answer for part (b):
-$$0.7 < V_b < 0.7 + \frac{V_s - 0.2}{1 + \frac{\beta}{\beta + 1} \cdot \frac{R_c}{R_e}}$$
+
 
 ## Field Effect Transistors
 
@@ -541,3 +528,8 @@ Level translation between control logic and power stages will be discussed in gr
 3. Lower voltage drop across switching devices, reducing heat generation
 4. Faster switching speeds, enabling higher PWM frequencies
 5. Reduced component count
+
+
+## Example solutions 
+
+Solutions to the examples in this section can be found [here](./assets/chapter-1-example-solutions.pdf).
