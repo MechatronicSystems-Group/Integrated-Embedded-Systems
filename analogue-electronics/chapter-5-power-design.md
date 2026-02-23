@@ -1,11 +1,11 @@
 ---
 layout: page
-title: "Chapter 2: Power Design"
+title: "Chapter 5: Power Design"
 parent: Analogue Electronics
-nav_order: 2
+nav_order: 5
 ---
 
-# Chapter 2: Power Design
+# Chapter 5: Power Design
 
 Power supply design forms the foundation of reliable electronic systems. Every mechatronic device requires stable, regulated power to function correctly—whether derived from the AC mains or from portable battery sources. Understanding power circuitry is essential for creating robust embedded systems that operate safely and efficiently across varying load conditions and input voltages.
 
@@ -15,8 +15,8 @@ This chapter explores the complete power supply chain: from AC mains conversion 
 
 In many applications, electronic systems derive their power from the AC mains supply. In South Africa and many other regions, the mains supply provides $230\ \text{V}_{\text{RMS}}$ alternating current at $50\ \text{Hz}$. To use this with DC circuits, the voltage must be transformed to a lower level, converted to DC through rectification, smoothed to reduce ripple, and finally regulated to provide a stable output.
 
-<img src="./images/2.1.png" width="80%" alt="Complete AC to DC power supply block diagram showing transformer, rectifier, smoothing capacitor, and regulator stages"/>
-_Figure 2.1: Complete AC to DC power supply block diagram showing transformer, rectifier, smoothing capacitor, and regulator stages_
+<img src="./images/5.1.png" width="80%" alt="Complete AC to DC power supply block diagram showing transformer, rectifier, smoothing capacitor, and regulator stages"/>
+_Figure 5.1: Complete AC to DC power supply block diagram showing transformer, rectifier, smoothing capacitor, and regulator stages_
 
 The process involves four fundamental stages, each addressing a specific requirement of the conversion from high-voltage AC to stable low-voltage DC.
 
@@ -36,8 +36,8 @@ Direct rectification without transformation would produce approximately $325\ \t
 
 The rectifier converts the bidirectional AC waveform into a unidirectional pulsating DC using a diode bridge configuration. This arrangement routes current such that the output is always positive, regardless of the input polarity.
 
-<img src="./images/2.2.png" width="60%" alt="Bridge rectifier circuit showing four diodes converting AC to pulsating DC"/>
-_Figure 2.2: Bridge rectifier circuit showing four diodes converting AC to pulsating DC_
+<img src="./images/5.2.png" width="60%" alt="Bridge rectifier circuit showing four diodes converting AC to pulsating DC"/>
+_Figure 5.2: Bridge rectifier circuit showing four diodes converting AC to pulsating DC_
 
 Since current must pass through two diodes in series during each half-cycle, the output peak voltage is reduced by approximately $1.4\ \text{V}$ (two $0.7\ \text{V}$ silicon diode drops).
 
@@ -45,8 +45,8 @@ Since current must pass through two diodes in series during each half-cycle, the
 
 The pulsating DC from the rectifier contains significant ripple at twice the mains frequency ($100\ \text{Hz}$ for $50\ \text{Hz}$ mains). A large electrolytic capacitor connected across the output stores charge during the voltage peaks and releases it during the troughs, substantially reducing the ripple amplitude.
 
-<img src="./images/2.3.png" width="60%" alt="Smoothed DC output showing ripple voltage after capacitor filtering"/>
-_Figure 2.3: Smoothed DC output showing ripple voltage after capacitor filtering_
+<img src="./images/5.3.png" width="60%" alt="Smoothed DC output showing ripple voltage after capacitor filtering"/>
+_Figure 5.3: Smoothed DC output showing ripple voltage after capacitor filtering_
 
 The remaining ripple voltage depends on the load current, capacitance value, and ripple frequency:
 
@@ -58,8 +58,8 @@ While smoothing improves the DC quality, the voltage still varies with mains flu
 
 The final stage employs a voltage regulator to maintain a constant output voltage despite variations in input voltage and load current. Linear regulators, discussed in detail in the following section, dissipate excess voltage as heat to maintain a stable output.
 
-<img src="./images/2.4.png" width="60%" alt="Regulated DC output showing stable voltage regardless of input variations"/>
-_Figure 2.4: Regulated DC output showing stable voltage regardless of input variations_
+<img src="./images/5.4.png" width="60%" alt="Regulated DC output showing stable voltage regardless of input variations"/>
+_Figure 5.4: Regulated DC output showing stable voltage regardless of input variations_
 
 The regulator provides:
 - Stable, constant output voltage
@@ -74,8 +74,8 @@ Linear voltage regulators maintain a stable output voltage by operating a pass t
 
 The fundamental linear regulator circuit uses negative feedback to compare the output voltage against a reference. An operational amplifier drives a pass transistor, adjusting its conduction to maintain the desired output.
 
-<img src="./images/2.5.png" width="60%" alt="Linear voltage regulator with control loop showing Zener reference and feedback network"/>
-_Figure 2.5: Linear voltage regulator with control loop showing Zener reference and feedback network_
+<img src="./images/5.5.png" width="60%" alt="Linear voltage regulator with control loop showing Zener reference and feedback network"/>
+_Figure 5.5: Linear voltage regulator with control loop showing Zener reference and feedback network_
 
 In this configuration:
 - D1 is a Zener diode establishing a stable reference voltage (typically $5.6\ \text{V}$)
@@ -86,9 +86,9 @@ In this configuration:
 When the output voltage rises above the target, the op-amp reduces the base drive to T1, increasing its effective resistance and lowering the output. Conversely, when the output drops (due to increased load), the op-amp increases the base drive, reducing the voltage drop across T1.
 
 <div class="example" markdown="1">
-#### **Example 2.1**
+#### **Example 5.1**
 
-Design a $10\ \text{V}$ regulator using the circuit of Figure 2.5, given:
+Design a $10\ \text{V}$ regulator using the circuit of Figure 5.5, given:
 - Zener diode D1: $V_Z = 5.6\ \text{V}$
 - Transistor T1: $V_{BE} = 0.7\ \text{V}$
 - Supply voltage: $12\ \text{V}$
@@ -136,7 +136,7 @@ For linear regulators, $i_{\text{in}} \approx i_{\text{out}}$ (plus a small quie
 $$\eta \approx \frac{V_{\text{out}}}{V_{\text{in}}}$$
 
 <div class="example" markdown="1">
-#### **Example 2.2**
+#### **Example 5.2**
 
 Compare the power dissipation and efficiency for a $5\ \text{V}$ regulator with $70\ \text{mA}$ load:
 
@@ -176,8 +176,8 @@ Practical voltage regulator ICs incorporate several protection mechanisms:
 
 The power dissipated in a linear regulator converts directly to heat. Without proper thermal management, the junction temperature can exceed safe limits, causing reduced reliability or catastrophic failure.
 
-<img src="./images/2.6.png" width="70%" alt="Various heatsink styles for TO-220 and other packages showing different thermal designs"/>
-_Figure 2.6: Various heatsink styles for TO-220 and other packages showing different thermal designs_
+<img src="./images/5.6.png" width="70%" alt="Various heatsink styles for TO-220 and other packages showing different thermal designs"/>
+_Figure 5.6: Various heatsink styles for TO-220 and other packages showing different thermal designs_
 
 The junction temperature is calculated as:
 
@@ -195,8 +195,8 @@ Adding a heatsink reduces $R_{\theta JA}$, allowing higher power dissipation for
 
 Standard linear regulators require significant headroom, which limits efficiency in battery-powered applications where the input voltage may be only slightly higher than the required output. Low Dropout (LDO) regulators address this limitation.
 
-<img src="./images/2.7.png" width="60%" alt="Low dropout regulator circuit showing additional transistor Q1 for improved pass element control"/>
-_Figure 2.7: Low dropout regulator circuit showing additional transistor Q1 for improved pass element control_
+<img src="./images/5.7.png" width="60%" alt="Low dropout regulator circuit showing additional transistor Q1 for improved pass element control"/>
+_Figure 5.7: Low dropout regulator circuit showing additional transistor Q1 for improved pass element control_
 
 In the LDO configuration, transistor Q1 serves as the primary pass element. The op-amp drives T1, which in turn controls the base current of Q1. This arrangement allows the op-amp to force Q1 into saturation, reducing $V_{CE(\text{sat})}$ to a very low value—typically less than $0.5\ \text{V}$.
 
@@ -214,15 +214,15 @@ Integrated circuit voltage regulators simplify power supply design by combining 
 
 **Fixed Regulators:** The 78xx series provides fixed output voltages, where "xx" indicates the voltage. The 7805 provides $5\ \text{V}$, the 7812 provides $12\ \text{V}$, and so on. These require only input and output capacitors for stable operation.
 
-<img src="./images/2.8.png" width="50%" alt="Fixed 5V regulator using 7805 with input and output capacitors"/>
-_Figure 2.8: Fixed 5V regulator using 7805 with input and output capacitors_
+<img src="./images/5.8.png" width="50%" alt="Fixed 5V regulator using 7805 with input and output capacitors"/>
+_Figure 5.8: Fixed 5V regulator using 7805 with input and output capacitors_
 
 The 79xx series provides negative output voltages (e.g., 7905 for $-5\ \text{V}$), enabling split-supply designs for operational amplifiers and other analog circuits.
 
 **Adjustable Regulators:** The LM317 (positive) and LM337 (negative) allow output voltage programming via external resistors.
 
-<img src="./images/2.9.png" width="50%" alt="Adjustable voltage regulator using LM317 with resistor divider for voltage setting"/>
-_Figure 2.9: Adjustable voltage regulator using LM317 with resistor divider for voltage setting_
+<img src="./images/5.9.png" width="50%" alt="Adjustable voltage regulator using LM317 with resistor divider for voltage setting"/>
+_Figure 5.9: Adjustable voltage regulator using LM317 with resistor divider for voltage setting_
 
 The LM317 maintains $1.25\ \text{V}$ between its output and adjustment terminals. With minimal current into the ADJ pin ($\approx 50\ \mu\text{A}$), the output voltage is:
 
@@ -248,8 +248,8 @@ When efficiency is paramount or the input-output voltage difference is large, sw
 
 Unlike linear regulators that dissipate excess voltage as heat, Buck converters use a switching element (typically a MOSFET) to alternately connect and disconnect the input voltage from an LC filter network.
 
-<img src="./images/2.10.png" width="60%" alt="Basic Buck converter circuit showing switch, inductor, diode, and capacitor"/>
-_Figure 2.10: Basic Buck converter circuit showing switch, inductor, diode, and capacitor_
+<img src="./images/5.10.png" width="60%" alt="Basic Buck converter circuit showing switch, inductor, diode, and capacitor"/>
+_Figure 5.10: Basic Buck converter circuit showing switch, inductor, diode, and capacitor_
 
 When the switch closes:
 - Current flows through the inductor, storing energy in its magnetic field
@@ -290,8 +290,8 @@ The output voltage is directly proportional to the duty cycle of the switching w
 
 The inductor, capacitor, and diode form a **flywheel circuit**—so named because the energy storage and transfer resembles a mechanical flywheel maintaining rotational momentum.
 
-<img src="./images/2.11.png" width="50%" alt="Flywheel circuit showing current paths during switch on and off states"/>
-_Figure 2.11: Flywheel circuit showing current paths during switch on and off states_
+<img src="./images/5.11.png" width="50%" alt="Flywheel circuit showing current paths during switch on and off states"/>
+_Figure 5.11: Flywheel circuit showing current paths during switch on and off states_
 
 The key insight is that only the energy required by the load is drawn from the supply. When the load demand decreases, the controller reduces the duty cycle, delivering smaller energy packets. This contrasts sharply with linear regulators, which always drop the full voltage difference regardless of load.
 
@@ -326,8 +326,8 @@ Higher switching frequencies allow smaller inductors and capacitors, reducing ov
 
 The R-78xx series provides drop-in replacements for 78xx linear regulators, delivering the efficiency benefits of switching regulation with the simplicity of three-terminal linear regulators.
 
-<img src="./images/2.12.png" width="60%" alt="R-78xx series buck regulator block diagram showing internal feedback and control circuitry"/>
-_Figure 2.12: R-78xx series buck regulator block diagram showing internal feedback and control circuitry_
+<img src="./images/5.12.png" width="60%" alt="R-78xx series buck regulator block diagram showing internal feedback and control circuitry"/>
+_Figure 5.12: R-78xx series buck regulator block diagram showing internal feedback and control circuitry_
 
 These modules integrate:
 - High-frequency switching controller
@@ -348,8 +348,8 @@ Key specifications for the R-78xx series:
 
 For applications requiring both high efficiency and extremely low output ripple, a Buck converter can feed a linear regulator. This cascaded arrangement combines the best attributes of both approaches.
 
-<img src="./images/2.13.png" width="70%" alt="Cascaded power supply with Buck converter feeding a linear regulator"/>
-_Figure 2.13: Cascaded power supply with Buck converter feeding a linear regulator_
+<img src="./images/5.13.png" width="70%" alt="Cascaded power supply with Buck converter feeding a linear regulator"/>
+_Figure 5.13: Cascaded power supply with Buck converter feeding a linear regulator_
 
 The Buck converter efficiently drops the high input voltage to a level just above the linear regulator's dropout voltage. The linear regulator then provides the final voltage reduction with excellent noise performance and minimal ripple.
 
@@ -399,8 +399,8 @@ EMRs exhibit several important operational characteristics:
 
 SSRs overcome many EMR limitations through semiconductor switching:
 
-<img src="./images/2.14.png" width="60%" alt="Solid-state relay internal structure showing optocoupler isolation and TRIAC output stage"/>
-_Figure 2.14: Solid-state relay internal structure showing optocoupler isolation and TRIAC output stage_
+<img src="./images/5.14.png" width="60%" alt="Solid-state relay internal structure showing optocoupler isolation and TRIAC output stage"/>
+_Figure 5.14: Solid-state relay internal structure showing optocoupler isolation and TRIAC output stage_
 
 The input LED, optically coupled to a photosensitive TRIAC driver, provides control while maintaining galvanic isolation. When the LED illuminates, the TRIAC (or back-to-back SCRs) conducts, allowing load current to flow.
 
@@ -423,8 +423,8 @@ Driving relays from microcontroller outputs requires attention to voltage levels
 
 **NPN Saturated Switch:** The most common relay driver uses an NPN transistor as a low-side switch.
 
-<img src="./images/2.15.png" width="50%" alt="NPN transistor relay driver with flyback diode protection"/>
-_Figure 2.15: NPN transistor relay driver with flyback diode protection_
+<img src="./images/5.15.png" width="50%" alt="NPN transistor relay driver with flyback diode protection"/>
+_Figure 5.15: NPN transistor relay driver with flyback diode protection_
 
 The flywheel diode is essential for EMR coils. When the transistor turns off, the inductor's stored energy ($E = \frac{1}{2}LI^2$) generates a voltage spike ($V = L\frac{di}{dt}$) as the magnetic field collapses. Without the diode, this spike—potentially hundreds of volts—would damage the transistor.
 
@@ -432,8 +432,8 @@ The diode provides a circulating path for the coil current, clamping the transis
 
 **Emitter Follower Configuration:** Placing the relay in the emitter path provides different characteristics:
 
-<img src="./images/2.16.png" width="50%" alt="Emitter follower relay driver configuration"/>
-_Figure 2.16: Emitter follower relay driver configuration_
+<img src="./images/5.16.png" width="50%" alt="Emitter follower relay driver configuration"/>
+_Figure 5.16: Emitter follower relay driver configuration_
 
 In this configuration, the relay voltage is approximately $V_{\text{in}} - 0.7\ \text{V}$, requiring a higher control voltage for proper relay operation. The benefit is inherent short-circuit protection and softer current limiting.
 
@@ -465,18 +465,18 @@ For low-power DC loads or moderate switching frequencies, SSRs offer silent oper
 - **EMR preferred:** High AC currents, cost-sensitive, infrequent switching, audible indication desired
 - **SSR preferred:** DC loads, high switching frequency, explosive or dusty environments, vibration-prone mounting, long maintenance-free life required
 
-> #### **Question 2.1:**
+> #### **Question 5.1:**
 >
 > Calculate the power dissipation and efficiency for a linear regulator converting $15\ \text{V}$ to $3.3\ \text{V}$ at $200\ \text{mA}$. What is the minimum heatsink thermal resistance required to keep the junction below $125°C$ in $40°C$ ambient, given $R_{\theta JC} = 3°C/\text{W}$?
 
-> #### **Question 2.2:**
+> #### **Question 5.2:**
 >
 > Design a Buck converter to provide $5\ \text{V}$ at $2\ \text{A}$ from a $12\ \text{V}$ input. Calculate the required duty cycle. Assuming $95\%$ efficiency, what is the input current?
 
-> #### **Question 2.3:**
+> #### **Question 5.3:**
 >
 > An EMR coil draws $50\ \text{mA}$ at $12\ \text{V}$ and has an inductance of $100\ \text{mH}$. Calculate the energy stored in the coil and estimate the voltage spike across a switching transistor if it opens in $1\ \mu\text{s}$ without a flyback diode.
 
-> #### **Question 2.4:**
+> #### **Question 5.4:**
 >
 > Compare the annual operating cost (at $0.15$/kWh) of a $24\ \text{V}$ relay coil drawing $30\ \text{mA}$ continuously versus an equivalent SSR with $10\ \text{mA}$ LED drive current, assuming both operate 24/7.
