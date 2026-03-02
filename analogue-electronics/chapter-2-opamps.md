@@ -119,6 +119,14 @@ impedance -- it is actually a small amplifier sitting there. So if you
 connect a load to the output of the op-amp, the voltage will change only
 a little bit.
 
+{: .note }
+When there is only one feedback from the output to the op-amp inputs, it must be to the --input. If there are feedbacks to both the --input and the +input, the feedback to the --input must be "dominant". If not, it will be positive feedback and the circuitry will simply drive the op-amp signals to the supply rails.
+
+For example, this is wrong:
+
+<img src="./images/2.13.png" width="50%" alt="Incorrect op-amp network"/>
+_Figure 2.13: Incorrect op-amp network — the feedback to the non-inverting input dominates, causing positive feedback which drives the output to saturation at the supply rails._
+
 ## Analysis of some Circuits
 
 ### The Comparator
@@ -275,8 +283,10 @@ $$= \frac{V_1}{R_1} + \frac{V_2}{R_2} + \frac{V_3}{Z_1} \text{ (if } Z_2 \to \in
 {: .note }
 $$\therefore V_4\left(\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{Z_1} + \frac{1}{R_3} + \cdots\right) = \frac{V_1}{R_1} + \frac{V_2}{R_2} + \frac{V_3}{Z_1} + \cdots,$$
 
-after taking into account the $\infty$ impedances and 0 voltages, and
-leaving the expansion possibility for more connections.
+And so, in general, assuming $V_n$ is the node voltage in question (e.g. $V_4$ in the above example), and it is connected to $N$ other nodes with voltages $V_i$ through impedances $Z_i$:
+
+$$ V_n \sum_{i=1}^{N} \frac{1}{Z_i} = \sum_{i=1}^{N} \frac{V_i}{Z_i} $$
+
 
 ***This is the rule of the short-cut method.***
 
@@ -329,27 +339,6 @@ $$\text{Therefore } 0 = \frac{V_1}{R_1} + \frac{V_2}{R_2}$$
 
 $$\therefore V_2 = V_1\left(-\frac{R_2}{R_1}\right) \quad \therefore \frac{V_2}{V_1} = -\frac{R_2}{R_1}$$
 
-{: .note }
-When there is only one feedback from the output to the op-amp inputs, it must be to the --input. If there are feedbacks to both the --input and the +input, the feedback to the --input must be "dominant". If not, it will be positive feedback and the circuitry will simply drive the op-amp signals to the supply rails.
-
-For example, this is wrong:
-
-<img src="./images/2.13.png" width="50%" alt="Incorrect op-amp network"/>
-_Figure 2.13: Incorrect op-amp network — the feedback to the non-inverting input dominates, causing positive feedback which drives the output to saturation at the supply rails._
-
-Checking:
-
-It is always good to check your calculations afterwards.
-
-Quick checks are to determine the transfer function
-
-1. at zero frequency (Laplace *s* = 0) and/or
-
-2. at very high frequency ($s \to \infty$).
-
-It can often be seen from op-amp networks what the low and/or high
-frequency responses should be (capacitor impedance either infinite or
-zero).
 
 **Non-inverting gain:**
 
@@ -403,9 +392,9 @@ $$\therefore \frac{V_2}{V_1} = -\frac{1}{sRC}$$
 This is an integrator with a gain of $-\frac{1}{RC}$.
 
 Check:
-$$\left.\frac{V_2}{V_1}\right|_{s=0} \to -\infty \quad \checkmark$$
+$\left.\frac{V_2}{V_1}\right|_{s=0} \to -\infty \quad \checkmark$
 
-$$\left.\frac{V_2}{V_1}\right|_{s \to \infty} \to 0 \quad \checkmark$$
+$\left.\frac{V_2}{V_1}\right|_{s \to \infty} \to 0 \quad \checkmark$
 
 **1st order low-pass filter:**
 
