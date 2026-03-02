@@ -166,14 +166,14 @@ If the above is set up, please get a tutor to come and mark your demonstration.
 
 ### **Mark Scheme**
 The following mark scheme will be used to mark your practical:
-- [ ] Is the reference voltage set correctly? **+2 marks**
+- [ ] Is the reference voltage set correctly? **+1 marks**
 - [ ] Is the triangle wave amplitude and frequency set correctly? **+2 marks**
-    - [ ] Does the comparator toggle the circuit output at +2 V? **+4 marks**
+    - [ ] Does the comparator toggle the circuit output at +2 V? **+3 marks**
 - [ ] Do the values of R<sub>b</sub> and R<sub>c</sub> for the transistor ensure that it is operating in the saturation region? Show calculations. **+3 marks**
-- [ ] Is there an common-emitter configuration NPN transistor adjusting the output voltage? **+3 marks**
+- [ ] Is there an common-emitter configuration NPN transistor adjusting the output voltage? **+1 marks**
     - [ ] Is the output 0 → 3.3 V (with a bit of tolerance around 0 V)? **+2 marks**
 - [ ] Does the extension circuit correctly toggle in two places over the 0 → 10 V range? **+2 bonus marks**
 
-### **Practical total: 16 marks (18 marks available)**
+### **Practical total: 12 marks (14 marks available)**
 
 [^1]: The list of required components may provide some hints...
