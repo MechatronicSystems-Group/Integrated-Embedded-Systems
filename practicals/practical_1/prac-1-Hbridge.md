@@ -16,7 +16,7 @@ _Figure 1: A labelled hobby servo motor. Image taken from <a href="https://www.s
 
 Over the series of practicals in this course, you will build up a servo motor from its constituent parts, using a DC motor, a potentiometer to read the shaft position and an STM32 microcontroller to control the operation. Various analogue electronic circuits will be used to interface the microcontroller with the motor and potentiometer, and to control the power supplied to the motor. The figure below shows the hardware block diagram of the system.
 
-<img width="100%" src="./Resources/servomotor-block-diagram_P1.png">
+<img width="100%" src="./Resources/servomotor-block-diagram-p1.png">
 _Figure 2: A block diagram representation of a servo motor._
 
 The first of these circuits is the H-Bridge, which is used to control the direction and speed of the DC motor.

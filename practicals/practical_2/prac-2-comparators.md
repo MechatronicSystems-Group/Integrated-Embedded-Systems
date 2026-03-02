@@ -7,6 +7,19 @@ published: true
 
 # Practical 2: Comparator Circuits
 
+## The Servomotor
+A servomotor is a type of motor that is designed to control the rotational position of its shaft rather than it's rotational speed (as is usually the case with DC motors). There are various types of servomotors but the most common type is the hobbyist servomotor, which is a small, low cost, and easy to use motor that is commonly used in robotics and other hobby projects. The hobbyist servomotor is typically a DC motor with a gearbox and a feedback mechanism that measures the position of its shaft. A small control circuit is used to drive the motor and read the feedback signal, which allows the motor to be precisely controlled. This controller also facilitates communication with the servomotor in order to send it position commands. This is shown in Figure 1 below.
+
+<img width="80%" src="../assets/hobby_servo_parts.webp">
+_Figure 1: A labelled hobby servo motor. Image taken from <a href="https://www.solomotorcontrollers.com/blog/servo-motor/?srsltid=AfmBOop3CP_Lit10OXW7UrRHI2wdlnlDEAnPudQjgdVNHolW6NwZBuAI">here</a>.)_
+
+Over the series of practicals in this course, you will build up a servo motor from its constituent parts, using a DC motor, a potentiometer to read the shaft position and an STM32 microcontroller to control the operation. Various analogue electronic circuits will be used to interface the microcontroller with the motor and potentiometer, and to control the power supplied to the motor. The figure below shows the hardware block diagram of the system.
+
+<img width="100%" src="./Resources/servomotor-block-diagram-p2.png">
+_Figure 2: A block diagram representation of a servo motor._
+
+Prac 2 concerns the design and construction of a comparator circuit, which can be used in the generation of the drive signals needed for the H-bridge circuit used to control the servo motor. This prac does not directly implement this but rather takes a step back and introduces the generic comparator circuit.
+
 {:.important}
 > Please use the [feedback form](https://forms.office.com/r/bMUfettP7m) to give us feedback on this practical and to report broken/faulty equipment.
 
@@ -87,7 +100,7 @@ _Figure 2: NPN transistor acting as a common-emitter switch. Note this diagram n
 
 Take careful note of where you should connect a hypothetical microcontroller to the circuit such that it acts as a binary 0 → 3.3 V switch.
 
-You should use the supplied 3.3kOhm and 10kOhm resistors for R<sub>C</sub> and R<sub>B</sub> respectively, but you must prove that they will force the switch into saturation when Vin is HIGH. The datasheet of your transistor should have an available approximate β value for your calculation, though you may need to estimate or interpolate for your particular situation.
+You should use the supplied 3.3kOhm and 10kOhm resistors for R<sub>C</sub> and R<sub>B</sub> respectively, but you must prove that they will force the switch into saturation when Vin is HIGH. The datasheet of your transistor should have an available approximate β value for your calculation.
 
 {:.tip}
 > For a PN2222 NPN transistor, you can find the datasheet... somewhere online! One of the required skills for this course is being able to take a component, and do the research to be able to use it.
