@@ -33,15 +33,19 @@ Let's say a sensor output can vary between -12 V and +12 V.
 
 Assume that the supplies of -12 V and +12 V are available.
 
-From $y = m(x + c)$ follows:
+From $y = m(x) + c$ follows:
 
-$$0 = m(-12 + c)$$
-and 
-$$3.3 = m(+12 + c)$$
+$m = \frac{y_{max} - y_{min}}{x_{max} - x_{min}} = \frac{3.3 - 0}{12 - (-12)} = \frac{3.3}{24}$
 
-Therefore $c = 12$, thus $m = \frac{3.3}{24}$.
+$c = y_{min} - m x_{min} = 0 - \frac{3.3}{24}(-12) = \frac{3.3}{2}$
 
-Therefore $y = \frac{3.3}{24}(x + 12)$.
+Therefore $y = \frac{3.3}{24}(x + 1.65)$.
+
+However, the equation of a differential amplifier is $V_{out} = \frac{R_{2}}{R_{1}}(V_2 - V_1)$, and so we can reframe our line equation as: 
+$$y = \frac{3.3}{24}x + \frac{3.3}{24}(12)$$
+$$y = \frac{3.3}{24}(x - (-12))$$
+
+This now matches the form of the equation of a differential amplifier with $V_2 = x$, $V_1 = -12\ V$.
 
 The following circuit would be good:
 

@@ -2,12 +2,24 @@
 title: "Practical 3: The Differential Operational Amplifier"
 nav_order: 4
 parent: Practicals
-published: false
+published: true
 ---
 
 # Practical 3: The Differential Operational Amplifier
 
-This practical will demonstrate to you the functionality of the differential amplifier and how it can be used to integrate analogue and digital circuits. First you will create a differential amplifier using an LM358, and then modify it into a level adjuster. Finally, you will have to derive the transfer function for the more complex but more accurate instrumentation amplifier.
+## The Servomotor
+A servomotor is a type of motor that is designed to control the rotational position of its shaft rather than it's rotational speed (as is usually the case with DC motors). There are various types of servomotors but the most common type is the hobbyist servomotor, which is a small, low cost, and easy to use motor that is commonly used in robotics and other hobby projects. The hobbyist servomotor is typically a DC motor with a gearbox and a feedback mechanism that measures the position of its shaft. A small control circuit is used to drive the motor and read the feedback signal, which allows the motor to be precisely controlled. This controller also facilitates communication with the servomotor in order to send it position commands. This is shown in Figure 1 below.
+
+<img width="80%" src="../assets/hobby_servo_parts.webp">
+_Figure 1: A labelled hobby servo motor. Image taken from <a href="https://www.solomotorcontrollers.com/blog/servo-motor/?srsltid=AfmBOop3CP_Lit10OXW7UrRHI2wdlnlDEAnPudQjgdVNHolW6NwZBuAI">here</a>.)_
+
+Over the series of practicals in this course, you will build up a servo motor from its constituent parts, using a DC motor, a potentiometer to read the shaft position and an STM32 microcontroller to control the operation. Various analogue electronic circuits will be used to interface the microcontroller with the motor and potentiometer, and to control the power supplied to the motor. The figure below shows the hardware block diagram of the system.
+
+<img width="100%" src="./Resources/servomotor-block-diagram-p3.png">
+_Figure 2: A block diagram representation of a servo motor._
+
+
+This practical will demonstrate to you the functionality of the differential amplifier and how it can be used to facilitate the interface between analogue and digital circuits. First you will create a differential amplifier using an LM358, and then modify it into a level adjuster. Finally, you will have to derive the transfer function for the more complex but more accurate instrumentation amplifier. In a servomotor, the position sensor may use a different voltage range to the microcontroller, so the differential amplifier can be used to adjust the voltage range of the sensor to match the voltage range of the microcontroller.
 
 {:.important}
 > Please use the [feedback form](https://forms.office.com/r/bMUfettP7m) to give us feedback on this practical and to report broken/faulty equipment.
@@ -65,10 +77,10 @@ To complete this practical you will require a breadboard and a pair of wire stri
 ---
 
 ## Question 1: The Differential Operational Amplifier
-This practical will first demonstrate the use of the differential operational amplifier to reject common mode noise. Using the resistors and the LM358 that you were given, design and build a differential amplifier that has a gain of approximately 2. An example circuit diagram is shown in Figure 1.
+This practical will first demonstrate the use of the differential operational amplifier to reject common mode noise. Using the resistors and the LM358 that you were given, design and build a differential amplifier that has a gain of approximately 2. An example circuit diagram is shown in Figure 3.
 
 <img width="75%" src="./Resources/diff_opamp.png">
-_Figure 1: A Differential Operational Amplifier Circuit._
+_Figure 3: A Differential Operational Amplifier Circuit._
 
 For the above circuit the operating equation is as follow ([also available in the course notes](https://mechatronicsystems-group.github.io/Integrated-Embedded-Systems/analogue-electronics/chapter-2-opamps.html)):
 
@@ -85,7 +97,7 @@ Please note:
 * The inverting input must be set to 3.3V using a potentiometer. This is because both DC sources are needed to provide +/-5V. Use the +5V signal and your 10kOhm potentiometer to create a 3.3V signal at the inverting input ($V_{in}^{-}$).
 
 <img width="75%" src="./Resources/circuit.png">
-_Figure 1.1: Circuit diagram for practical differential amplifier_
+_Figure 3.1: Circuit diagram for practical differential amplifier_
 
 ### **Question 1.1**
 We can now demonstrate the circuit’s ability to reject common mode noise. This can be completed both at home and in the lab. In each method we will treat a DC signal as “common mode noise”.
@@ -113,20 +125,20 @@ The differential amplifier is also used to integrate an analogue to a digital sy
 
 In this question we will use this circuit to amplify and add a DC offset to a low-voltage signal so that we can improve the resolution of the sampled signal on a microcontroller (don't worry if that sounds confusing - the microcontroller side of this will be covered in the later part of the course). 
 
-We know that the input signal varies from approximately -1 V to 1 V and the ADC that we have on some generic microcontroller samples signals from 0 V to 5 V. You are now required to modify the differential amplifier circuit that you made in [Question 1](question-1-the-differential-operational-amplifier) such that your circuit is like the circuit shown in Figure 2.
+We know that the input signal varies from approximately -1 V to 1 V and the ADC that we have on some generic microcontroller samples signals from 0 V to 5 V. You are now required to modify the differential amplifier circuit that you made in [Question 1](question-1-the-differential-operational-amplifier) such that your circuit is like the circuit shown in Figure 4.
 
 {:.note2}
 > As we are using E12 resistors and R<sub>1</sub> and R<sub>2</sub> have already been selected, you will not be able to perfectly map -1V to 0 and +1V to 5V. You should try and find an "approximately best" solution - unfortunately when building things in real life, compromises like this are very common!
 
 <img width="75%" src="./Resources/lvl_adj.png">
-_Figure 2: Level Adjusting Circuit._
+_Figure 4: Level Adjusting Circuit._
 
 {:.caution}
 > * **Note that the input to the potentiometer is now -5V instead of +5V!**
 > * Ensure that you wire the circuit such that you can demonstrate Question 1 and 2 in quick succession. Consult the [Demonstration](#demonstration) but all you should need to do is change the voltage input and value of the potentiometer.
 
 ### **Question 2.1**
-Determine the voltage required to set with the potentiometer shown in Figure 2. Make sure the gain of the level adjuster is the same as the differential amplifier (i.e. you need not alter the layout of the resistors used in the differential amplifier). Show your working on a **piece of paper** and adjust the potentiometer to achieve your calculated value. Remember, a perfect value is not necessarily possible - you should find a compromise that you think is best.
+Determine the voltage required to set with the potentiometer shown in Figure 4. Make sure the gain of the level adjuster is the same as the differential amplifier (i.e. you need not alter the layout of the resistors used in the differential amplifier). Show your working on a **piece of paper** and adjust the potentiometer to achieve your calculated value. Remember, a perfect value is not necessarily possible - you should find a compromise that you think is best.
 
 {:.tip}
 > Using a graphing calculator such as [Desmos](https://www.desmos.com/calculator) can help you visualize the operation of the circuit.
@@ -141,15 +153,15 @@ If you correctly set the potentiometer for the voltage you required, then you sh
 
 ## Question 3: The Instrumentation Amplifier
 
-The instrumentation amplifier is another circuit that is based on the differential amplifier. Here two non-inverting amplifiers are attached to the inputs of the differential amplifier, ensuring that the input impedance of the circuit is high. The high input impedance allows this circuit to be used in many instrumentation applications since the high impedance reduces the need to match the impedance of the input line with the amplifier circuit. Practically these amplifiers allow for high gains, low DC offsets and a high CMRR values (i.e. the circuits common-mode gain is small compared to the differential gain). The gain for the circuit shown in Figure 3 can be written as:
+The instrumentation amplifier is another circuit that is based on the differential amplifier. Here two non-inverting amplifiers are attached to the inputs of the differential amplifier, ensuring that the input impedance of the circuit is high. The high input impedance allows this circuit to be used in many instrumentation applications since the high impedance reduces the need to match the impedance of the input line with the amplifier circuit. Practically these amplifiers allow for high gains, low DC offsets and a high CMRR values (i.e. the circuits common-mode gain is small compared to the differential gain). The gain for the circuit shown in Figure 5 can be written as:
 
 $$\alpha=(1+\frac{2R_1}{R_{gain}})\frac{R_3}{R_2}$$
 
 <img width="75%" src="./Resources/inst_amp.png">
-_Figure 3: The operational amplifier._
+_Figure 5: The operational amplifier._
 
 > ### **Question 3.1**
-> Derive the equation that describes the gain of the instrumentation amplifier shown in Figure 3 assuming that all the operational amplifiers are ideal. Write your workings on a **piece of paper that can be submitted with your demonstration marksheet**.
+> Derive the equation that describes the gain of the instrumentation amplifier shown in Figure 5 assuming that all the operational amplifiers are ideal. Write your workings on a **piece of paper that can be submitted with your demonstration marksheet**.
 
 ---
 
@@ -160,18 +172,18 @@ An MSc student in the Centre for Materials Engineering (CME) is preparing to com
 
 Unfortunately, this iron pipe also contains a mains power line that powers the UTM’s computer, resulting in the load cell being magnetically coupled to the mains power supply. This introduces a 50 Hz common mode signal in the load cell's signal lines. Thinking back to MEC4126F, the student remembers that they needed an operational amplifier to remove this tone from their signal (as shown in [Figure 3](./Resources/inst_amp.png)). However, when the student installs an operational amplifier the erroneous signal is still there. Stumped, the student has come to you for help. 
 
-The student shows you the sampled signal from their 8-bit ADC which has a reference voltage of 5 V and samples at 200 Hz. The sampled signal is shown in [Figure 4](./Resources/ADC_OUT.png). 
+The student shows you the sampled signal from their 8-bit ADC which has a reference voltage of 5 V and samples at 200 Hz. The sampled signal is shown in [Figure 6](./Resources/ADC_OUT.png). 
 
 <img width="100%" src="./Resources/ADC_OUT.png">
-_Figure 4: ADC Output._
+_Figure 6: ADC Output._
 
 >{:.tip}
-> ADCs will be covered in detail in the microcontroller section of the course starting in semester 2. For the purposes of this question, you just need to understand that an ADC converts an analogue input voltage into an integer value. In this case, the ADC would map a 0V input signal to a reading of 0, and a 5V input signal to a reading of 255. Using this relationship you can determine the original voltages of the signal in Figure 4.
+> ADCs will be covered in detail in the microcontroller section of the course starting in semester 2. For the purposes of this question, you just need to understand that an ADC converts an analogue input voltage into an integer value. In this case, the ADC would map a 0V input signal to a reading of 0, and a 5V input signal to a reading of 255. Using this relationship you can determine the original voltages of the signal in Figure 6.
 
-The student also shows you an oscilloscope snapshot of the two input signals as shown in [Figure 5](./Resources/diff_in.png). After analysing the input signals you conclude that the one input signal can be described as $V_{in}^{+} = sin(2\cdot\pi\cdot50t)+1,7$ and the other can be described as $V_{in}^{-} = sin(2\cdot\pi\cdot50t)+1,5$.
+The student also shows you an oscilloscope snapshot of the two input signals as shown in [Figure 7](./Resources/diff_in.png). After analysing the input signals you conclude that the one input signal can be described as $V_{in}^{+} = sin(2\cdot\pi\cdot50t)+1,7$ and the other can be described as $V_{in}^{-} = sin(2\cdot\pi\cdot50t)+1,5$.
 
 <img width="100%" src="./Resources/diff_in.png">
-_Figure 5: Input to the operational Amplifier._
+_Figure 7: Input to the operational Amplifier._
 
 ### **Question 4.1**
 Determine the equation that defines the sampled signal in the time domain (the output of operational amplifier) from the discrete signal shown above, assuming a sampling frequency of 200 Hz.
