@@ -2,12 +2,14 @@
 title: "Practical 4: Linear Voltage Regulators"
 nav_order: 5
 parent: Practicals
-published: false
+published: true
 ---
 
 # Practical 4: Linear Voltage Regulators
 
 In this practical you will learn how to use an LM317L adjustable voltage regulator, and how to configure its voltage output using a resistor and potentiometer. The overarching goal is to power your STM32 UCT development board from a battery via a 3.3V regulated voltage. 
+
+This prac is not directly part of the Servomotor series as servomotors are not usually powered by batteries. However, many systems require a reference voltage to enable their operation and so the content in the prac should be broadly useful nonetheless!
 
 {:.important}
 > Please use the [feedback form](https://forms.office.com/r/bMUfettP7m) to give us feedback on this practical and to report broken/faulty equipment.
@@ -133,19 +135,13 @@ There is no extension question for Practical 4. Linear regulators are pretty sim
 {:.caution}
 > Messing up your STM32 wires and plugging the 3.3V pin into a voltage higher than what it is rated for can damage or destroy your development board. [Be careful](https://en.wikipedia.org/wiki/Magic_smoke).
 
-When you are ready to demonstrate your voltage regulator and have acquired a battery pack, you may call over a tutor so that you can begin your first attempt to demonstrate your circuit. On your mark sheet clearly write your **peoplesoft ID** as well as the **day’s date**. You are now ready to demonstrate your circuit using the following procedure, although you may do as much as possible in preparation:
+When you are ready to demonstrate your voltage regulator and have acquired a battery pack, you may call over a tutor so that you can begin your first attempt to demonstrate your circuit. Demonstrate your circuit according to the following procedure, although you may do as much as possible in preparation:
 
 1. Show the tutor your working for how you calculated the potentiometer value for the regulator circuit. 
 2. Plug in the provided li-ion battery pack into the breadboard
 3. Measure the output of the voltage regulator using a multimeter (this should be 3.3V).
 4. Show the tutor your working for Question 2, including the datasheet for the selected component on your laptop screen.
 5. Plug in your STM32 to the regulated output voltage.
-6. The tutor must complete the marksheet and sign it at the bottom.
-7. **Make sure your marksheet is scanned with your breadboard on it, and your other submissions are stapled to the back of your marksheet.**
-
-{:.important}
-> - If you start your demonstration during a practical session you **must** complete it in that session if you do not want to lose marks.
-> - **Do not** leave the venue with your mark sheet or workings, they will not be accepted for late submission if you do so.
 
 ---
 
