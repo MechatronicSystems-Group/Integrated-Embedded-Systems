@@ -246,9 +246,8 @@ If the level adjuster has been correctly set up, the output of the amplifier cir
 
 ### Question 3
 
-- [ ] The gain equation that the student derived is correct (+1).
+- [ ] The gain equation is derived correctly (+1).
 
-- [ ] The method that the student used is correct (i.e. the student shows understanding how to derive a gain assuming ideal operational amplifiers) (+1).
 
 ### Question 4
 **This is the extension question!**
@@ -258,6 +257,6 @@ If the level adjuster has been correctly set up, the output of the amplifier cir
 **↳**
   - [ ] The student correctly found $A_d$ and $A_c$ (+1)
 
-### Full marks = 10, Marks available = 12
+### Full marks = 9, Marks available = 11
 
 
