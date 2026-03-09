@@ -204,7 +204,7 @@ Using the equation that you used to define the sampled signal in the time domain
 {:.caution}
 > You only have two attempts to demonstrate your circuits (with an associated mark deduction on the second attempt), please familiarise yourself with both the [mark scheme](#mark-scheme) and the demonstration procedure before your first attempt to demonstrate your circuit.
 
-When you are ready to demonstrate your differential amplifier and level adjuster circuits and you have have completed question 3 and optionally question 4, you may call over a tutor so that you can begin your first attempt to demonstrate your circuits. Please clearly write your **peoplesoft ID** on the mark sheet as well as the **day’s date**. You are now ready to demonstrate your circuit using the following procedure:
+When you are ready to demonstrate your differential amplifier and level adjuster circuits and you have have completed question 3 and optionally question 4, you may call over a tutor so that you can begin your first attempt to demonstrate your circuits. Demonstrate your circuit using the following procedure:
 
 1. Set up the DC power supply so that you can power your differential amplifier with +5V and -5V.
 2. Create an AC signal with a DC offset of 3.3V and a peak to peak voltage of 1V. Connect this signal to the non-inverting side of your differential amplifier.
@@ -215,12 +215,11 @@ When you are ready to demonstrate your differential amplifier and level adjuster
 9. Change the signal generator to create an input signal that varies between +1V and -1V without a DC offset and connect the supply to the input of the level adjuster.
 10. Show the output signal on the oscilloscope and measure the signal’s peak to peak voltage and period using the **measurement cursors**.
 11. When the tutor is satisfied, you may then submit your working for question 3 and question 4 (if you have completed it).
-12. The tutor will then mark your mark sheet and sign it.
-13. **Make sure that your mark sheet is then scanned and your other submissions are stapled to your mark sheet**.
+
 
 {:.important}
 > - If you start your demonstration during a practical session you **must** complete it in that session if you do not want to loose marks.
-> - **Do not** leave the venue with your mark sheet or workings, they will not be accepted for late submission if you do so.
+
 
 ---
 
