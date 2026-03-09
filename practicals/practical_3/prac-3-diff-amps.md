@@ -130,7 +130,7 @@ We know that the input signal varies from approximately -1 V to 1 V and the ADC 
 {:.note2}
 > As we are using E12 resistors and R<sub>1</sub> and R<sub>2</sub> have already been selected, you will not be able to perfectly map -1V to 0 and +1V to 5V. You should try and find an "approximately best" solution - unfortunately when building things in real life, compromises like this are very common!
 
-<img width="75%" src="./Resources/lvl_adj.png">
+<img width="75%" src="./Resources/LVL_Adjuster.png">
 _Figure 4: Level Adjusting Circuit._
 
 {:.caution}
