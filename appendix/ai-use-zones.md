@@ -9,9 +9,7 @@ published: true
 
 The use of generative AI tools in education presents both opportunities and challenges. This framework establishes three zones—Green, Yellow, and Red—to help you understand when and how AI can be used responsibly in this course. These zones are designed to support your learning while maintaining academic integrity and ensuring you develop the skills necessary to become a competent engineer.
 
-## The Three Zones
-
-### Green Zone: AI as a Learning Tool
+## Green Zone: AI as a Learning Tool
 
 The Green Zone represents appropriate, encouraged use of AI tools to support your learning. In this zone, AI acts as a tutor, debugger, and study aid; not as a replacement for your own thinking.
 
@@ -39,7 +37,7 @@ The Green Zone represents appropriate, encouraged use of AI tools to support you
 {: .note }
 > **Key principle for Green Zone:** AI is used as a learning tool.You must understand and be able to explain any code or concept you submit. If you cannot explain your solution line-by-line, you have not used AI appropriately. Pracs are marked through demonstration of your solution, where questions may be asked.
 
-### Yellow Zone: AI-Assisted Work with Full Understanding
+## Yellow Zone: AI-Assisted Work with Full Understanding
 
 The Yellow Zone represents situations where AI-generated code may be incorporated into your work, but only under strict conditions that ensure learning still occurs. This zone requires transparency and a demonstrated understanding of the work you submit.
 
@@ -63,7 +61,22 @@ The Yellow Zone represents situations where AI-generated code may be incorporate
 {: .note }
 > **Key principle for Yellow Zone:** AI is a tool you use, not a replacement for your expertise. You remain fully responsible for the correctness and quality of the final submission.
 
-### Red Zone: Prohibited Use
+### Documentation Requirements
+
+When you use AI in the Yellow Zone, include a brief note in your submission:
+
+```
+AI Use Declaration:
+- Used AI to generate the moving average filter function (lines 45-62).
+- Modified the function to use fixed-point arithmetic for performance.
+- Verified correctness against known test cases.
+- Fully understand the implementation and can explain it. (Actually prepare for this as you may be asked to do so.)
+```
+
+{:.tip}
+> This transparency is not penalised—it demonstrates professional integrity and helps us understand how AI is being used in the course.
+
+## Red Zone: Prohibited Use
 
 The Red Zone represents uses of AI that undermine the learning objectives of the assessment and constitute academic misconduct. Submitting work from the Red Zone will be treated as a violation of academic integrity.
 
@@ -135,21 +148,6 @@ Responsible AI use is itself a skill. To use AI effectively as an engineer, here
 **Develop critical evaluation**: Learn to spot when AI output is wrong, inefficient, or inappropriate.
 
 **Practice without AI**: Regularly solve problems completely on your own to maintain and build your skills.
-
-### Documentation Requirements
-
-When you use AI in the Yellow Zone, include a brief note in your submission:
-
-```
-AI Use Declaration:
-- Used AI to generate the moving average filter function (lines 45-62).
-- Modified the function to use fixed-point arithmetic for performance.
-- Verified correctness against known test cases.
-- Fully understand the implementation and can explain it. (Actually prepare for this as you may be asked to do so.)
-```
-
-{:.tip}
-> This transparency is not penalised—it demonstrates professional integrity and helps us understand how AI is being used in the course.
 
 ## Assessment-Specific Policies
 
