@@ -156,12 +156,12 @@ _Figure 4.7: Bode plot of a low-pass filter_
 The transfer function of this low-pass filter is:
 
 {: .note }
-$$\frac{V_{out}}{V_{in}} = \frac{\frac{1}{sC}}{R+\frac{1}{sC}} = \frac{1}{1 + sRC} = \frac{1}{\tau s + 1} = \frac{\omega}{s + \omega}$$
+$$\frac{V_{out}}{V_{in}} = \frac{\frac{1}{sC}}{R+\frac{1}{sC}} = \frac{1}{1 + sRC} = \frac{1}{\tau s + 1} = \frac{\omega_c}{s + \omega_c}$$
 
 This is a $1^{st}$ order low-pass filter with bandwidth or cut-off
-frequency $\omega = \frac{1}{RC}$ rad/s and low frequency gain of 1.
+frequency $\omega_c = \frac{1}{RC}$ rad/s and low frequency gain of 1.
 
-$\mathbf{\frac{\omega}{s + \omega}}$ **is the form of a $1^{st}$ order low-pass filter with a DC gain of 1.**
+$\mathbf{\frac{\omega_c}{s + \omega_c}}$ **is the form of a $1^{st}$ order low-pass filter with a DC gain of 1.**
 
 Note that a load like a resistor to ground will change the transfer of
 this filter, so a load connected to this must be of high impedance or
@@ -194,12 +194,12 @@ _Figure 4.9: Bode plot of a high-pass filter_
 The transfer function of this high-pass filter is:
 
 {: .note }
-$$\frac{V_{out}}{V_{in}} = \frac{R}{R + \frac{1}{(sC)}} = \frac{sRC}{sRC + 1} = \frac{\tau s}{\tau s + 1} = \frac{s}{s + \omega}$$
+$$\frac{V_{out}}{V_{in}} = \frac{R}{R + \frac{1}{(sC)}} = \frac{sRC}{sRC + 1} = \frac{\tau s}{\tau s + 1} = \frac{s}{s + \omega_c}$$
 
 This is a $1^{st}$ order high-pass filter with cut-off frequency
-$\omega = \frac{1}{RC}$ rad/s and high frequency gain of 1.
+$\omega_c = \frac{1}{RC}$ rad/s and high frequency gain of 1.
 
-$\frac{\mathbf{s}}{\mathbf{s + \omega}}$ **is the form of a $1^{st}$
+$\frac{\mathbf{s}}{\mathbf{s + \omega_c}}$ **is the form of a $1^{st}$
 order high-pass filter with a high frequency gain of 1.**
 
 ### Active $1^{st}$ order low-pass filter
@@ -232,13 +232,13 @@ Apply the short-cut method:
 $$0 = V_{in}\left( \frac{1}{R_{1}} \right) + V_{out}\left( \frac{1}{R_{2}} \right) + V_{out}(sC)$$
 
 {: .note }
-$$\Rightarrow \frac{V_{out}}{V_{in}} = - \frac{\frac{1}{R_{1}}}{\frac{1}{R_{2}} + sC} = - \frac{\frac{R_{2}}{R_{1}}}{sR_{2}C + 1} = \frac{K}{\tau s + 1} = \frac{K\omega}{s + \omega}$$
+$$\Rightarrow \frac{V_{out}}{V_{in}} = - \frac{\frac{1}{R_{1}}}{\frac{1}{R_{2}} + sC} = - \frac{\frac{R_{2}}{R_{1}}}{sR_{2}C + 1} = \frac{K}{\tau s + 1} = \frac{K\omega_c}{s + \omega_c}$$
 
 This is a $1^{st}$ order low-pass filter with bandwidth or cut-off
-frequency $\omega = \frac{1}{R_{2}C}$ rad/s and low frequency gain
+frequency $\omega_c = \frac{1}{R_{2}C}$ rad/s and low frequency gain
 of $- \frac{R_{2}}{R_{1}}$.
 
-$\frac{\mathbf{K\omega}}{\mathbf{s + \omega}}$ **is the form of a $1^{st}$
+$\frac{\mathbf{K\omega_c}}{\mathbf{s + \omega_c}}$ **is the form of a $1^{st}$
 order low-pass filter with a DC gain of *K*.**
 
 Check the correlation and differences between this filter and the $1^{st}$
@@ -247,9 +247,9 @@ order low-pass filter in Chapter 2.
 <div class="example" markdown="1">
 #### **Example 4.1**
 \\
-$$\frac{V_{out}}{V_{in}} = - \frac{\frac{R_{2}}{R_{1}}}{sR_{2}C + 1} = - \frac{\frac{1}{R_{1}C}}{s + \frac{1}{R_{2}C}} = \frac{K\omega}{s + \omega}$$
+$$\frac{V_{out}}{V_{in}} = - \frac{\frac{R_{2}}{R_{1}}}{sR_{2}C + 1} = - \frac{\frac{1}{R_{1}C}}{s + \frac{1}{R_{2}C}} = \frac{K\omega_c}{s + \omega_c}$$
 
-**Specifications**: Cut-off frequency of 80 Hz, $\omega = 2\pi80 = 502.7 \ rad/s$
+**Specifications**: Cut-off frequency of 80 Hz, $\omega_c = 2\pi80 = 502.7 \ rad/s$
 
 Gain K = -5.0
 
@@ -270,12 +270,12 @@ Therefore the design results are: $R_{1} = 39 \ k\Omega$, $R_{2} = 200 \ k\Omega
 Check:
 
 Resulting design parameters: \\
-$\omega = \frac{1}{R_{2}C} = 2\pi \times 79.58 = 499.8 \ rad/s$, \\
+$\omega_c = \frac{1}{R_{2}C} = 2\pi \times 79.58 = 499.8 \ rad/s$, \\
 $K = - \frac{1}{R_{1}C} \times \frac{1}{2\pi 79.58} = - 5.13$
 
 They are close to the specifications.
 
-$\omega\ \%\ error = \frac{79.58 - 80}{80} \times 100\% = - 0.52\%$
+$\omega_c\ \%\ error = \frac{79.58 - 80}{80} \times 100\% = - 0.52\%$
 
 $K\ \%\ error = \frac{- 5.13 - ( - 5.0)}{- 5.0} \times 100\% = + 2.6\%$
 
@@ -311,11 +311,9 @@ Multiply all terms with $1+R_{2}/R_{1}=(R_{1}+R_{2})/R_{1}$:
 $V_{4}\left\lbrack s^{2}(RC)^{2} + 3sRC + 1 - sRC\left( 1 + \frac{R_{2}}{R_{1}} \right) \right\rbrack = V_{1}(1 + \frac{R_{2}}{R_{1}})$
 
 {: .note }
-$$\Rightarrow \frac{V_{4}}{V_{1}} = \frac{1 + \frac{R_{2}}{R_{1}}}{s^{2}(RC)^{2} + sRC\left( 2 - \frac{R_{2}}{R_{1}} \right) + 1} = \frac{K\omega^{2}}{s^{2} + 2\zeta\omega s + \omega^{2}}$$
+$$\Rightarrow \frac{V_{4}}{V_{1}} = \frac{1 + \frac{R_{2}}{R_{1}}}{s^{2}(RC)^{2} + sRC\left( 2 - \frac{R_{2}}{R_{1}} \right) + 1} = \frac{K\omega_{c}^{2}}{s^{2} + 2\zeta\omega_{c} s + \omega_{c}^{2}}$$
 
-This is a $2^{nd}$ order low-pass filter with bandwidth or cut-off frequency $\omega = \frac{1}{RC}$ rad/s and low frequency gain $K = 1 + \frac{R_{2}}{R_{1}}$.
-
-$\frac{\mathbf{K}\mathbf{\omega}^{\mathbf{2}}}{\mathbf{s}^{\mathbf{2}}\mathbf{+ 2}\mathbf{\zeta\omega s +}\mathbf{\omega}^{\mathbf{2}}}$ **is the form of a $2^{nd}$ order low-pass filter with a DC gain of *K*.**
+This is a $2^{nd}$ order low-pass filter with bandwidth or cut-off frequency $\omega_{c} = \frac{1}{RC}$ rad/s and low frequency gain $K = 1 + \frac{R_{2}}{R_{1}}$.  
 
 Check:
 
@@ -323,13 +321,24 @@ $$\left.\frac{V_{4}}{V_{1}}\right\|_{s=0} = 1 + \frac{R_2}{R_1} \quad \checkmark
 
 $$\left.\frac{V_{4}}{V_{1}}\right\|_{s\to \infty} \to 0 \quad \checkmark$$
 
-NB:
-
+{: .note }
 Although these two checks pass, it is not to say that the transfer
 function is in all aspects 100%. Before realizing all the components and
 building it (that would be the ultimate test), it is always good to
 double check your calculations. But if the simple checks fail, something
 is obviously wrong.
+
+#### Comparing the response of the LPF with various damping factors
+
+The figure below shows the response of the LPF with various damping factors compared to a $1^{st}$ order LPF. Here it can be seen that when $\zeta = 0.707$, the response is the flattest. When this is the case the filter is known as a *Butterworth* filter. When $\zeta > 0.707$, the response is said to be overdamped (a *Bessel* filter) and there is no resonance. When $\zeta < 0.707$, the response is said to be underdamped (a *Chebyshev* filter) and there is resonance. Compared to the $1^{st}$ order LPF, the $2^{nd}$ order LPF has a steeper roll-off of -40 dB/decade compared to -20 dB/decade for the $1^{st}$ order LPF.
+
+<img src="./images/4_zeta.png" width="50%" alt="Bode plots of LPF with various damping factors compared to a 1st order LPF"/>
+
+Further, if the cut-off frequency is defined as the frequency where the gain is -3 dB, then it is clear that the damping coefficient $\zeta$ affects the cut-off frequency. And so, the transfer function $\frac{V_{4}}{V_{1}}$ above is only true when $\zeta = 0.707$ (Butterworth filter). Accordingly, we instead, define the general form of a $2^{nd}$ order LPF using the resonance frequency $\omega_n$ rather than the cut-off frequency:
+
+$$\frac{V_{out}}{V_{in}} = \frac{K\omega_n^{2}}{s^{2} + 2\zeta\omega_n s + \omega_n^{2}}$$
+
+(At $\zeta = 0.707$, $\omega_n = \omega_c$).
 
 ### Active $1^{st}$ order high-pass filter
 
@@ -399,18 +408,18 @@ Multiply all terms with $sR_{1}R_{2}R_{3}C_{2}$:
 $- V_{out}\left\lbrack R_{2} + R_{1} + sR_{1}R_{2}\left( C_{1} + C_{2} \right) + s^{2}R_{1}R_{2}R_{3}C_{1}C_{2} \right\rbrack = V_{in}sR_{2}R_{3}C_{2}$
 
 {: .note }
-$$\Rightarrow \frac{V_{out}}{V_{in}} = \frac{- s\frac{1}{R_{1}C_{1}}}{s^{2} + s\frac{C_{1} + C_{2}}{R_{3}C_{1}C_{2}} + \frac{R_{1} + R_{2}}{R_{1}R_{2}R_{3}C_{1}C_{2}}} = \frac{2\zeta\omega Ks}{s^{2} + 2\zeta\omega s + \omega^{2}}$$
+$$\Rightarrow \frac{V_{out}}{V_{in}} = \frac{- s\frac{1}{R_{1}C_{1}}}{s^{2} + s\frac{C_{1} + C_{2}}{R_{3}C_{1}C_{2}} + \frac{R_{1} + R_{2}}{R_{1}R_{2}R_{3}C_{1}C_{2}}} = \frac{2\zeta\omega_n Ks}{s^{2} + 2\zeta\omega_n s + \omega_n^{2}}$$
 
-This is a band-pass filter, with resonance frequency $\omega = \sqrt{\frac{R_{1} + R_{2}}{R_{1}R_{2}R_{3}C_{1}C_{2}}}$ in rad/s and damping $\zeta$.
+This is a band-pass filter, with resonance frequency $\omega_n = \sqrt{\frac{R_{1} + R_{2}}{R_{1}R_{2}R_{3}C_{1}C_{2}}}$ in rad/s and damping $\zeta$.
 
 The damping will determine the width of the passing band.
 
-$K$ is the gain at frequency $\omega$ and can be proven to be so by
-substituting *s = i$\omega$* in the last equation.
+$K$ is the gain at frequency $\omega_n$ and can be proven to be so by
+substituting *s = i$\omega_n$* in the last equation.
 
-$\frac{\mathbf{2}\mathbf{\zeta\omega Ks}}{\mathbf{s}^{\mathbf{2}}\mathbf{+ 2}\mathbf{\zeta\omega s +}\mathbf{\omega}^{\mathbf{2}}}$
+$\frac{\mathbf{2}\mathbf{\zeta\omega_n Ks}}{\mathbf{s}^{\mathbf{2}}\mathbf{+ 2}\mathbf{\zeta\omega_n s +}\mathbf{\omega_n}^{\mathbf{2}}}$
 **is the form of a $2^{nd}$ order band-pass filter with gain *K* at
-frequency *ω*.**
+frequency *ω*<sub>n</sub>.**
 
 Check:
 
@@ -431,10 +440,10 @@ _Figure 4.14: Bode plot of a band-pass filter_
 <div class="example" markdown="1">
 #### **Example 4.2**
 \\
-$$\frac{V_{2}}{V_{1}} = \frac{- s\frac{1}{R1C1}}{s^{2} + s\frac{C1 + C2}{R3C1C2} + \frac{R1 + R2}{R1R2R3C1C2}} = \frac{2\zeta\omega Ks}{s^{2} + 2\zeta\omega s + \omega^{2}}$$
+$$\frac{V_{2}}{V_{1}} = \frac{- s\frac{1}{R1C1}}{s^{2} + s\frac{C1 + C2}{R3C1C2} + \frac{R1 + R2}{R1R2R3C1C2}} = \frac{2\zeta\omega_n Ks}{s^{2} + 2\zeta\omega_n s + \omega_n^{2}}$$
 
 **Specifications**: Centre frequency of 70 Hz,
-$\omega = 2\pi \times 70 = 439.8$ rad/s
+$\omega_n = 2\pi \times 70 = 439.8$ rad/s
 
 Damping $\zeta = 0.5$
 
@@ -450,23 +459,23 @@ Check:
 
 Resulting design parameters, following from the equations above:
 
-$\omega = \sqrt{\frac{R_{1} + R_{2}}{R_{1}R_{2}R_{3}C_{1}C_{2}}} = 2\pi \times 66.65$ rad/s,
+$\omega_n = \sqrt{\frac{R_{1} + R_{2}}{R_{1}R_{2}R_{3}C_{1}C_{2}}} = 2\pi \times 66.65$ rad/s,
 
-$\zeta = \frac{\frac{C_{1} + C_{2}}{R_{3}C_{1}C_{2}}}{2\omega} = 0.48$, with
-$\omega = 2\pi \times 66.65$ rad/s and
+$\zeta = \frac{\frac{C_{1} + C_{2}}{R_{3}C_{1}C_{2}}}{2\omega_n} = 0.48$, with
+$\omega_n = 2\pi \times 66.65$ rad/s and
 
-$K = - \frac{\frac{1}{R_{1}C_{1}}}{2\zeta\omega} = - 3.66$, with
-$\zeta = 0.48$ and $\omega = 2\pi \times 66.65$ rad/s
+$K = - \frac{\frac{1}{R_{1}C_{1}}}{2\zeta\omega_n} = - 3.66$, with
+$\zeta = 0.48$ and $\omega_n = 2\pi \times 66.65$ rad/s
 
 Because of the particular 3 equations, the design parameters must be
-determined in this specific sequence, because $\omega$ is only dependent
+determined in this specific sequence, because $\omega_n$ is only dependent
 on the component values, then $\zeta$ is only dependent on this
-calculated $\omega$ and components, and then $K$ is dependent on these
-calculated $\omega$ and $\zeta$ and components.
+calculated $\omega_n$ and components, and then $K$ is dependent on these
+calculated $\omega_n$ and $\zeta$ and components.
 
 [% errors]{.underline} (***check the signs!***):
 
-$\% \omega$ error $= \frac{66.65 - 70}{70} \times 100\% = - 4.8\%$
+$\% \omega_n$ error $= \frac{66.65 - 70}{70} \times 100\% = - 4.8\%$
 
 $\% \zeta$ error $= \frac{0.48 - 0.5}{0.5} \times 100\% = - 4.0\%$
 
@@ -512,9 +521,9 @@ $V_{out} = - \left( V_{1} + V_{2} \right)$
 $\therefore V_{out} = \frac{R_{3}}{R_{3}}\left( \frac{\frac{1}{R_{1}C_{1}}}{s + \frac{1}{R_{1}C_{1}}} + \frac{s}{s + \frac{1}{R_{2}C_{2}}} \right)V_{in} = \frac{\frac{1}{R_{1}C_{1}}\left( s + \frac{1}{R_{2}C_{2}} \right) + s\left( s + \frac{1}{R_{1}C_{1}} \right)}{\left( s + \frac{1}{R_{1}C_{1}} \right)\left( s + \frac{1}{R_{2}C_{2}} \right)}V_{in} = \frac{s^{2} + \left( \frac{2}{R_{1}C_{1}} \right)s + \frac{1}{R_{1}C_{1}R_{2}C_{2}}}{s^{2} + \left( \frac{1}{R_{1}C_{1}} + \frac{1}{R_{2}C_{2}} \right)s + \frac{1}{R_{1}C_{1}R_{2}C_{2}}}V_{in}$
 
 {: .note }
-$$\Rightarrow\frac{V_{out}}{V_{in}} = \frac{s^{2} + \left( \frac{2}{R_{1}C_{1}} \right)s + \frac{1}{R_{1}C_{1}R_{2}C_{2}}}{s^{2} + \left( \frac{1}{R_{1}C_{1}} + \frac{1}{R_{2}C_{2}} \right)s + \frac{1}{R_{1}C_{1}R_{2}C_{2}}} = \frac{s^{2} + 2\zeta_{1}\omega s + \omega^{2}}{s^{2} + 2\zeta_{2}\omega s + \omega^{2}}$$
+$$\Rightarrow\frac{V_{out}}{V_{in}} = \frac{s^{2} + \left( \frac{2}{R_{1}C_{1}} \right)s + \frac{1}{R_{1}C_{1}R_{2}C_{2}}}{s^{2} + \left( \frac{1}{R_{1}C_{1}} + \frac{1}{R_{2}C_{2}} \right)s + \frac{1}{R_{1}C_{1}R_{2}C_{2}}} = \frac{s^{2} + 2\zeta_{1}\omega_n s + \omega_n^{2}}{s^{2} + 2\zeta_{2}\omega_n s + \omega_n^{2}}$$
 
-$\mathbf{\frac{s^{2} + 2\zeta_{1}\omega s + \omega^{2}}{s^{2} + 2\zeta_{2}\omega s + \omega^{2}}}$
+$\mathbf{\frac{s^{2} + 2\zeta_{1}\omega_n s + \omega_n^{2}}{s^{2} + 2\zeta_{2}\omega_n s + \omega_n^{2}}}$
 **is the form of a $2^{nd}$ order notch filter with DC and high frequency
 gain of 1.**
 
@@ -527,7 +536,7 @@ The gains are:
 
 -   At high frequency: 1.0
 
-The notch frequency is: $\omega = \sqrt{\frac{1}{R_{1}C_{1}R_{2}C_{2}}}$, in rad/s.
+The notch frequency is at the natural frequency: $\omega_n = \sqrt{\frac{1}{R_{1}C_{1}R_{2}C_{2}}}$, in rad/s.
 
 The Bode plot of a notch filter is shown below.
 
@@ -541,9 +550,9 @@ _Figure 4.17: Bode plot of a notch filter_
 <div class="example" markdown="1">
 #### **Example 4.3**
 \\
-$$\frac{V_{out}}{V_{in}} = \frac{s^{2} + \left( \frac{2}{R_{1}C_{1}} \right)s + \frac{1}{R_{1}C_{1}R_{2}C_{2}}}{s^{2} + \left( \frac{1}{R_{1}C_{1}} + \frac{1}{R_{2}C_{2}} \right)s + \frac{1}{R_{1}C_{1}R_{2}C_{2}}} = \frac{s^{2} + 2\zeta_{1}\omega s + \omega^{2}}{s^{2} + 2\zeta_{2}\omega s + \omega^{2}}$$
+$$\frac{V_{out}}{V_{in}} = \frac{s^{2} + \left( \frac{2}{R_{1}C_{1}} \right)s + \frac{1}{R_{1}C_{1}R_{2}C_{2}}}{s^{2} + \left( \frac{1}{R_{1}C_{1}} + \frac{1}{R_{2}C_{2}} \right)s + \frac{1}{R_{1}C_{1}R_{2}C_{2}}} = \frac{s^{2} + 2\zeta_{1}\omega_n s + \omega_n^{2}}{s^{2} + 2\zeta_{2}\omega_n s + \omega_n^{2}}$$
 
-With $\zeta_{1}$, $\zeta_{2}$ and $\omega$ specified, there are 4
+With $\zeta_{1}$, $\zeta_{2}$ and $\omega_n$ specified, there are 4
 unknowns (components $R_{1}$, $R_{2}$, $C_{1}$ and $C_{2}$), 3 equations, therefore one
 would think that 1 component can be chosen and the remaining 3
 components can be calculated and selected (from the E12 series). However, in this case, the $\frac{\zeta_{1}}{\zeta_{2}}$
@@ -554,7 +563,7 @@ both. One has to work through this example to see this.
 
 > You may try the following specifications:
 >
-> $\frac{\zeta_{1}}{\zeta_{2}} = 0.01$ and $\omega = 160$ rad/s
+> $\frac{\zeta_{1}}{\zeta_{2}} = 0.01$ and $\omega_n = 160$ rad/s
 
 This type of restriction on specifications is not unique to some notch
 filters, but can also occur with other filters depending on their
@@ -569,7 +578,7 @@ transfer function from a gain. The following circuit will do this:
 _Figure 4.18: Active notch filter circuit formed by subtracting a band-pass filter's transfer function from a gain_
 
 The transfer function is:
-$\frac{V_{0}}{V_{1}} = \frac{1 + \frac{R_{7}}{R_{6}}}{1 + \frac{R_{5}}{R_{4}}} . \frac{s^{2} + \left\lbrack \frac{1}{R_{3}}\left( \frac{1}{C_{1}} + \frac{1}{C_{2}} \right) - \frac{R_{5}}{R_{4}} . \frac{1}{R_{1}C_{1}} \right\rbrack s + \frac{1}{R_{3}C_{1}C_{2}}\left( \frac{1}{R_{1}} + \frac{1}{R_{2}} \right)}{s^{2} + \frac{1}{R_{3}}\left( \frac{1}{C_{1}} + \frac{1}{C_{2}} \right)s + \frac{1}{R_{3}C_{1}C_{2}}\left( \frac{1}{R_{1}} + \frac{1}{R_{2}} \right)} = K\frac{s^{2} + 2\zeta_{1}\omega s + \omega^{2}}{s^{2} + 2\zeta_{2}\omega s + \omega^{2}}$
+$\frac{V_{0}}{V_{1}} = \frac{1 + \frac{R_{7}}{R_{6}}}{1 + \frac{R_{5}}{R_{4}}} . \frac{s^{2} + \left\lbrack \frac{1}{R_{3}}\left( \frac{1}{C_{1}} + \frac{1}{C_{2}} \right) - \frac{R_{5}}{R_{4}} . \frac{1}{R_{1}C_{1}} \right\rbrack s + \frac{1}{R_{3}C_{1}C_{2}}\left( \frac{1}{R_{1}} + \frac{1}{R_{2}} \right)}{s^{2} + \frac{1}{R_{3}}\left( \frac{1}{C_{1}} + \frac{1}{C_{2}} \right)s + \frac{1}{R_{3}C_{1}C_{2}}\left( \frac{1}{R_{1}} + \frac{1}{R_{2}} \right)} = K\frac{s^{2} + 2\zeta_{1}\omega_n s + \omega_n^{2}}{s^{2} + 2\zeta_{2}\omega_n s + \omega_n^{2}}$
 
 It was derived by first getting $\frac{V_{2}}{V_{1}}(s)$, similar to
 what was done before because this part is a band-pass filter. Next, the
@@ -582,13 +591,13 @@ be found.
 \\
 In this case, all parameters can be specified, for example:
 
-$K = 1$, $\zeta_{1} = 0.01$, $\zeta_{2} = 1.0$ and $\omega = 160$ rad/s.
+$K = 1$, $\zeta_{1} = 0.01$, $\zeta_{2} = 1.0$ and $\omega_n = 160$ rad/s.
 
 From
-$\omega^{2} = \frac{1}{R_{3}C_{1}C_{2}}\left( \frac{1}{R_{1}} + \frac{1}{R_{2}} \right)$,
+$\omega_n^{2} = \frac{1}{R_{3}C_{1}C_{2}}\left( \frac{1}{R_{1}} + \frac{1}{R_{2}} \right)$,
 choosing $R_{1} = R_{2} = 10k$ follows: $R_{3}C_{1}C_{2} = 7.8125e-9$.
 
-Note that $2\zeta_{2}\omega = \frac{C_{1} + C_{2}}{R_{3}C_{1}C_{2}}$,
+Note that $2\zeta_{2}\omega_n = \frac{C_{1} + C_{2}}{R_{3}C_{1}C_{2}}$,
 thus $C_{1} + C_{2} = 2.5e-6$.
 
 This can be realized with 1.0 $\mu$F and 1.5 $\mu$F capacitors, but
@@ -599,7 +608,7 @@ therefore $C_{1} + C_{2} = 2.5e-7$.
 Let $C_{1} = 0.1 \mu F$, therefore $C_2 = 0.15 \ \mu F$, therefore
 $R_{3} = 51k + 1k$.
 
-$\frac{1}{R_{3}}\left( \frac{1}{C_{1}} + \frac{1}{C_{2}} \right) - \frac{R_{5}}{R_{4}} . \frac{1}{R_{1}C_{1}} = 2\zeta_{2}\omega$,
+$\frac{1}{R_{3}}\left( \frac{1}{C_{1}} + \frac{1}{C_{2}} \right) - \frac{R_{5}}{R_{4}} . \frac{1}{R_{1}C_{1}} = 2\zeta_{2}\omega_n$,
 therefore $\frac{R_{5}}{R_{4}} = 3.173$.
 
 Let $R_{4} = 47k$, therefore $R_{5} = 150k$.
@@ -607,7 +616,7 @@ Let $R_{4} = 47k$, therefore $R_{5} = 150k$.
 $K = \frac{1 + \frac{R_{7}}{R_{6}}}{1 + \frac{R_{5}}{R_{4}}} = 1.0$,
 therefore $\frac{R_{7}}{R_{6}} = 3.191$.
 
-$\frac{1}{R_{3}}\left( \frac{1}{C_{1}} + \frac{1}{C_{2}} \right) - \frac{R_{5}}{R_{4}} . \frac{1}{R_{1}C_{1}} = 2\zeta_{2}\omega$,
+$\frac{1}{R_{3}}\left( \frac{1}{C_{1}} + \frac{1}{C_{2}} \right) - \frac{R_{5}}{R_{4}} . \frac{1}{R_{1}C_{1}} = 2\zeta_{2}\omega_n$,
 therefore $\frac{R_{5}}{R_{4}} = 3.173$.
 
 Let $R_{4} = 47k$, therefore $R_{5} = 150k$.
@@ -644,41 +653,39 @@ $\left( 1 + \frac{R_{2}}{R_{1}} \right)\frac{s\frac{C_{1}R_{1}R_{2}}{R_{1} + R_{
 ### Summary of transfer functions of filters
 
 In general, $\tau$ refers to the time constant (in s) associated with
-the filter, $\omega$ with the resonance frequency or bandwidth (in
-rad/s) of the filter, $\zeta$ with the damping factor, and $K$ with some
-gain in the filter.
+the filter, $\omega_c$ with the cut-off frequency (in rad/s) of the filter, $\omega_n$ with the natural frequency (in rad/s) of the filter, $\zeta$ with the damping factor, and $K$ with some gain in the filter.
 
 Low-pass filter, $1^{st}$ order:
 
 {: .note }
-$\frac{V_{out}}{V_{in}} = \frac{K}{\tau s + 1} = \frac{K\omega}{s + \omega}$
+$\frac{V_{out}}{V_{in}} = \frac{K}{\tau s + 1} = \frac{K\omega_c}{s + \omega_c}$
 
 High-pass filter, $1^{st}$ order:
 
 {: .note }
-$\frac{V_{out}}{V_{in}} = \frac{K\tau s}{\tau s + 1} = \frac{Ks}{s + \omega}$
+$\frac{V_{out}}{V_{in}} = \frac{K\tau s}{\tau s + 1} = \frac{Ks}{s + \omega_c}$
 
 Low-pass filter, $2^{nd}$ order:
 
 {: .note }
-$\frac{V_{out}}{V_{in}} = \frac{K\omega^{2}}{s^{2} + 2\zeta\omega s + \omega^{2}}$
+$\frac{V_{out}}{V_{in}} = \frac{K\omega_n^{2}}{s^{2} + 2\zeta\omega_n s + \omega_n^{2}}$
 
 High-pass filter, $2^{nd}$ order:
 
 {: .note }
-$\frac{V_{out}}{V_{in}} = \frac{Ks^{2}}{s^{2} + 2\zeta\omega s + \omega^{2}}$
+$\frac{V_{out}}{V_{in}} = \frac{Ks^{2}}{s^{2} + 2\zeta\omega_n s + \omega_n^{2}}$
 
 Band-pass filter, $2^{nd}$ order:
 
 {: .note }
-$\frac{V_{out}}{V_{in}} = K\frac{2\zeta\omega s}{s^{2} + 2\zeta\omega s + \omega^{2}}$
+$\frac{V_{out}}{V_{in}} = K\frac{2\zeta\omega_n s}{s^{2} + 2\zeta\omega_n s + \omega_n^{2}}$
 
 Notch filter, $2^{nd}$ order:
 
 {: .note }
-$\frac{V_{out}}{V_{in}} = K\frac{s^{2} + 2\zeta_{1}\omega s + \omega^{2}}{s^{2} + 2\zeta_{2}\omega s + \omega^{2}}$
+$\frac{V_{out}}{V_{in}} = K\frac{s^{2} + 2\zeta_{1}\omega_n s + \omega_n^{2}}{s^{2} + 2\zeta_{2}\omega_n s + \omega_n^{2}}$
 
-The gain at $\omega$, can be determined by replacing s with i$\omega$.
+The gain at a particular frequency, $\omega$, can be determined by replacing s with $j\omega$.
 
 Therefore, the gain at $\omega$ will e.g. be:
 
