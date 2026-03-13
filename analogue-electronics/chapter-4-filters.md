@@ -432,9 +432,9 @@ $$\left.\frac{V_{2}}{V_{1}}\right\|_{s = i\omega} = - \frac{R_3C_2}{R_1\left( C_
 
 and this can be proven to be equal to the *K* defined above.
 
-The Bode plot of a band-pass filter is shown below.
+The Bode plot of a band-pass filter is shown below, for various values of $\zeta$ and cut-off frequencies:
 
-<img src="./images/4_bpf.png" width="100%" alt="Bode plot of a band-pass filter"/>
+<img src="./images/4_bandpass.png" width="100%" alt="Bode plot of a band-pass filter"/>
 _Figure 4.14: Bode plot of a band-pass filter_
 
 <div class="example" markdown="1">
