@@ -174,7 +174,7 @@ Unfortunately, this iron pipe also contains a mains power line that powers the U
 
 The student shows you the sampled signal from their 8-bit ADC which has a reference voltage of 5 V and samples at 200 Hz. The sampled signal is shown in [Figure 6](./Resources/ADC_OUT.png). 
 
-<img width="100%" src="./Resources/ADC_OUT.png">
+<img width="100%" src="./Resources/ADC_OUT_V2.png">
 _Figure 6: ADC Output._
 
 >{:.tip}
