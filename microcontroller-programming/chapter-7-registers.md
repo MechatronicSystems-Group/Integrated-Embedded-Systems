@@ -7,6 +7,14 @@ nav_order: 2
 
 # Microcontroller Registers
 
+## Table of Contents
+{: .no_toc}
+
+1. TOC
+{:toc}
+
+---
+
 Registers are fundamental components of microcontroller architecture that provide direct access to hardware functionality. This chapter covers the basics of register-based programming in STM32 microcontrollers.
 
 ## Introduction to Registers

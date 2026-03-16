@@ -7,6 +7,14 @@ nav_order: 3
 
 # Interrupts
 
+## Table of Contents
+{: .no_toc}
+
+1. TOC
+{:toc}
+
+---
+
 Interrupts are essential mechanisms in embedded systems that allow the microcontroller to respond to asynchronous events immediately. This chapter covers the fundamentals of interrupts and their implementation on STM32 microcontrollers.
 
 ## Introduction to Interrupts

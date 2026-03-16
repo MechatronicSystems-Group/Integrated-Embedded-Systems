@@ -7,6 +7,14 @@ nav_order: 5
 
 # Timer peripherals
 
+## Table of Contents
+{: .no_toc}
+
+1. TOC
+{:toc}
+
+---
+
 Timers are a peripheral on the microcontroller that can be used to generate timing signals, measure the time between events, and control the timing of events. As a peripheral, they are not part of the CPU, but rather a separate component that is controlled by the CPU. They are configured by the programmer using registers, and once enabled, they operate independently of the CPU. This allows the programmer to use the CPU to do other things while the timer is running. In the past delays of desired durations may have achieved by using various loop structures, all of which, while effective, waste CPU resources by using the CPU to actively do the counting, preventing it from doing other things.
 
 On the STM32F0 series of microcontrollers, there are 3 different types of timers available:

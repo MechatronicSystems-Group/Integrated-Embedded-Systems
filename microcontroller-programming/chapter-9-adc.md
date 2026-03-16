@@ -7,6 +7,14 @@ nav_order: 4
 
 # Analog-to-Digital Conversion
 
+## Table of Contents
+{: .no_toc}
+
+1. TOC
+{:toc}
+
+---
+
 Analog-to-Digital Converters (ADCs) are essential components in embedded systems that convert continuous analog signals into discrete digital values. This chapter covers the fundamentals of ADC operation and implementation on STM32 microcontrollers.
 
 ## Introduction to ADC

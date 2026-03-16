@@ -7,6 +7,14 @@ nav_order: 1
 
 # Chapter 1: Transistors
 
+## Table of Contents
+{: .no_toc}
+
+1. TOC
+{:toc}
+
+---
+
 Transistors serve as the fundamental building blocks of modern analogue electronics. In mechatronic systems, they function primarily as amplifiers (generating a larger voltage or current than the input signal) or as electronic switches, controlling power to actuators, motors, and other loads. Understanding how to design with transistors is essential for any engineer working at the interface between electronics and mechanical systems.
 
 ## Bipolar Junction Transistors

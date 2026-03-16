@@ -7,6 +7,14 @@ nav_order: 3
 
 # Chapter 3: Interfacing with Digital Systems
 
+## Table of Contents
+{: .no_toc}
+
+1. TOC
+{:toc}
+
+---
+
 At the end of Chapter 1, the example of a MOSFET H-bridge was given, and it was mentioned that a microcontroller output with levels 0 V or 3.3 V can provide the Drive Signals for the H-bridge, because a level adjuster was already part of the circuitry given there. The 3.3 V level will however have to be increased if a BJT H-bridge is used.
 
 Likewise, the inputs to microcontrollers must be designed to vary only between 0 V and 3.3 V if they are inputs to the A/Ds of micros, or they must have logical levels of 0 V or 3.3 V if they are logical inputs to micros. But the sensors or sensor circuitry could be producing voltages way beyond these levels.
@@ -151,3 +159,7 @@ _Figure 3.4: Level adjuster based on two comparators_
 The $10 \  k\Omega$ and $62 \  k\Omega$ were calculated to produce a reference voltage of about half the 3.3 V on one of the inputs of each of the two comparators.
 
 The $1 \  k\Omega$ and $100 \  k\Omega$ were practically found to let the comparators always function correctly, because they prevent the inputs to the comparators to be too close to the 0 V of the comparators' supply voltage when the input signal is at 0 V.
+
+## Example solutions
+
+Solutions to the examples in this section can be found [here](./assets/chapter-3-example-solutions.pdf).

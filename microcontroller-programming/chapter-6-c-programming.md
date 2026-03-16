@@ -7,6 +7,14 @@ nav_order: 1
 
 # C Programming for Embedded Systems
 
+## Table of Contents
+{: .no_toc}
+
+1. TOC
+{:toc}
+
+---
+
 C programming forms the foundation of embedded systems development. As a systems programming language, C provides an efficient mapping between human-readable code and machine instructions, making it ideal for resource-constrained embedded applications.
 
 ## Introduction to C for Embedded Applications

@@ -7,6 +7,14 @@ nav_order: 2
     
 # Chapter 2: Operational Amplifiers
 
+## Table of Contents
+{: .no_toc}
+
+1. TOC
+{:toc}
+
+---
+
 Operational amplifiers (op-amps for short) are essential building blocks
 of modern electronic circuitry. They have a few simple properties. These
 are:
@@ -681,3 +689,7 @@ calculated -- see the tips below.
 >
 > In the most general case, this will give you 2 equations and 3 unknowns:
 > $R_1$, $R_2$ and $R_f$.
+
+## Example solutions
+
+Solutions to the examples in this section can be found [here](./assets/chapter-2-example-solutions.pdf).

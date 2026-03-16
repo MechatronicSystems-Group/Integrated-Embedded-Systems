@@ -7,6 +7,14 @@ nav_order: 5
 
 # Chapter 5: Power Design
 
+## Table of Contents
+{: .no_toc}
+
+1. TOC
+{:toc}
+
+---
+
 Power supply design forms the foundation of reliable electronic systems. Every mechatronic device requires stable, regulated power to function correctly—whether derived from the AC mains or from portable battery sources. Understanding power circuitry is essential for creating robust embedded systems that operate safely and efficiently across varying load conditions and input voltages.
 
 This chapter explores the complete power supply chain: from AC mains conversion through transformer, rectification, and regulation stages; through linear and switching regulator topologies; to the electromechanical and solid-state relays that control power delivery to loads. We examine the trade-offs between efficiency, cost, complexity, and performance that guide practical design decisions.
