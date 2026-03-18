@@ -33,11 +33,21 @@ Unlike high-level languages that abstract away hardware details, C allows engine
 
 ## Core C Language Elements
 
+## 1. Data Elements (The "What")
+
 ### Variables and Data Types
 
 The foundation of any C program involves variables and their data types. In embedded systems, choosing appropriate data types is crucial for efficient memory usage and performance.
 
-C provides several primitive data types:
+#### Data Type Categories
+
+Data types in C can be categorized into three primary groups:
+
+1. **Primitive (Built-in) Types**: These are the fundamental building blocks provided by the language, including `char`, `int`, `float`, `double`, and `void`.
+2. **Derived Types**: These are built upon primitive types and include **Arrays**, **Pointers**, and **Functions**.
+3. **User-defined Types**: These allow programmers to create custom data structures tailored to their application, including `struct`, `union`, `enum`, and types created with `typedef`.
+
+#### Primitive Data Types
 
 {: .note }
 | Integer Type | Size | Description |
@@ -57,6 +67,22 @@ All integer types can be signed (default) or unsigned.
 | `double`          | 8 bytes | Double-precision floating point |
 
 In embedded systems, floating-point operations may be expensive without hardware floating point unit (FPU) support.
+
+#### Character Type — `char`
+
+The `char` type is fundamentally the smallest integer type in C. While it is primarily used for text, you can perform arithmetic on it just like an `int`. On most microcontrollers like the STM32, a `char` occupies **1 byte** (8 bits), whereas a standard `int` occupies **4 bytes** (32 bits).
+
+- **`char`**: Best for text, ASCII characters, or very small numeric values that stay within the range of an 8-bit integer.
+- **`int`**: The native word size for 32-bit microcontrollers, making it the most efficient type for general-purpose calculations.
+
+The `char` type stores numerical values that correspond to characters defined by the **ASCII** (American Standard Code for Information Interchange) standard (e.g., `'A'` is stored as the integer 65).
+
+Characters are represented as literals enclosed in single quotes, such as `'A'`, `'z'`, or `'0'`. C also uses **escape sequences** for special non-printable characters:
+- `'\n'` — New line (moves the cursor to the next line)
+- `'\r'` — Carriage return (moves the cursor to the start of the current line)
+- `'\0'` — Null terminator (essential for marking the end of a string in memory)
+
+---
 
 In embedded C programming, it's best practice to use fixed-width integer types from `<stdint.h>` to ensure consistent behavior across different platforms. These take the form below:
 
@@ -112,6 +138,111 @@ When declaring multiple variables of the same type, you can use a single declara
 uint8_t hour = 0, minute = 0, second = 0;  // Multiple initialization
 uint16_t adc_values[4];                    // Array declaration
 uint32_t *reg_ptr;                         // Pointer declaration
+```
+
+#### Variable Scope
+
+Scope defines where a variable can be seen and used within your program.
+
+1. **Global Variables**: These are declared outside all functions (usually at the top of the file). They are accessible by any function in the program and remain in memory for the entire time the program is running.
+2. **Local Variables**: These are declared inside a function or a block of code (enclosed in `{}`). They are only accessible within that specific function or block and are destroyed once the function or block finishes executing.
+
+{: .note }
+In embedded systems, you should keep global variables to a minimum. They consume RAM permanently and make the code harder to debug because any part of the program can modify them, leading to unexpected "side effects."
+
+#### Integer Ranges and Limits
+
+Understanding the numerical limits of each type is essential for preventing overflow bugs. The range of values an integer type can store depends on the number of bits ($n$) allocated to it:
+
+- **Unsigned Integers**: Can store values from **$0$ to $2^n - 1$**. For example:
+  - 8-bit (`uint8_t`): $0$ to $255$
+  - 16-bit (`uint16_t`): $0$ to $65,535$
+  - 32-bit (`uint32_t`): $0$ to $\approx 4.29 \times 10^9$
+- **Signed Integers**: Typically use two's complement representation, allowing values from **$-2^{n-1}$ to $2^{n-1} - 1$**. For example:
+  - 8-bit (`int8_t`): $-128$ to $127$
+  - 16-bit (`int16_t`): $-32,768$ to $32,767$
+  - 32-bit (`int32_t`): $\approx \pm 2.14 \times 10^9$
+
+In embedded systems, engineers must select the smallest data type that safely encompasses the expected range of data to conserve RAM and reduce the number of CPU cycles required for processing.
+
+
+### Arrays
+
+An array is a collection of elements of the same data type stored in contiguous memory locations. Arrays are essential for handling buffers, sensor data streams, and lookup tables.
+
+```c
+uint16_t adc_readings[8];     // Array of 8 unsigned 16-bit integers
+float temperatures[4] = {23.5, 24.1, 23.9, 25.0}; // Initialized array
+```
+
+Key characteristics of arrays in C:
+1. **Zero-indexing**: The first element is always at index `0`.
+2. **Contiguous Memory**: Elements are placed directly next to each other in RAM, making arrays ideal for Direct Memory Access (DMA) transfers.
+3. **Fixed Size**: The size of an array must be known at compile time.
+
+{: .warning }
+C does not perform any array bounds checking. Accessing an index outside the declared size (e.g., `adc_readings[10]`) will access memory that belongs to other variables, leading to hard-to-debug crashes or corrupted data.
+
+To access or modify an element, use the square bracket operator:
+
+```c
+adc_readings[0] = 4095; // Write to first element
+uint16_t current_val = adc_readings[1]; // Read second element
+```
+
+### Structures and Custom Data Types
+
+Structures group related data of different types into a single unit. They are invaluable for organizing complex data in embedded systems:
+
+```c
+struct Vector3 
+{
+    int16_t x;
+    int16_t y;
+    int16_t z;
+};
+```
+
+To use a structure defined this way, you must use the `struct` keyword with the type name:
+
+```c
+struct Vector3 reading;
+reading.x = 100;
+reading.y = 200;
+reading.z = 300;
+```
+
+The `typedef` keyword creates an alias for the structure type, simplifying subsequent declarations:
+
+```c
+typedef struct 
+{
+    uint16_t x;
+    uint16_t y;
+    uint16_t z;
+} accelerometer_data_t;
+
+accelerometer_data_t sensor_val;
+sensor_val.x = 100;
+```
+
+### Bit-fields
+
+Bit-fields allow precise control over the bit width of structure members, which is especially useful for matching hardware register layouts:
+
+```c
+typedef struct 
+{
+    uint32_t enable     : 1;   // 1 bit
+    uint32_t direction  : 1;   // 1 bit
+    uint32_t mode       : 2;   // 2 bits
+    uint32_t prescaler  : 4;   // 4 bits
+    uint32_t reserved   : 24;  // 24 bits
+} timer_control_t;
+
+timer_control_t timer1;
+timer1.enable = 1;      // Enable the timer
+timer1.prescaler = 8;   // Set prescaler to 8
 ```
 
 #### Type Qualifiers
@@ -199,53 +330,17 @@ This is critical in embedded systems for any points in code where the value of t
 Without `volatile`, the compiler might optimize away seemingly redundant reads or writes, which could cause unpredictable behavior when interacting with hardware or concurrent code:
 
 ```c
-// Without volatile, compiler might optimize this to a single read
-while (device_status_register & BUSY_FLAG) 
+// Example: Waiting for a flag set in an Interrupt (ISR)
+while (data_ready == 0) 
 {
-    // Wait for device to be ready
+    // Without volatile, the compiler might "optimize" this 
+    // by assuming data_ready never changes!
 }
 ```
 
-### Structures and Custom Data Types
+---
 
-Structures group related data of different types into a single unit. They are invaluable for organizing complex data in embedded systems:
-
-```c
-typedef struct 
-{
-    uint16_t x;
-    uint16_t y;
-    uint16_t z;
-} accelerometer_data_t;
-```
-
-The `typedef` keyword creates an alias for the structure type, simplifying subsequent declarations:
-
-```c
-accelerometer_data_t reading;
-reading.x = 100;
-reading.y = 200;
-reading.z = 300;
-```
-
-### Bit-fields
-
-Bit-fields allow precise control over the bit width of structure members, which is especially useful for matching hardware register layouts:
-
-```c
-typedef struct 
-{
-    uint32_t enable     : 1;   // 1 bit
-    uint32_t direction  : 1;   // 1 bit
-    uint32_t mode       : 2;   // 2 bits
-    uint32_t prescaler  : 4;   // 4 bits
-    uint32_t reserved   : 24;  // 24 bits
-} timer_control_t;
-
-timer_control_t timer1;
-timer1.enable = 1;      // Enable the timer
-timer1.prescaler = 8;   // Set prescaler to 8
-```
+## 2. Operators & Logic (The "How")
 
 ### Operators
 
@@ -420,6 +515,10 @@ if (flags & MASK_BIT && counter > 0) { ... }
 if ((flags & MASK_BIT) && (counter > 0)) { ... }
 ```
 
+---
+
+## 3. Grouped Statements (The "Logic")
+
 ### Control Structures
 
 Control structures direct the flow of program execution and are essential for implementing embedded system logic.
@@ -585,6 +684,60 @@ void initialize_hardware(void)
 }
 ```
 
+---
+
+## 4. Structural & System Elements (The "System")
+
+### Pointers and Memory Management
+
+Pointers are variables that store memory addresses. They are essential in embedded programming for:
+
+1. Manipulating hardware registers directly
+2. Efficient data handling without copying large structures
+3. Dynamic memory allocation (though this is often avoided in embedded systems)
+4. Callback mechanisms and function pointers
+
+A pointer is declared using the asterisk (`*`) symbol:
+
+```c
+uint32_t *ptr;  // Pointer to an unsigned 32-bit integer
+```
+
+To access the value a pointer references (dereferencing), use the asterisk operator:
+
+```c
+uint32_t value = *ptr;  // Read the value at the address stored in ptr
+*ptr = 0x1000;         // Write to the address stored in ptr
+```
+
+To get the address of a variable, use the address-of operator (`&`):
+
+```c
+uint32_t variable = 42;
+ptr = &variable;       // ptr now points to variable
+```
+
+When working with structures through pointers, the arrow operator (`->`) provides a convenient shorthand:
+
+```c
+accelerometer_data_t *reading_ptr = &reading;
+reading_ptr->x = 150;  // Equivalent to (*reading_ptr).x = 150;
+```
+
+### Pointers and Hardware Registers
+
+In embedded systems, hardware peripherals are controlled through special memory-mapped registers. Pointers provide direct access to these registers:
+
+```c
+// Define a pointer to the GPIO output data register
+volatile uint32_t *GPIO_ODR = (uint32_t *)0x40020014;
+
+// Set bit 5 (turn on an LED connected to pin 5)
+*GPIO_ODR |= (1 << 5);
+```
+
+The `volatile` keyword is crucial when working with hardware registers, as it prevents the compiler from optimizing away seemingly redundant reads or writes.
+
 ### Header Files
 
 Well-organized embedded C projects separate interfaces from implementations using header files:
@@ -650,56 +803,6 @@ void main()
 // END  -----------------------------------------------------------------------
 
 ```
-
-## Pointers and Memory Management
-
-Pointers are variables that store memory addresses. They are essential in embedded programming for:
-
-1. Manipulating hardware registers directly
-2. Efficient data handling without copying large structures
-3. Dynamic memory allocation (though this is often avoided in embedded systems)
-4. Callback mechanisms and function pointers
-
-A pointer is declared using the asterisk (`*`) symbol:
-
-```c
-uint32_t *ptr;  // Pointer to an unsigned 32-bit integer
-```
-
-To access the value a pointer references (dereferencing), use the asterisk operator:
-
-```c
-uint32_t value = *ptr;  // Read the value at the address stored in ptr
-*ptr = 0x1000;         // Write to the address stored in ptr
-```
-
-To get the address of a variable, use the address-of operator (`&`):
-
-```c
-uint32_t variable = 42;
-ptr = &variable;       // ptr now points to variable
-```
-
-When working with structures through pointers, the arrow operator (`->`) provides a convenient shorthand:
-
-```c
-accelerometer_data_t *reading_ptr = &reading;
-reading_ptr->x = 150;  // Equivalent to (*reading_ptr).x = 150;
-```
-
-### Pointers and Hardware Registers
-
-In embedded systems, hardware peripherals are controlled through special memory-mapped registers. Pointers provide direct access to these registers:
-
-```c
-// Define a pointer to the GPIO output data register
-volatile uint32_t *GPIO_ODR = (uint32_t *)0x40020014;
-
-// Set bit 5 (turn on an LED connected to pin 5)
-*GPIO_ODR |= (1 << 5);
-```
-
-The `volatile` keyword is crucial when working with hardware registers, as it prevents the compiler from optimizing away seemingly redundant reads or writes.
 
 ### Memory-Mapped I/O
 
