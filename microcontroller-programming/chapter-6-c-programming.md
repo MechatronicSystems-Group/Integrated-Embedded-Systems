@@ -17,6 +17,9 @@ nav_order: 1
 
 C programming forms the foundation of embedded systems development. As a systems programming language, C provides an efficient mapping between human-readable code and machine instructions, making it ideal for resource-constrained embedded applications.
 
+{: .note}
+The lecture slides used for this section are available [here](./slides/chapter-6-c-programming-slides.pdf).
+
 ## Introduction to C for Embedded Applications
 
 The C programming language was developed in 1972 by Dennis Ritchie at Bell Labs. It was designed as an imperative procedural language that efficiently maps machine instructions to human-readable code: _imperative_ meaning that it consists of statements that determine the behaviour of a progam, and _procedural_ meaning that these statements are executed in sequential order. Due to its efficiency, portability, and low-level capabilities, C remains the dominant language for embedded systems programming decades after its creation.
@@ -166,6 +169,8 @@ Understanding the numerical limits of each type is essential for preventing over
 In embedded systems, engineers must select the smallest data type that safely encompasses the expected range of data to conserve RAM and reduce the number of CPU cycles required for processing.
 
 
+
+
 ### Arrays
 
 An array is a collection of elements of the same data type stored in contiguous memory locations. Arrays are essential for handling buffers, sensor data streams, and lookup tables.
@@ -195,36 +200,191 @@ uint16_t current_val = adc_readings[1]; // Read second element
 Structures group related data of different types into a single unit. They are invaluable for organizing complex data in embedded systems:
 
 ```c
-struct Vector3 
+struct SensorData 
 {
-    int16_t x;
-    int16_t y;
-    int16_t z;
+    uint32_t id;         // ID — 4 bytes
+    float value;        // Data — 4 bytes
+    uint16_t threshold; // Limit — 2 bytes
+    char status;        // Flag — 1 byte
 };
 ```
 
 To use a structure defined this way, you must use the `struct` keyword with the type name:
 
 ```c
-struct Vector3 reading;
-reading.x = 100;
-reading.y = 200;
-reading.z = 300;
+struct SensorData reading;
+reading.id = 1;
+reading.value = 25.5;
+reading.threshold = 100;
+reading.status = 'A';
 ```
 
-The `typedef` keyword creates an alias for the structure type, simplifying subsequent declarations:
+The `typedef` keyword creates an alias (a new name) for an existing data type. It's often used to make code safer, more readable, and easier to modify. It does **not** create a new data type; it just gives an alternative name.
+
+#### `typedef` for Any Type
+
+You can use `typedef` with any existing type, including primitives and pointers:
+
+```c
+typedef unsigned char byte_t;    // descriptive alias for 8-bit data
+byte_t mask = 0xAA;
+
+typedef uint32_t handle_t;      // Meaningful name for an internal ID
+handle_t sensor_handle = 101;
+```
+
+{: .note }
+The fixed-width types you've been using (`uint8_t`, `int32_t`, etc.) are themselves `typedef` aliases of standard C types (like `unsigned char` and `signed long`) predefined in `<stdint.h>`.
+
+#### `typedef` with Structures
+
+Use `typedef` to create a shorter name for a structure to avoid typing the `struct` keyword every time you declare a variable. This makes the code much cleaner:
 
 ```c
 typedef struct 
 {
-    uint16_t x;
-    uint16_t y;
-    uint16_t z;
-} accelerometer_data_t;
+    uint32_t id;
+    float value;
+    uint16_t threshold;
+    char status;
+} sensor_data_t;
 
-accelerometer_data_t sensor_val;
-sensor_val.x = 100;
+// Usage: No 'struct' keyword required!
+sensor_data_t reading1;
+reading1.id = 1;
+reading1.value = 25.5;
 ```
+
+#### Memory Addresses and Pointers
+
+In C, every variable lives at a specific **Memory Address**. A **pointer** is a variable that stores that address—it "points" to where data is stored. While you won't need advanced pointer manipulation for this class, you must understand them because **hardware registers in the STM32 are defined as pointers**.
+
+The memory model below illustrates the concept. The pointer variable itself is stored in memory and its *value* is an address—the address of another variable:
+
+```
+Memory:
+  Address  │ Value
+  ─────────┼───────
+  0x2000   │  10      ← uint32_t val = 10;
+  0x2004   │  0x2000  ← uint32_t *ptr = &val;  (stores the address of val)
+```
+
+**Why this matters for STM32:** Hardware registers like GPIO ports live at fixed addresses decided by the chip manufacturer. The HAL library gives you *pointers* to those addresses so your code can control hardware directly.
+
+##### Pointer Syntax — Anatomy
+
+Reading a pointer declaration is easier when you break it into two parts:
+
+```c
+uint32_t * ptr;
+│          │
+│          └─ Name of the pointer variable
+└─ Type of data it points to (a uint32_t lives at that address)
+```
+
+| Statement | Meaning |
+|---|---|
+| `uint32_t val = 10;` | A 32-bit variable holding the value `10` |
+| `uint32_t *ptr = &val;` | A pointer variable holding the address of `val` |
+| `*ptr` | The value *at* that address (i.e. `10`) |
+
+The `*` symbol has two distinct meanings depending on where it appears:
+- In a **declaration** (`uint32_t *ptr`), it means "this is a pointer variable."
+- In an **expression** (`*ptr`), it means "go to this address and read the value."
+
+##### Referencing and Dereferencing
+
+Two operators work together to use pointers:
+
+| Operator | Name | Meaning |
+|---|---|---|
+| `&` | Reference / address-of | "Give me the address of this variable" |
+| `*` | Dereference | "Give me the value at this address" |
+
+```c
+uint32_t val = 10;
+uint32_t *ptr = &val;   // ptr holds the address of val
+uint32_t res = *ptr;    // Dereference: follow the address, read value → res = 10
+
+*ptr = 99;              // Write through the pointer: val is now 99
+```
+
+Dereferencing a pointer is like following a hyperlink — you go to the location it points to, and you can both read from and write to that location.
+
+#### Pointers to Structures
+
+Pointers can also point to **complex blocks of data** like structures. This is a very powerful concept in embedded systems because it allows us to "remote control" an entire peripheral (like a GPIO port) from a single memory address.
+
+```c
+sensor_data_t my_sensor;          // A struct in memory
+sensor_data_t *ptr = &my_sensor;  // Pointer to the start of that object
+```
+
+To access a member through a pointer, you must **dereference first, then access the member**. The long form uses `*` with parentheses, then the dot operator:
+
+```c
+// Long form — dereference, then use the dot operator:
+(*ptr).id = 1;
+
+// These two lines do the same thing:
+my_sensor.id = 1;
+(*ptr).id    = 1;
+```
+
+#### The Arrow Operator (`->`)
+
+The parentheses in `(*ptr).member` are easy to get wrong. C provides a cleaner shorthand — the **arrow operator** — that performs both steps at once:
+
+```
+ptr->member   ≡   (*ptr).member
+```
+
+```c
+sensor_data_t my_sensor;
+sensor_data_t *ptr = &my_sensor;
+
+my_sensor.id = 1;   // Direct access    (you have the object)
+ptr->id      = 1;   // Arrow access     (you have a pointer to the object)
+```
+
+The choice of syntax depends on what you have:
+
+| Syntax | When to use |
+|---|---|
+| `object.member` | You have the object itself |
+| `pointer->member` | You have a *pointer* to the object |
+
+You will use the arrow operator for almost all of your hardware interactions on the STM32.
+
+#### Connecting to STM32 — Hardware Registers
+
+All of the above leads directly to how STM32 peripherals are accessed in C. There is nothing magic about it — it is just pointers and structs.
+
+**Step 1 — Registers are grouped into structs** (one struct per peripheral, defined in `stm32f4xx.h`):
+
+```c
+typedef struct {
+    volatile uint32_t MODER;   // Pin mode register
+    volatile uint32_t ODR;     // Output data register
+    // ... (other registers)
+} GPIO_TypeDef;
+```
+
+**Step 2 — A pointer is placed at the fixed hardware address** (also in the device header):
+
+```c
+#define GPIOA  ((GPIO_TypeDef *) 0x40020000UL)
+```
+
+This casts the known hardware address `0x40020000` to a pointer of type `GPIO_TypeDef *`. `GPIOA` is therefore just a pointer — nothing more.
+
+**Step 3 — You access registers with `->` as normal:**
+
+```c
+GPIOA->ODR = 0xFF;    // Write 0xFF to GPIOA's Output Data Register
+```
+
+This dereferences `GPIOA` (goes to address `0x40020000`) and accesses the `ODR` member of the struct at that location, which corresponds directly to the physical output data register of GPIO Port A on the chip.
 
 ### Bit-fields
 
@@ -291,6 +451,14 @@ void count_events(void)
 ```
 
 Each time `count_events()` is called, `event_counter` will increment from its previous value rather than starting from 0.
+
+#### **Why not just use a Global?**
+
+Using a `static local` variable is significantly better than using a global variable for this purpose because:
+
+1. **Encapsulation**: No other part of your program can "see" or modify `event_counter`. If you used a global, any other function could accidentally change its value, leading to bugs that are extremely hard to track down.
+2. **Namespace Safety**: You can use the name `event_counter` inside multiple functions without any naming conflicts.
+3. **Internal Logic**: It clearly communicates to other programmers that this variable *only* exists to support the internal logic of this specific function.
 
 **Static global variables** and functions are only visible within the file where they're defined. This creates a form of encapsulation, preventing external access:
 
@@ -437,21 +605,84 @@ if ((temperature > TEMP_MIN) && (temperature < TEMP_MAX))
 
 C uses short-circuit evaluation for logical operators. In an AND operation, if the first operand is false, the second is not evaluated. In an OR operation, if the first operand is true, the second is not evaluated.
 
+**Practical Examples:**
+```c
+// Combined conditions: Both must be true
+if (temp > 40 && alarm_enabled) 
+{
+    activate_fan();
+}
+
+// Either condition: True if at least one is met
+if (button_pressed || timer_finished) 
+{
+    wake_system();
+}
+
+// Logical NOT: Often used for status flags
+if (!system_busy) 
+{
+    start_processor();
+}
+```
+
 #### Bitwise Operators
 
 Bitwise operators perform operations on individual bits and are heavily used in embedded systems for efficient register manipulation:
 
-{: .note }
-| Operator | Description | Example |
-|----------|-------------|---------|
-| `&` | Bitwise AND | `a & b` |
-| `\|` | Bitwise OR | `a \| b` |
-| `^` | Bitwise XOR | `a ^ b` |
-| `~` | Bitwise NOT (complement) | `~a` |
-| `<<` | Left shift | `a << b` |
-| `>>` | Right shift | `a >> b` |
+#### Bitwise OR (`|`) — Combining Bits
+
+Used to **combine** bit patterns or **set** bits:
+
+```c
+uint8_t temp1 = 0b00000010; // (2)
+uint8_t temp2 = 0b01001010; // (74)
+
+uint8_t result = temp1 | temp2;
+// result = 0b01001010 (= 0x4A = 74)
+```
+
+#### Bitwise AND (`&`) — Masking Bits
+
+Used to **extract** bits or **clear** bits:
+
+```c
+uint8_t temp1 = 0b11111101; // (253)
+uint8_t temp2 = 0b01001011; // (75)
+
+uint8_t result = temp1 & temp2;
+// result = 0b01001001 (= 0x49 = 73)
+```
+
+#### Bitwise XOR (`^`) — Toggling Bits
+
+Used to **toggle** (flip) bits:
+
+```c
+uint8_t temp1 = 0b00000010; // (2)
+uint8_t temp2 = 0b01001010; // (74)
+
+uint8_t result = temp1 ^ temp2;
+// result = 0b01001000 (= 0x48 = 72)
+```
+
+#### Bitwise Shift (`<<` and `>>`)
+
+Used to move bits left or right:
+
+```c
+uint8_t a = 0b00000101; // (5)
+
+uint8_t result_left = a << 2;  // Shift left 2
+// result = 0b00010100 (= 20)
+
+uint8_t result_right = a >> 1; // Shift right 1
+// result = 0b00000010 (= 2)
+```
 
 Common use cases in embedded systems include:
+
+**Basic Patterns:**
 
 1. Setting specific bits in a register:
 ```c
@@ -463,23 +694,26 @@ GPIOA->ODR |= (1 << 5);  // Set bit 5 (turn on LED on pin 5)
 GPIOA->ODR &= ~(1 << 5);  // Clear bit 5 (turn off LED on pin 5)
 ```
 
-3. Toggling bits:
+**Advanced Masking Examples:**
+
+3. Extracting specific bits (Masking):
 ```c
-GPIOA->ODR ^= (1 << 5);  // Toggle bit 5 (toggle LED state)
+// Example: Extract bits 0-7 from a 32-bit register
+uint8_t low_byte = status_reg & 0xFF; // AND with 0xFF (0b11111111)
 ```
 
-4. Checking if a bit is set:
+4. Clearing multiple bits at once:
 ```c
-if (GPIOA->IDR & (1 << 0)) 
+// Example: Clearing bits 0-3 (the low nibble) at once
+GPIOA->ODR &= ~(0xF << 0); // 0xF is 0b1111
+```
+
+5. Checking for multiple flags:
+```c
+if ((status_reg & (FLAG_A | FLAG_B)) == (FLAG_A | FLAG_B)) 
 {
-    // Bit 0 is set (button pressed)
+    // This executes ONLY if BOTH FLAG_A and FLAG_B are 1
 }
-```
-
-5. Creating bit masks:
-```c
-#define GPIO_PIN_MASK(x) (1 << (x))
-GPIOA->ODR |= GPIO_PIN_MASK(5) | GPIO_PIN_MASK(6);  // Set pins 5 and 6
 ```
 
 #### Miscellaneous Operators

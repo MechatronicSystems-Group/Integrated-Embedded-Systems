@@ -15,6 +15,3 @@ _site/
 vendor/
 
 .DS_Store
-
-*slides.md
-*slides.pdf
