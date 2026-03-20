@@ -3,6 +3,7 @@ marp: true
 theme: default
 paginate: true
 math: mathjax
+html: true
 style: |
   section {
     font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -57,6 +58,7 @@ style: |
   .columns > div {
     flex: 1;
   }
+
 ---
 
 <!-- _class: lead -->
@@ -473,9 +475,11 @@ while (data_ready == 0)
 ```c
 uint8_t a = 5;
 uint8_t b = ++a;  // b = 6, a = 6  (increment first)
-uint8_t c = a++;  // c = 6, a = 7  (use first, then increment)
 ```
-
+```c
+uint8_t a = 5;
+uint8_t c = a++;  // c = 5, a = 6  (use first, then increment)
+```
 > **Warning:** Division and modulo may be **computationally expensive** on microcontrollers without hardware division support.
 
 ---
@@ -628,53 +632,6 @@ uint8_t result_right = a >> 1; // Shift right 1
 
 ---
 
-# Bitwise Masking Examples
-
-**Extracting** bits 0-7 from a register:
-```c
-uint8_t low_byte = status_reg & 0xFF; // AND with 0xFF (0b11111111)
-```
-
-**Clearing** multiple bits at once:
-```c
-// Example: Clearing bits 0-3 at once (0xF = 0b1111)
-GPIOA->ODR &= ~(0xF << 0);
-```
-
-**Checking** multiple flags:
-```c
-if ((status_reg & (FLAG_A | FLAG_B)) == (FLAG_A | FLAG_B)) 
-{
-    // Executes only if BOTH flags are set
-}
-```
-
----
-
-# Bitwise Operations — Common Patterns
-
-**Set** a bit:
-```c
-GPIOA->ODR |= (1 << 5);   // Set bit 5
-```
-
-**Clear** a bit:
-```c
-GPIOA->ODR &= ~(1 << 5);  // Clear bit 5
-```
-
-**Toggle** a bit:
-```c
-GPIOA->ODR ^= (1 << 5);   // Toggle bit 5
-```
-
-**Check** a bit:
-```c
-if (GPIOA->IDR & (1 << 0)) { /* Bit 0 is set */ }
-```
-
----
-
 # Miscellaneous Operators
 
 | Operator | Description | Example |
@@ -811,17 +768,139 @@ typedef struct {
 
 **2. A pointer is placed at the hardware address:**
 ```c
-#define GPIOA  ((GPIO_TypeDef *) 0x40020000UL)  // From stm32f4xx.h
+#define GPIOA  ((GPIO_TypeDef *) 0x40020000)  // From stm32f4xx.h
 ```
+
+---
 
 **3. You access registers with `->` :**
 ```c
 GPIOA->ODR = 0xFF;    // Write 0xFF to GPIOA's Output Data Register
 ```
 
-> **Note:** `GPIOA` is just a pointer. `->` dereferences it and selects the register member — exactly as you just learned.
+> **Note:** `GPIOA` is just a pointer. `->` dereferences it and selects the register member.
 
 ---
+
+# Return to Bitwise Operations — Common Patterns
+
+**Set** a bit:
+```c
+GPIOA->ODR |= (1 << 5);   // Set bit 5
+```
+
+**Clear** a bit:
+```c
+GPIOA->ODR &= ~(1 << 5);  // Clear bit 5
+```
+
+**Toggle** a bit:
+```c
+GPIOA->ODR ^= (1 << 5);   // Toggle bit 5
+```
+
+**Check** a bit:
+```c
+if (GPIOA->IDR & (1 << 0)) { /* Bit 0 is set */ }
+```
+
+---
+
+# What is a Bitmask?
+
+A **bitmask** is a value used with a bitwise operator to **select, set, clear, or test** specific bits in a register.
+
+- Bits set to **1** in the mask → the bits you care about
+- Bits set to **0** in the mask → the bits you ignore
+
+```c
+uint32_t mask = (1 << 5);  // Only bit 5 is 1: 0b00100000
+```
+
+> Think of a mask as a **stencil** — it lets certain bits through and blocks the rest.
+
+---
+
+# Building Bitmasks — The Shift Pattern
+
+Use `(1 << n)` to target **bit n**. Combine with `|` to target multiple bits:
+
+```c
+(1 << 5)          // Targets bit 5 only
+(1 << 5) | (1 << 3)   // Targets bits 5 and 3
+```
+
+The `~` operator **inverts** the mask — useful for clearing:
+
+```c
+~(1 << 5)         // All bits set EXCEPT bit 5 (i.e. 0b11011111)
+```
+
+> This pattern is used **everywhere** in STM32 register programming.
+
+---
+
+# Bitmasks in Practice — GPIO `ODR`
+
+The `ODR` (Output Data Register) controls pin output levels using **1 bit per pin**:
+
+<img src="../images/GPIO_ODR.png" alt="GPIO ODR Register" width="70%;">
+
+---
+
+# Bitmasks in Practice — GPIO `ODR`
+<img src="../images/GPIO_ODR_crop.png" alt="GPIO ODR Register" width="70%;">
+
+Applying the mask patterns from before:
+
+```c
+// Turn ON LED on pin 5  — set bit 5
+GPIOA->ODR |= (1 << 5);
+
+// Turn OFF LED on pin 5 — clear bit 5
+GPIOA->ODR &= ~(1 << 5);
+
+// Toggle LED on pin 5   — flip bit 5
+GPIOA->ODR ^= (1 << 5);
+```
+
+---
+# Bitmasks in Practice — GPIO `ODR`
+
+<img src="../images/GPIO_ODR_crop.png" alt="GPIO ODR Register" width="70%;">
+
+In the stm32f051x8.h library header file:
+
+```c
+/******************  Bit definition for GPIO_ODR register  ********************/
+#define GPIO_ODR_0                      (0x00000001U)
+#define GPIO_ODR_1                      (0x00000002U)
+#define GPIO_ODR_2                      (0x00000004U)
+#define GPIO_ODR_3                      (0x00000008U)
+#define GPIO_ODR_4                      (0x00000010U)
+#define GPIO_ODR_5                      (0x00000020U)
+```
+
+---
+# Bitmasks in Practice — GPIO `ODR`
+
+<img src="../images/GPIO_ODR_crop.png" alt="GPIO ODR Register" width="70%;">
+
+Applying the mask patterns from before:
+
+```c
+// Turn ON LED on pin 5  — set bit 5
+GPIOA->ODR |= GPIO_ODR_5;
+
+// Turn OFF LED on pin 5 — clear bit 5
+GPIOA->ODR &= ~GPIO_ODR_5;
+
+// Toggle LED on pin 5   — flip bit 5
+GPIOA->ODR ^= GPIO_ODR_5;
+```
+
+---
+
 
 <!-- _class: lead -->
 
@@ -834,26 +913,48 @@ GPIOA->ODR = 0xFF;    // Write 0xFF to GPIOA's Output Data Register
 
 ## `if` / `else`
 
+<div class="columns">
+<div>
+
 ```c
-if (ADC_value > THRESHOLD) 
+if (ADC_value > 3000)
 {
-    LED_ON();
-} 
-else 
+    LED_HIGH();
+}
+else if (ADC_value > 1000)
+{
+    LED_MED();
+}
+else
 {
     LED_OFF();
 }
 ```
+</div>
+<div>
+Only one code block will run in an <code>if / else if / else</code> chain.
+</div>
+
+---
+
+# Conditional Statements
 
 ## `switch`
 
 ```c
 switch (system_state) 
 {
-    case IDLE:    enter_low_power_mode();  break;
-    case ACTIVE:  process_sensor_data();   break;
-    case ERROR:   trigger_alarm();         break;
-    default:      reset_system();
+    case IDLE:
+        enter_low_power_mode();
+        break;
+    case ACTIVE:
+        process_sensor_data();
+        break;
+    case ERROR:
+        trigger_alarm();
+        break;
+    default:
+        reset_system();
 }
 ```
 
@@ -876,6 +977,9 @@ while (UART_is_receiving())
     process_byte(UART_read_byte());
 }
 ```
+---
+
+# Loops
 
 **`do-while`** — executes at least once:
 ```c
@@ -891,7 +995,7 @@ do {
 In embedded systems, `main()` typically contains an **infinite loop**:
 
 ```c
-int main(void) 
+void main(void) 
 {
     system_init();
     

@@ -694,26 +694,67 @@ GPIOA->ODR |= (1 << 5);  // Set bit 5 (turn on LED on pin 5)
 GPIOA->ODR &= ~(1 << 5);  // Clear bit 5 (turn off LED on pin 5)
 ```
 
-**Advanced Masking Examples:**
 
-3. Extracting specific bits (Masking):
+#### What is a Bitmask?
+
+A **bitmask** is a value used with a bitwise operator to select, set, clear, or test specific bits in a register. Bits set to **1** in the mask mark the bits you care about; bits set to **0** mark bits to ignore.
+
 ```c
-// Example: Extract bits 0-7 from a 32-bit register
-uint8_t low_byte = status_reg & 0xFF; // AND with 0xFF (0b11111111)
+uint32_t mask = (1 << 5);  // Only bit 5 is 1: 0b00100000
 ```
 
-4. Clearing multiple bits at once:
+Think of a mask as a stencil — it lets certain bits through and blocks the rest.
+
+#### Building Bitmasks — The Shift Pattern
+
+Use `(1 << n)` to target bit `n`. Combine with `|` to target multiple bits:
+
 ```c
-// Example: Clearing bits 0-3 (the low nibble) at once
-GPIOA->ODR &= ~(0xF << 0); // 0xF is 0b1111
+(1 << 5)               // Targets bit 5 only
+(1 << 5) | (1 << 3)   // Targets bits 5 and 3
 ```
 
-5. Checking for multiple flags:
+The `~` operator **inverts** the mask, which is useful for clearing:
+
 ```c
-if ((status_reg & (FLAG_A | FLAG_B)) == (FLAG_A | FLAG_B)) 
-{
-    // This executes ONLY if BOTH FLAG_A and FLAG_B are 1
-}
+~(1 << 5)   // All bits set EXCEPT bit 5 (i.e. 0b11011111)
+```
+
+This pattern is used throughout STM32 register programming.
+
+#### Bitmasks in Practice — GPIO `ODR`
+
+The `ODR` (Output Data Register) controls pin output levels using **1 bit per pin** — a `1` drives the pin high (3.3 V) and a `0` drives it low (0 V). Applying the mask patterns:
+
+```c
+// Turn ON LED on pin 5  — set bit 5
+GPIOA->ODR |= (1 << 5);
+
+// Turn OFF LED on pin 5 — clear bit 5
+GPIOA->ODR &= ~(1 << 5);
+
+// Toggle LED on pin 5   — flip bit 5
+GPIOA->ODR ^= (1 << 5);
+```
+
+The STM32 HAL header `stm32f051x8.h` pre-defines named masks for every register bit, making code more readable:
+
+```c
+/******************  Bit definition for GPIO_ODR register  ********************/
+#define GPIO_ODR_0   (0x00000001U)
+#define GPIO_ODR_1   (0x00000002U)
+#define GPIO_ODR_2   (0x00000004U)
+#define GPIO_ODR_3   (0x00000008U)
+#define GPIO_ODR_4   (0x00000010U)
+#define GPIO_ODR_5   (0x00000020U)
+```
+
+Using these named constants instead of raw numbers makes the intent self-documenting:
+
+```c
+GPIOA->ODR |=  GPIO_ODR_5;   // Turn ON  LED on pin 5
+GPIOA->ODR &= ~GPIO_ODR_5;   // Turn OFF LED on pin 5
+GPIOA->ODR ^=  GPIO_ODR_5;   // Toggle   LED on pin 5
 ```
 
 #### Miscellaneous Operators
@@ -761,12 +802,18 @@ Control structures direct the flow of program execution and are essential for im
 
 The `if`, `else if`, and `switch` statements allow the program to make decisions based on conditions:
 
+An `if / else if / else` chain evaluates conditions in order and executes only the first matching block:
+
 ```c
-if (ADC_value > THRESHOLD) 
+if (ADC_value > 3000)
 {
-    LED_ON();
-} 
-else 
+    LED_HIGH();
+}
+else if (ADC_value > 1000)
+{
+    LED_MED();
+}
+else
 {
     LED_OFF();
 }
@@ -827,7 +874,7 @@ while (more_readings_available());
 In embedded systems, infinite loops are common in the main function, with the actual processing occurring in interrupt service routines:
 
 ```c
-int main(void) 
+void main(void) 
 {
     system_init();
     
