@@ -700,3 +700,7 @@ Therefore, the gain at $\omega$ will e.g. be:
 -   *K* for the $2^{nd}$ order band-pass filter
 
 -   $K\frac{\zeta_{1}}{\zeta_{2}}$ for the notch filter
+
+## Example solutions
+
+Solutions to the examples in this section can be found [here](./assets/chapter-4-example-solutions.pdf).
