@@ -1005,19 +1005,6 @@ accelerometer_data_t *reading_ptr = &reading;
 reading_ptr->x = 150;  // Equivalent to (*reading_ptr).x = 150;
 ```
 
-### Pointers and Hardware Registers
-
-In embedded systems, hardware peripherals are controlled through special memory-mapped registers. Pointers provide direct access to these registers:
-
-```c
-// Define a pointer to the GPIO output data register
-volatile uint32_t *GPIO_ODR = (uint32_t *)0x40020014;
-
-// Set bit 5 (turn on an LED connected to pin 5)
-*GPIO_ODR |= (1 << 5);
-```
-
-The `volatile` keyword is crucial when working with hardware registers, as it prevents the compiler from optimizing away seemingly redundant reads or writes.
 
 ### Header Files
 
@@ -1085,24 +1072,6 @@ void main()
 
 ```
 
-### Memory-Mapped I/O
-
-STM32 microcontrollers use memory-mapped I/O, where peripheral registers appear as memory locations. This approach simplifies hardware control:
-
-```c
-// Define base addresses for peripherals
-#define GPIOA_BASE      0x40020000     //0x40020000 is the memory location of the first GPIOA register
-#define GPIOB_BASE      0x40020400
-
-// Define register offsets
-#define GPIO_MODER_OFFSET   0x00       //The moder register is located 0 positions away forom the base register
-#define GPIO_ODR_OFFSET     0x14       //The ODR register is located 0x14 positions away forom the base register
-
-// Define pointers to specific registers
-volatile uint32_t *GPIOA_MODER = (uint32_t *)(GPIOA_BASE + GPIO_MODER_OFFSET);
-volatile uint32_t *GPIOA_ODR = (uint32_t *)(GPIOA_BASE + GPIO_ODR_OFFSET);
-
-```
 
 ## Preprocessor Directives
 

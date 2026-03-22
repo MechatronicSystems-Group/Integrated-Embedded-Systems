@@ -1084,63 +1084,6 @@ void initialize_hardware(void)
 
 ---
 
-# Pointers
-
-Variables that store **memory addresses**:
-
-```c
-uint32_t *ptr;            // Declare a pointer
-uint32_t value = *ptr;    // Dereference — read the value
-*ptr = 0x1000;            // Dereference — write a value
-
-uint32_t variable = 42;
-ptr = &variable;          // Address-of — point to variable
-```
-
-Essential for:
-1. Manipulating **hardware registers** directly
-2. Efficient data handling — no copying large structures
-3. **Callback** mechanisms and function pointers
-
----
-
-# Pointers and Hardware Registers
-
-Direct access to **memory-mapped registers**:
-
-```c
-// Pointer to the GPIO output data register
-volatile uint32_t *GPIO_ODR = (uint32_t *)0x40020014;
-
-// Set bit 5 (turn on LED on pin 5)
-*GPIO_ODR |= (1 << 5);
-```
-
-The `volatile` keyword is crucial — prevents the compiler from **optimizing away** reads/writes to hardware.
-
----
-
-# Memory-Mapped I/O
-
-STM32 peripherals appear as **memory locations**:
-
-```c
-// Base addresses
-#define GPIOA_BASE    0x40020000
-#define GPIOB_BASE    0x40020400
-
-// Register offsets
-#define GPIO_MODER_OFFSET  0x00
-#define GPIO_ODR_OFFSET    0x14
-
-// Pointers to specific registers
-volatile uint32_t *GPIOA_MODER = 
-    (uint32_t *)(GPIOA_BASE + GPIO_MODER_OFFSET);
-volatile uint32_t *GPIOA_ODR   = 
-    (uint32_t *)(GPIOA_BASE + GPIO_ODR_OFFSET);
-```
-
----
 
 # Preprocessor Directives
 
@@ -1236,22 +1179,3 @@ void main()
 // END  ----------------------------------------------
 ```
 
----
-
-# Summary
-
-| Topic | Key Takeaway |
-|-------|-------------|
-| **Data Elements** | Use `<stdint.h>`, manage Scope, and use `volatile` |
-| **Operators & Logic** | Bitwise manipulation is core for embedded |
-| **Grouped Statements** | Use modular Functions and robust Control Flow |
-| **System Elements** | Pointers are the bridge to the Hardware |
-
----
-
-<!-- _class: lead -->
-<!-- _paginate: false -->
-
-# Questions?
-
-**Chapter 6: C Programming for Embedded Systems**
