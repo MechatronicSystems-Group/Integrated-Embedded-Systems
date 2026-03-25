@@ -847,24 +847,6 @@ The `ODR` (Output Data Register) controls pin output levels using **1 bit per pi
 <img src="../images/GPIO_ODR.png" alt="GPIO ODR Register" width="70%;">
 
 ---
-
-# Bitmasks in Practice — GPIO `ODR`
-<img src="../images/GPIO_ODR_crop.png" alt="GPIO ODR Register" width="70%;">
-
-Applying the mask patterns from before:
-
-```c
-// Turn ON LED on pin 5  — set bit 5
-GPIOA->ODR |= (1 << 5);
-
-// Turn OFF LED on pin 5 — clear bit 5
-GPIOA->ODR &= ~(1 << 5);
-
-// Toggle LED on pin 5   — flip bit 5
-GPIOA->ODR ^= (1 << 5);
-```
-
----
 # Bitmasks in Practice — GPIO `ODR`
 
 <img src="../images/GPIO_ODR_crop.png" alt="GPIO ODR Register" width="70%;">
@@ -960,6 +942,24 @@ switch (system_state)
 
 ---
 
+# Enumerations (`enum`)
+
+An **enumeration** assigns names to integer constants, making code readable and eliminating "magic numbers". They are commonly used with `switch` statements to build **state machines**.
+
+```c
+enum SystemState {
+    IDLE,      // Automatically assigned 0
+    ACTIVE,    // Automatically assigned 1
+    ERROR      // Automatically assigned 2
+};
+
+enum SystemState system_state = ACTIVE;
+```
+
+> **Tip:** `if (state == 1)` is confusing. `if (state == ACTIVE)` is perfectly clear.
+
+---
+
 # Loops
 
 **`for`** — when number of iterations is known:
@@ -1037,20 +1037,16 @@ return_type function_name(parameter_type parameter_name, ...)
 # Functions — Example
 
 ```c
-uint16_t calculate_average(uint16_t *data_array, uint8_t length)
+uint16_t calculate_voltage_mv(uint16_t adc_reading)
 {
-    uint32_t sum = 0;
+    // Convert 12-bit ADC reading to millivolts (assuming 3.3V reference)
+    uint32_t voltage = (adc_reading * 3300) / 4095;
     
-    for (uint8_t i = 0; i < length; i++) 
-    {
-        sum += data_array[i];
-    }
-    
-    return (uint16_t)(sum / length);
+    return (uint16_t)voltage;
 }
 ```
 
-Uses a **pointer** parameter to avoid copying the entire array.
+Takes a `uint16_t` parameter and returns a calculated `uint16_t` result.
 
 ---
 
@@ -1109,48 +1105,35 @@ Macros improve readability but **lack type checking**.
 
 # Conditional Compilation
 
-Include different code sections based on defined conditions — **no runtime overhead**:
+Include or exclude code before it even reaches the compiler using:
+- **`#ifdef` / `#ifndef`** (If Defined / If Not Defined)
+- **`#if` / `#elif` / `#else`** (If / Else If / Else)
+- **`#endif`** (Ends the conditional block)
 
 ```c
-#define DEBUG_LEVEL 2
+#define HARDWARE_V2
 
-#if DEBUG_LEVEL > 1
-    #define DEBUG_PRINT(msg)  uart_send_string(msg)
+#ifdef HARDWARE_V2
+    init_new_sensor();
 #else
-    #define DEBUG_PRINT(msg)  /* nothing */
+    init_legacy_sensor();
 #endif
 ```
 
-Useful for:
-- Configurable code for **different hardware platforms**
-- Enabling/disabling **debug output**
-- Feature flags
-
 ---
 
-# Header Files
+### Safely "Commenting Out" Code
 
-Separate **interfaces** from **implementations**:
+Always use `#if 0` instead of `/* ... */` to disable large blocks of code. 
 
 ```c
-// module_name.h
-#ifndef MODULE_NAME_H
-#define MODULE_NAME_H
-
-#include <stdint.h>
-
-typedef struct {
-    uint8_t id;
-    uint16_t value;
-} sensor_data_t;
-
-void sensor_init(void);
-sensor_data_t sensor_read(void);
-
-#endif /* MODULE_NAME_H */
+#if 0
+    // This code is completely ignored by the compiler
+    int old_value = 5;
+    /* This comment would break a nested block comment! */
+    process_data(old_value);
+#endif
 ```
-
-**Include guards** (`#ifndef ... #endif`) prevent multiple inclusion.
 
 ---
 
@@ -1178,4 +1161,64 @@ void main()
 
 // END  ----------------------------------------------
 ```
+
+---
+
+# Libraries in C
+
+A **library** is a collection of pre-written, reusable code that provides specific functionality. 
+Using a library typically requires two parts:
+1. **The Implementation (`.c` file / compiled binary):** Contains the actual instructions that perform the work.
+2. **The Header (`.h` file):** The "interface" that tells your compiler which functions and variables are available to use.
+
+> Think of the **header file** as a restaurant menu, and the **implementation** as the kitchen.
+---
+
+# Header Files & Implementations
+
+Separate **interfaces** (`.h`) from **implementations** (`.c`):
+
+<div class="columns">
+<div>
+
+**`sensor.h`** (Interface)
+```c
+#ifndef SENSOR_H
+#define SENSOR_H
+
+#include <stdint.h>
+
+typedef struct {
+    uint8_t id;
+    uint16_t value;
+} sensor_data_t;
+
+void sensor_init(void);
+sensor_data_t sensor_read(void);
+
+#endif
+```
+</div>
+<div>
+
+**`sensor.c`** (Implementation)
+```c
+#include "sensor.h"
+
+void sensor_init(void) 
+{
+    // Hardware setup
+}
+
+sensor_data_t sensor_read(void) 
+{
+    sensor_data_t data = {1, 42};
+    return data;
+}
+```
+</div>
+</div>
+
+**Include guards** (`#ifndef ... #endif`) prevent multiple inclusion.
+
 

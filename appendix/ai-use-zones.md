@@ -129,7 +129,7 @@ As a mechatronic engineer, you will be expected to:
 ### Before Using AI, Ask Yourself:
 
 
-1. *Have I attempted this myself first?* AI should help you get unstuck, not prevent you from ever being stuck.
+1. *Have I attempted this myself first?* AI use should help overcome sticking points, not to prevent them from occurring. These points are often where the most learning happens.
 
 2. *Will I understand the result?* If you cannot explain the AI's output, you should not use it.
 
