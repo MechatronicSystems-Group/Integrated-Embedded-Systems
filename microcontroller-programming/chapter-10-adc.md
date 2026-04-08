@@ -17,6 +17,9 @@ nav_order: 5
 
 Analogue-to-Digital Converters (ADCs) are devices that are used to convert continuous analogue signals into discrete digital values. This chapter covers the fundamentals of ADC operation and implementation on STM32 microcontrollers.
 
+{: .note}
+The lecture slides used for this section are available [here](./slides/chapter-10-adc-slides.pdf).
+
 ## Introduction to ADC
 
 The ADC peripheral in STM32 microcontrollers provides a bridge between the analogue and digital domains, enabling the microcontroller to process real-world signals. Key features include:
@@ -36,6 +39,8 @@ The governing equation for an ADC is shown in the equation below:
 
 $$\text{ADC value} = \lfloor \frac{V_{in}}{V_{max}} \times (2^{n}-1) \rfloor$$
 
+On the STM32, it is helpful to distinguish between the main microcontroller supply and the ADC reference supply. The MCU core is powered from `V_DD`, whilst the ADC conversion range is determined by `V_DDA`. In many simple laboratory setups these are both 3.3 V, which is why it is common to take $V_{max} = 3.3\text{ V}$ in examples.
+
 Where:
 * $V_{in}$ is the input voltage.
 * $V_{max}$ is the ADC maximum voltage (3.3V for an STM32).
@@ -49,6 +54,11 @@ $$ \text{ADC value} = \lfloor \frac{1.23}{3.3} \times (2^{10}-1) \rfloor = 381 $
 That value is about a third of $2^{10}$, which should make sense as $V_{in}$ was about a third of $V_{max}$.
 
 ## ADC Architecture
+
+The block diagram below, taken from the lecture slides, is a useful high-level view of the ADC peripheral. It shows that the ADC is not only the converter itself, but also includes input channel selection, start/stop control, sampling-time configuration, the conversion core, and the interfaces used to raise interrupts or DMA requests.
+
+<img src="./images/ADC_block_diagram.png" width="80%" alt="High-level ADC block diagram"/>
+_Figure 8.2: High-level ADC block diagram from STM32F0 Reference Manual [1]_
 
 ### Input Channels
 
@@ -75,6 +85,12 @@ _Figure 8.2: Functional description of the single conversion mode of the ADC [1]
 _Figure 8.3: Functional description of the continuous conversion mode of the ADC [1]_
 
 Within these modes, an Up scan is defined as from ADC_IN0 first, whilst a Down scan is from VBAT first.
+
+### Conversion Start and Stop
+
+The ADC must be told when to begin a conversion sequence. This can be done in software by setting the `ADSTART` bit in `ADC_CR`, or by using one of the available hardware trigger sources. In simple applications, software triggering is the most common approach because it gives direct control over when a conversion begins.
+
+Likewise, conversion is not only about starting. The ADC also provides control over stopping a conversion sequence when needed. In practice, the programmer should think of the ADC as a peripheral which must be configured, started, monitored while it works, and then either retriggered or stopped depending on the operating mode being used.
 
 ## ADC Configuration
 
@@ -105,6 +121,8 @@ _Figure 8.5: Channel selection in the ADC [1]_
 
 For example, to configure and select GPIOA6 as an ADC channel:
 
+Although the ADC peripheral supports up to 16 external input channels, the specific STM32 package used in a design may expose only a subset of those channels on physical pins. For this reason, it is important to check the datasheet rather than assume that every ADC input is available. For example, on the STM32F0 used in this course, `PA5` is connected to ADC channel 5 and `PA6` is connected to ADC channel 6.
+
 1. Configure GPIO pins for analogue input:
 ```c
 GPIOA->MODER |= GPIO_MODER_MODER6;  // Example for PA6
@@ -117,7 +135,9 @@ ADC1->CHSELR |= ADC_CHSELR_CHSEL;  // Example for channel 6
 
 ### Resolution and Alignment
 
-The ADC supports configurable resolution and data alignment. Lower resolutions result in faster conversions, but with a loss of precision. The resolution and alignment can be set in the ADC_CFGR1 register:
+The ADC supports configurable resolution and data alignment. Lower resolutions result in faster conversions, but with a loss of precision. The resolution and alignment can be set in the ADC_CFGR1 register.
+
+In practice, this means there is a trade-off between precision and speed. If an application does not require the full 12-bit resolution, the ADC should be configured for 10-bit, 8-bit, or 6-bit conversions instead. This reduces the amount of information captured in each sample, but allows the ADC to complete conversions more quickly.
 
 - Default 12-bit resolution
 - Option for 8-bit resolution:
@@ -160,6 +180,13 @@ Once the ADC is ready, the programmer can then trigger a conversion by setting t
 <img src="./images/ADC_start.png" width="80%" alt="Starting a conversion in the ADC"/>
 _Figure 8.7: Starting a conversion in the ADC [1]_
 
+The general sequence for a single-shot conversion is:
+
+1. Start the conversion sequence by setting `ADSTART` in `ADC_CR`, or by using a hardware trigger.
+2. Wait for the `EOC` bit in `ADC_ISR` to go high after the conversion completes.
+3. Read the result from `ADC_DR` in the format determined by the selected resolution and alignment.
+4. Start a new conversion later with `ADSTART` or another trigger when a new sample is required.
+
 Once, begun, a conversion result is not instantanious. The ADC will continue to convert the selected channels until the conversion is complete. The ADC will raise the ADC_ISR_EOC flag when the conversion is complete and then raise the ADCl_ISR_EOS flag once the sequence of conversions is complete. See Figures 7.2 and 7.3 for reference. In a single conversion mode, the timings of the conversion and flag raising are as follows:
 
 <img src="./images/ADC_timing_single.png" width="80%" alt="Timing of a single conversion in the ADC"/>
@@ -169,6 +196,13 @@ Conversely, in a continuous conversion mode, the timings of the conversion and f
 
 <img src="./images/ADC_timing_cont.png" width="80%" alt="Timing of a continuous conversion in the ADC"/>
 _Figure 8.9: Timing of a continuous conversion in the ADC [1]_
+
+The general sequence for continuous conversion is:
+
+1. Start the conversion sequence by setting `ADSTART` in `ADC_CR`, or by using a hardware trigger.
+2. Wait for the `EOC` bit in `ADC_ISR` to go high after each conversion.
+3. Read the result from `ADC_DR`.
+4. After the selected channels have been sampled, the ADC automatically begins the next sequence until conversion is stopped or the ADC is disabled.
 
 
 Once the conversion of a channel is complete, the ADC_ISR_EOC flag is raised and the ADC_DR register is updated with the result. The programmer can then read the ADC_DR register to get the result of the conversion. Typically this can be done by using a while loop to wait for the ADC_ISR_EOC flag to be raised and then reading the ADC_DR register:
@@ -205,6 +239,46 @@ void ADC1_COMP_IRQHandler(void)
     ADC_DR = ADC1->DR;  // Read the result (this action lowers the ADC_ISR_EOC flag - See description of ADC_ISR_EOC in Section 13.3.10 of the Reference Manual)
 }
 ```
+
+## Worked Polling Example
+
+The following example shows a complete polling-based ADC setup. It enables the GPIO and ADC clocks, configures `PA6` as an analogue input, selects ADC channel 6, sets the ADC to 8-bit resolution, waits for the ADC to become ready, starts each conversion in software, waits for `EOC`, and then reads the result from `ADC_DR`.
+
+```c
+#include <stdint.h>
+#include "stm32f0xx.h"
+
+static void init_adc(void);
+
+uint16_t adc_result;
+
+void main(void)
+{
+    init_adc();
+
+    while (1)
+    {
+        ADC1->CR |= ADC_CR_ADSTART;              // Start conversion
+        while ((ADC1->ISR & ADC_ISR_EOC) == 0);  // Wait for end of conversion
+        adc_result = ADC1->DR;                   // Read result
+    }
+}
+
+static void init_adc(void)
+{
+    RCC->AHBENR |= RCC_AHBENR_GPIOAEN;          // Enable clock for GPIOA
+    RCC->APB2ENR |= RCC_APB2ENR_ADCEN;          // Enable clock for ADC
+
+    GPIOA->MODER |= GPIO_MODER_MODER6;          // Set PA6 to analogue mode
+    ADC1->CHSELR |= ADC_CHSELR_CHSEL6;          // Select ADC channel 6
+    ADC1->CFGR1 |= ADC_CFGR1_RES_1;             // Set 8-bit resolution
+    ADC1->CR |= ADC_CR_ADEN;                    // Enable ADC
+
+    while ((ADC1->ISR & ADC_ISR_ADRDY) == 0);  // Wait until ADC is ready
+}
+```
+
+The value stored in `adc_result` can then be used elsewhere in the program, for example to drive LEDs, make a control decision, or transmit the measurement over a communication peripheral.
 
 # References
 
