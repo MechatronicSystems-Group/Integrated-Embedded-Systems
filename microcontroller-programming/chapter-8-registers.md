@@ -1,8 +1,8 @@
 ---
 layout: page
-title: "Chapter 7: Microcontroller Registers"
+title: "Chapter 8: Microcontroller Registers"
 parent: Microcontroller Programming
-nav_order: 2
+nav_order: 3
 ---
 
 # Microcontroller Registers
@@ -25,7 +25,7 @@ Registers are reserved memory addresses where their values represent physical me
 
 - Registers are memory-mapped locations.
 - Each register has a specific purpose and bit layout.
-- Register values directly control hardware behavior
+- Register values directly control hardware behaviour
 - Access is typically through memory-mapped I/O
 
 ## Register Access Methods
@@ -46,10 +46,10 @@ myPointer = &var;    // Pointer contains address of var
 
 The STM32 family of microcontrollers use a structure-based mechanism for access to registers. The registers are organised according to the types defined in the CMSIS (Cortex Microcontroller Software Interface Standard) library which provides:
 
-- A standardized interface to the Cortex-M processor and peripherals through structures.
+- A standardised interface to the Cortex-M processor and peripherals through structures.
 - Hardware abstraction layers for core peripherals.
 - Optimized DSP library with over 60 functions for various data types.
-- Standard device startup code and system initialization.
+- Standard device start-up code and system initialisation.
 
 This standardization helps developers create more portable code across different STM32 devices and reduces the learning curve when switching between different ARM Cortex-M based microcontrollers. STM32 developers typically use CMSIS alongside ST's HAL (Hardware Abstraction Layer) and LL (Low-Layer) libraries when developing applications for these microcontrollers. In this course we constrain ourselves to the CMSIS library included with the command ``` #include "stm32f0xx.h"```.
 
@@ -97,7 +97,7 @@ GPIOB->MODER &= ~GPIO_MODER_MODER0_0;  // Clears bit 0
 
 ### Control Registers
 
-Control registers configure peripheral behavior:
+Control registers configure peripheral behaviour:
 - Enable/disable features.
 - Set operating modes.
 - Configure parameters.

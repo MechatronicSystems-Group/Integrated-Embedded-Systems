@@ -1,8 +1,8 @@
 ---
 layout: page
-title: "Chapter 9: Analog-to-Digital Conversion"
+title: "Chapter 10: Analog-to-Digital Conversion"
 parent: Microcontroller Programming
-nav_order: 4
+nav_order: 5
 ---
 
 # Analog-to-Digital Conversion
@@ -15,11 +15,11 @@ nav_order: 4
 
 ---
 
-Analog-to-Digital Converters (ADCs) are essential components in embedded systems that convert continuous analog signals into discrete digital values. This chapter covers the fundamentals of ADC operation and implementation on STM32 microcontrollers.
+Analogue-to-Digital Converters (ADCs) are devices that are used to convert continuous analogue signals into discrete digital values. This chapter covers the fundamentals of ADC operation and implementation on STM32 microcontrollers.
 
 ## Introduction to ADC
 
-The ADC peripheral in STM32 microcontrollers provides a bridge between the analog and digital domains, enabling the microcontroller to process real-world signals. Key features include:
+The ADC peripheral in STM32 microcontrollers provides a bridge between the analogue and digital domains, enabling the microcontroller to process real-world signals. Key features include:
 
 - Up to 12-bit resolution ADC. On the STM32F0 the resolution is selectable to 6, 8, 10, or 12 bits.
 - 19 sample channels (16 external, 3 internal).
@@ -105,7 +105,7 @@ _Figure 8.5: Channel selection in the ADC [1]_
 
 For example, to configure and select GPIOA6 as an ADC channel:
 
-1. Configure GPIO pins for analog input:
+1. Configure GPIO pins for analogue input:
 ```c
 GPIOA->MODER |= GPIO_MODER_MODER6;  // Example for PA6
 ```

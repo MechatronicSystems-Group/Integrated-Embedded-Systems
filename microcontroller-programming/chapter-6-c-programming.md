@@ -87,7 +87,7 @@ Characters are represented as literals enclosed in single quotes, such as `'A'`,
 
 ---
 
-In embedded C programming, it's best practice to use fixed-width integer types from `<stdint.h>` to ensure consistent behavior across different platforms. These take the form below:
+In embedded C programming, it's best practice to use fixed-width integer types from `<stdint.h>` to ensure consistent behaviour across different platforms. These take the form below:
 
 ```c
 #include <stdint.h>
@@ -100,9 +100,9 @@ uint32_t four_bytes; // Unsigned 32-bit integer
 Here, the numerical part determines the number of bits in the type and the "u" prefix, or lack of it, determines whether the type is able to store only positive integers, or positive and negative integers, respectively.
 
 
-#### Variable Declaration, Assignment, and Initialization
+#### Variable Declaration, Assignment, and Initialisation
 
-Working with variables in C involves three key concepts: declaration, assignment, and initialization.
+Working with variables in C involves three key concepts: declaration, assignment, and initialisation.
 
 **Declaration** creates a variable by specifying its data type and name. This reserves memory space for the variable but doesn't set its value:
 
@@ -122,7 +122,7 @@ temperature = 25.5;  // Assigns the value 25.5 to temperature
 status = 'A';        // Assigns the character 'A' to status
 ```
 
-**Initialization** combines declaration and assignment in a single statement:
+**Initialisation** combines declaration and assignment in a single statement:
 
 ```c
 int counter = 0;         // Declares counter and initializes it to 0
@@ -138,7 +138,7 @@ Initialization is generally preferred over separate declaration and assignment a
 When declaring multiple variables of the same type, you can use a single declaration statement:
 
 ```c
-uint8_t hour = 0, minute = 0, second = 0;  // Multiple initialization
+uint8_t hour = 0, minute = 0, second = 0;  // Multiple initialisation
 uint16_t adc_values[4];                    // Array declaration
 uint32_t *reg_ptr;                         // Pointer declaration
 ```
@@ -197,7 +197,7 @@ uint16_t current_val = adc_readings[1]; // Read second element
 
 ### Structures and Custom Data Types
 
-Structures group related data of different types into a single unit. They are invaluable for organizing complex data in embedded systems:
+Structures group related data of different types into a single unit. They are invaluable for organising complex data in embedded systems:
 
 ```c
 struct SensorData 
@@ -407,13 +407,13 @@ timer1.prescaler = 8;   // Set prescaler to 8
 
 #### Type Qualifiers
 
-Type qualifiers modify how variables are accessed or used in a program. They provide additional information to the compiler about the variable's intended use, which can help prevent bugs and optimize code. In embedded systems, type qualifiers are particularly important for hardware interaction and resource optimization.
+Type qualifiers modify how variables are accessed or used in a program. They provide additional information to the compiler about the variable's intended use, which can help prevent bugs and optimise code. In embedded systems, type qualifiers are particularly important for hardware interaction and resource optimisation.
 
 The main type qualifiers in C are:
 
 ##### `const`
 
-The `const` qualifier declares that a variable's value cannot be changed after initialization:
+The `const` qualifier declares that a variable's value cannot be changed after initialisation:
 
 ```c
 const uint16_t MAX_ADC_VALUE = 4095;  // Value cannot be modified
@@ -438,7 +438,7 @@ The `static` qualifier serves different purposes depending on where it's used in
 **Static local variables** retain their value between function calls, which is useful for:
 - Maintaining state without global variables
 - Implementing counters or accumulators
-- One-time initialization
+- One-time initialisation
 
 ```c
 void count_events(void) 
@@ -495,13 +495,13 @@ This is critical in embedded systems for any points in code where the value of t
 2. Variables shared between main code and interrupt service routines
 3. Memory locations modified by DMA operations
 
-Without `volatile`, the compiler might optimize away seemingly redundant reads or writes, which could cause unpredictable behavior when interacting with hardware or concurrent code:
+Without `volatile`, the compiler might optimise away seemingly redundant reads or writes, which could cause unpredictable behaviour when interacting with hardware or concurrent code:
 
 ```c
 // Example: Waiting for a flag set in an Interrupt (ISR)
 while (data_ready == 0) 
 {
-    // Without volatile, the compiler might "optimize" this 
+    // Without volatile, the compiler might "optimise" this 
     // by assuming data_ready never changes!
 }
 ```
@@ -1008,7 +1008,7 @@ reading_ptr->x = 150;  // Equivalent to (*reading_ptr).x = 150;
 
 ### Header Files
 
-Well-organized embedded C projects separate interfaces from implementations using header files:
+Well-organised embedded C projects separate interfaces from implementations using header files:
 
 - Header files (`*.h`) contain declarations, prototypes, and preprocessor directives
 - Source files (`*.c`) contain function implementations
@@ -1100,7 +1100,7 @@ Macros define constants or simple functions that are expanded by the preprocesso
 SET_BIT(GPIOA->ODR, LED_PIN);
 ```
 
-Macros can make code more readable and maintain consistency, but they lack type checking and can lead to unexpected behavior if not carefully designed.
+Macros can make code more readable and maintain consistency, but they lack type checking and can lead to unexpected behaviour if not carefully designed.
 
 ### Conditional Compilation
 

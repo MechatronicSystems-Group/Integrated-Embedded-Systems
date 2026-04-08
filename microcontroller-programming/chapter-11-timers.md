@@ -1,8 +1,8 @@
 ---
 layout: page
-title: "Chapter 10: Timers"
+title: "Chapter 11: Timers"
 parent: Microcontroller Programming
-nav_order: 5    
+nav_order: 6
 ---
 
 # Timer peripherals

@@ -1,8 +1,8 @@
 ---
 layout: page
-title: "Chapter 8: Interrupts"
+title: "Chapter 9: Interrupts"
 parent: Microcontroller Programming
-nav_order: 3
+nav_order: 4
 ---
 
 # Interrupts
@@ -15,7 +15,7 @@ nav_order: 3
 
 ---
 
-Interrupts are essential mechanisms in embedded systems that allow the microcontroller to respond to asynchronous events immediately. This chapter covers the fundamentals of interrupts and their implementation on STM32 microcontrollers.
+Interrupts are mechanisms in embedded systems that allow the microcontroller to respond to asynchronous events immediately. This chapter covers the fundamentals of interrupts and their implementation on STM32 microcontrollers.
 
 ## Introduction to Interrupts
 
