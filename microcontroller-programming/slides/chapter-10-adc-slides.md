@@ -214,7 +214,7 @@ When multiple channels are selected, the ADC can scan through them in a defined 
 The ADC can begin a conversion sequence in two ways:
 
 - **Software trigger**
-  - Set `ADSTART` in `ADC_CR`
+  - Set `ADSTART` bit in `ADC_CR` register
 - **Hardware trigger**
   - Triggered by another peripheral or external event
 

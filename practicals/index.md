@@ -26,7 +26,7 @@ This practical series is new to the course. We require your feedback so that we 
 
 ## Practical Sessions
 
-The MEC4126F course has a dedicated practical session and venue that is booked for every **Monday from 2:00pm until 6:00pm**. These Monday sessions will allow students access to laboratory equipment, tutors and more importantly will allow students to demonstrate their practicals to tutors for examination. These sessions will be held in **EM101** unless communicated otherwise. You will also collect components for the following practicals in these sessions.
+The MEC4126F course has a dedicated practical session and venue that is booked for every **Monday from 2:00pm until 5:00pm**. These Monday sessions will allow students access to laboratory equipment, tutors and more importantly will allow students to demonstrate their practicals to tutors for examination. These sessions will be held in **EM101** unless communicated otherwise. You will also collect components for the following practicals in these sessions.
 
 During the week there will also be opportunities for students to engage with tutors. These sessions will be decided during the first week of the semester and are summarised in the following table:
 
@@ -42,4 +42,12 @@ During the week there will also be opportunities for students to engage with tut
 | 7 |EM101 | | | | |
 | 8 |EM101 | | | | |
 
-Finally, if you require further assistance with a practical you can contact or visit either Dylan Fanner or Thomas Roomes in the MechatronicSystems.Group lab during meridian on Wednesday and Friday.
+Finally, if you require further assistance with a practical you can contact or visit Thomas Roomes in the MechatronicSystems.Group lab during meridian on Wednesday and Friday.
+
+## Programming Template
+
+Where necessary, the following template should be used for all STM32 programming tasks: 
+
+[mec4126f-stm32f0-programming-template](https://github.com/MechatronicSystems-Group/mec4126f-stm32f0-programming-template)
+
+This template requires PlatformIO to be installed in VSCode. You can install it by searching for the extension "PlatformIO IDE" in the VSCode extensions marketplace.
