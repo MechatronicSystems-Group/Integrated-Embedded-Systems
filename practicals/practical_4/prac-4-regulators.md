@@ -2,7 +2,7 @@
 title: "Practical 4: Linear Voltage Regulators"
 nav_order: 5
 parent: Practicals
-published: true
+published: false
 ---
 
 # Practical 4: Linear Voltage Regulators
