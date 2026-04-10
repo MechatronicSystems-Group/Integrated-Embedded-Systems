@@ -2,7 +2,7 @@
 title: "Practical 5: STM32 Analog-to-Digital Converters (ADCs)"
 nav_order: 6
 parent: Practicals
-published: false
+published: true
 ---
 
 # Practical 5: STM32 Analog to Digital Converters (ADCs)
@@ -13,7 +13,7 @@ In this practical you will extend the STM32 programming you did in EEE2046S. It 
 > Please use the [feedback form](https://forms.office.com/r/bMUfettP7m) to give us feedback on this practical and to report broken/faulty equipment.
 
 {:.important}
-> Please use the MEC4126F STM32 Programming Template for this and other C practicals. [You can download it here.](https://github.com/MechatronicSystems-Group/STM32-Programming-Template). You should write your code in `Core/Src/main.c`. 
+> Please use the MEC4126F STM32 Programming Template for this and other C practicals. [You can download it here](https://github.com/MechatronicSystems-Group/mec4126f-stm32f0-programming-template). You should write your code in `src/main.c`. 
 
 Table of Contents
 =================
@@ -86,7 +86,7 @@ void init_ADC(void) {
 ```
 
 ### **Question 1.1**
-To start with, let's turn the ADC on. Enabling the ADC requires setting the correct bit in an RCC (Reset and Clock Control) register called the APB2ENR (APB peripheral clock enable register 2). But what bit? At this point you should consult the **[STM32 F0xx Reference Manual](https://www.st.com/resource/en/reference_manual/rm0091-stm32f0x1stm32f0x2stm32f0x8-advanced-armbased-32bit-mcus-stmicroelectronics.pdf)**.
+To start with, let's turn the ADC on. Enabling the ADC requires setting the correct bit in an RCC (Reset and Clock Control) register called the APB2ENR (APB peripheral clock enable register 2). But what bit? At this point you should consult the **[STM32 F0xx Reference Manual](../../appendix/docs/rm0091-stm32f0x1stm32f0x2stm32f0x8-advanced-armbased-32bit-mcus-stmicroelectronics.pdf)**.
 
 {:.important}
 > **Guide to using the STM32 reference manual.**
@@ -287,16 +287,9 @@ Ideally, your STM32 display should look something like this:
 
 ## Demonstration
 
-{:.important}
-> Unlike the circuit practicals, this practical will not be marked purely by demonstration. You still need to demonstrate that your code is functional on the STM32 development board, and show it to a tutor, but you must also upload your code to the **linked Gradescope assignment**. This is so your code can be submitted to ECSA along with your other submissions for the course as part of their review requirements.
->
-> [You can find the Gradescope assignment here. Please upload only your `main.c` file for this practical.](https://www.gradescope.com/courses/1018254) If you upload anything besides your `main.c` file (although you can rename it if you want) your mark will be capped at 50%.
->
-> You must upload your code to Gradescope **before** you demonstrate to a tutor. Your first demonstration is your only demonstration.
 
-The demonstration for this practical is simple. When your code is functional, please upload it to the Gradescope assignment. Once that is done call a tutor who will ask you to show your code and explain certain parts - you will not be told in advance what will be asked, so please understand what you have written! You will also need to show the ADC values displayed on the LCD and how they change when the potentiometer is adjusted. Marks will not be awarded if you cannot explain what your code is doing. What you need to show the tutor:
+The demonstration for this practical is simple. When your code is functional, please call a tutor who will ask you to show your code and explain certain parts - you will not be told in advance what will be asked, so please understand what you have written! You will also need to show the ADC values displayed on the LCD and how they change when the potentiometer is adjusted. Marks will not be awarded if you cannot explain what your code is doing. What you need to show the tutor:
 
-0. **Upload the code to the *MEC4126F Practical 5* assignment on Gradescope**. It is linked at the beginning of the [Demonstration](#demonstration) section. 
 1. Show the tutor your `init_ADC()` function, and explain what the code is doing (e.g. GPIOA setup, channel selection, resolution).
 2. Show the tutor your `ADC_read()` function, and explain the process of starting and retrieving a single ADC sample.
 3. Turn the potentiometer and show the live reading from the ADC updating on the screen.
