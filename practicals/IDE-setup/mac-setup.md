@@ -17,7 +17,6 @@ Table of Contents
     * [C Compiling](#c-compiling)
     * [C Programming](#c-programming)
     * [STM32 Programming](#stm32-programming)
-* [STM32CubeIDE (not recommended)](#stm32cubeide)
 
 ## Visual Studio Code (IDE)
 The preferred IDE for MEC4126F STM32 programming is Visual Studio Code (VSC), since the installation can be standardized over multiple operating systems.
@@ -79,31 +78,35 @@ You should see output similar to the following as output (*this specific output 
 
 ### STM32 Programming
 
-Compiling and flashing code for your STM32 with VSCode is done primarily through the **stm32-for-vscode** extension.
+Compiling and flashing code for your STM32 with VSCode is done primarily through the **PlatformIO** extension.
 
 <p align="center" width="100%">
-    <img width="70%" src="./Resources/stm32_for_vsc.png"> 
+    <img width="70%" src="./Resources/pio_extension.png"> 
 </p>
 
-This extension is also available in the extensions marketplace, similar to the C/C++ Extension already installed. Go ahead and install it now.
+This extension is available in the extensions marketplace, similar to the C/C++ Extension already installed. Go ahead and install it now. You may also need to install Python to make this work.
 
 {:.note2}
- While it is installing, you may be asked to install other pre-requisites in a pop-up in the bottom right of the screen. If you see this pop-up, accept and install anything requested.
+While it is installing, you may be asked to install other pre-requisites in a pop-up in the bottom right of the screen. If you see this pop-up, accept and install anything requested.
 
 If you don't see any pop-ups, that is fine - you will be prompted in the next step.
 
-Once the **stm32-for-vscode** extension is installed, download the [`STM32 Programming Template`](https://github.com/MechatronicSystems-Group/STM32-Programming-Template) available in its own GitHub repo. Save it to a convenient location (either use git clone ... or download as a .zip file and extract) open the folder in VSCode using `File → Open Folder ...`.
+Once the **PlatformIO** extension is installed, download the [MEC4126F STM32 Programming Template](https://github.com/MechatronicSystems-Group/mec4126f-stm32f0-programming-template) available in its own GitHub repo. Save it to a convenient location (either use git clone ... or download as a .zip file and extract) and open the folder in VSCode using `File → Open Folder ...`
 
-Once it is open, you should see the STM32 plugin window available on the left hand side of the screen. It is the **small block with a dot and the letters ST under the extension marketplace icon**
+Once it is open, you should see the following file directory:
 
 <p align="center" width="100%">
-    <img width="40%" src="./Resources/stm_template.png"> 
+    <img width="40%" src="./Resources/template_structure.png"> 
 </p>
 
-Click on the STM32 for VSCode extension, it should open a new window on the left.
+Open a new VS Code Window and click on the PlatformIO extension icon (the bug face) and then `Create New Project` once the initialisation is complete. Then click `New Project` which will take you to this screen:
+
+<p align="center" width="100%">
+    <img width="70%" src="./Resources/platformIO.png"> 
+</p>
 
 {:.note2}
-You may at this point see three blue blocks, and a message saying the extension cannot find the build tools. In this case, simply select **Install Build Tools** from the menu, and wait for them to finish installing. This may take a while - the arm-eabi-gcc toolchain is about 1.5GB once it is unpacked.
+You at this point see three blue blocks, and a message saying the extension cannot find the build tools. In this case, simply select **Install Build Tools** from the menu, and wait for them to finish installing. This may take a while - the arm-eabi-gcc toolchain is about 1.5GB once it is unpacked.
 
 If the build tools are found, you should see a menu like the one below:
 
@@ -111,30 +114,15 @@ If the build tools are found, you should see a menu like the one below:
     <img width="40%" src="./Resources/stm_menu.png"> 
 </p>
 
-At this point, you can **plug in your STM32 Development Board**. Select **Build** to build the demo program, and then **Flash STM32** to flash the program to your development board. 
+Here, you will need to give your new project a name, choose the `ST STM32F0DISCOVERY` board, and the `CMSIS` framework. You can either use the default location or choose one.
 
-Your STM32 board should now flash with the code provided, and display `Hello World :)` on the attached LCD.
+Once your new project has opened, replace the `src` and `lib` folders with those from the template which you should still have open.
 
-### If that is successful, you are ready to write and compile the C code required for MEC4126F practicals.
-
-However, it is worth familiarizing yourself with the `STM32 Programming Template` provided at this point, as it is expected you use it for future practicals.
-
-The most important files for practical use are located in `Core/Inc/...` and `Core/Src/...`
-
-The **Inc** folder contains all the header files related to STM32 programming, as well as **main.h** the header file for your code.
-
-The **Src** folder contains all the code files related to STM32 programming, as well as **main.c** the file which will contain any custom code your write for a given practical. It may be worthwhile to try modifying the **main.c** file to display your own text on the STM32 LCD display to make sure you understand the modify, build and flash workflow.
-
-{:.caution}
- Inc and Src also contain program and header files for the attached LCD screen. These are not standard STM32 files, and are specific to the UCT development board.
-
-Other files inside the `STM32 Programming Template` folder may provide insight into the deeper workings of the STM32, but are not essential for MEC4126F.
-
-*(If you would like a challenge, poke around in the template and see if you can recreate a custom, multi-line display message such as the one below)*
+At this point, you can **plug in your STM32 Development Board**. Select **Build** (the tick mark in the top right corner) to build the demo program. If successful, you will see "SUCCESS" in the terminal window:
 
 <p align="center" width="100%">
-    <img width="40%" src="./Resources/motivation.jpg"> 
+    <img width="70%" src="./Resources/built_code.png"> 
 </p>
 
-## STM32CubeIDE
-The STM32CubeIDE is another method that can be used to develop C/C++ code for STM projects. This IDE is based off the  Eclipse IDE (an IDE first used for Java). It is not recommanded that you use the STM32CubeIDE, however it is an alternative IDE to VSCode if desired, and was used previously in the course. It is also already installed on EM101 PCs, which is beneficial if you wish to use them for code development, as the VSCode toolchain must be installed every time the computers are used. The legacy installation instructions for STM32CubeIDE for Windows and Mac are included in ['/Setup/Resources'](./Resources/STM32CubeIDE_Install_and_Configure_Mac.mp4).
+Then navigate to the Run and Debug view and click the play icon to Start Debugging.
+Your STM32 board should now flash with the code provided, and display `Hello World :)` on the attached LCD.
