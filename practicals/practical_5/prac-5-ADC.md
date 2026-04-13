@@ -180,8 +180,8 @@ The pattern here is important to know. For a parameter with 2 bits of input ther
 |---------------|-----------------|---------------------------------|----------------------------------------------------------------------------------------------------------------------------|
 | 00            | ADC_CFGR1_RES   | ADC1->CFGR1 &= ~ADC_CFGR1_RES   | ADC_CFGR1_RES bitmask sets both bits to 1. This code resets both bits to 00.                                                |
 | 11            | ADC_CFGR1_RES   | ADC1->CFGR1 \|= ADC_CFGR1_RES   | ADC_CFGR1_RES bitmask sets both bits to 1. This code sets both bits to 11.                                                |
-| 01            | ADC_CFGR1_RES_0 | ADC1->CFGR1 \|= ADC_CFGR1_RES_0 | ADC_CFGR1_RES_0 bitmask sets the **right** bit to 1. This code sets the left bit to 1, corresponding to a value of 01. |
-| 10            | ADC_CFGR1_RES_1 | ADC1->CFGR1 \|= ADC_CFGR1_RES_1 | ADC_CFGR1_RES_1 bitmask sets the **left** bit to 1. This code sets the right bit to 1, corresponding to a value of 10. |
+| 01            | ADC_CFGR1_RES_0 | ADC1->CFGR1 \|= ADC_CFGR1_RES_0 | ADC_CFGR1_RES_0 bitmask sets the **right** bit to 1 and the **left** bit to 0, corresponding to a value of 01. |
+| 10            | ADC_CFGR1_RES_1 | ADC1->CFGR1 \|= ADC_CFGR1_RES_1 | ADC_CFGR1_RES_1 bitmask sets the **left** bit to 1 and the right bit to 0, corresponding to a value of 10. |
 
 {:.important}
 > This pattern is consistent for other registers with multiple options. You should be able to extrapolate this table to other registers! 
