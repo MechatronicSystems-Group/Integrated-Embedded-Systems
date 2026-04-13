@@ -124,7 +124,11 @@ This is inconvenient however, as it is unclear what you are doing at a glance an
 ```
 #define STM32F051
 #include "stm32f0xx.h"
+```
 
+The `stm32f0xx.h` library includes another library conditionally based on the presence of `#define STM32F051`, the `stm32f051x8.h` library which defined the bitmasks for the STM32F051x8:
+
+```
 RCC -> APB2ENR |= RCC_APB2ENR_ADCEN // Enable ADCEN using STM32 bitmask
 
 // some code
@@ -133,6 +137,8 @@ RCC -> APB2ENR &= ~RCC_APB2ENR_ADCEN // Disable ADCEN using STM32 bitmask
 ```	 
 
 That is a lot better! The code above is all that is needed to enable the ADC peripheral clock. You do not need to disable it, but you should include the code to enable the ADC clock in your `ADC_init` function.
+
+Unfortunately, depending on the platform you are using, these libraries may or may not be directly accessible in your project directory. STM32 for VS Code includes these libraries in the project directory while PlatformIO keeps them in a separate folder from the code project. To access the libraries in PlatformIO, begin typing the name of a register or bitmask and once the autocomplete window shows, press F12. That will take you to the definitions in `stm32f051x8.h`
 
 ### **Question 1.2**
 Next we need to configure the ADC itself. Your STM32 board only has one ADC so in the code it is referred to as `ADC1`. The register we are interested in is `CFGR1` (ADC configuration register 1). You can find a description of this register using the reference manual and the method above, however look under '13 Analog-to-digital converter (ADC)' instead of '6 Reset and clock control (RCC)'. What we are looking to do here is set the ADC to discontinuous mode, and disable continuous mode.
@@ -250,10 +256,11 @@ The deliverable for this question is a function called `ADC_read()`. It needs to
 
 You will use this to start a conversion and return a value on every iteration of the `while(1) {...}` loop in your `main(void) {...}` function. 
 
-To help see if everything is working, some code is provided here. All this does is display an integer value on the LCD of the STM32 when called. You may need to cast the ADC value to int when calling the function - check your notes or Google on how to do this. Make sure you run `init_LCD()` before trying to use the ADC.
+To help see if everything is working, some code is provided here to use the LCD on your development board. Ensure you have included the library for th LCD in your project directory. All this does is display an integer value on the LCD of the STM32 when called. Make sure you run `init_LCD()` before trying to use the ADC.
 
 ```
-void display_on_LCD(int ADC_val) {
+void display_on_LCD(uint16_t ADC_val) 
+{
     char buffer[4];
     sprintf(buffer, "%04d", ADC_val);
     lcd_putstring(buffer);
