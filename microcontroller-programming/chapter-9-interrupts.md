@@ -17,6 +17,8 @@ nav_order: 4
 
 Interrupts are mechanisms in embedded systems that allow the microcontroller to respond to asynchronous events immediately. This chapter covers the fundamentals of interrupts and their implementation on STM32 microcontrollers.
 
+The lecture slides used for this section can be found [here.](./slides/chapter-9-interrupts-slides.pdf)
+
 ## Introduction to Interrupts
 
 An interrupt is a signal to the CPU to immediately begin executing different code, known as an Interrupt Service Routine (ISR). On the STM32 these are called interrupt handlers. Some key features of interrupts include:
@@ -66,6 +68,32 @@ To summarise the two interrupt controllers:
    - Supports up to 32 interrupt lines (23 external, 9 internal)
    - Interfaces with the NVIC
    - Controls GPIO-based interrupts
+
+### Peripheral Interrupt Enable and Status Registers
+
+On STM32 devices, the NVIC is only the final stage of interrupt delivery. Each peripheral also keeps its own local interrupt control and status bits. ST commonly uses the following pattern:
+
+- `IER` (Interrupt Enable Register) bits decide which peripheral events are allowed to generate an interrupt request.
+- `ISR` (Interrupt and Status Register) bits record which events have actually occurred.
+
+This means that an interrupt normally reaches the CPU only when both of the following are true:
+
+1. The relevant event flag is set in the peripheral `ISR` register.
+2. The matching interrupt enable bit is set in the peripheral `IER` register.
+
+If those conditions are met, the peripheral asserts its interrupt request line to the NVIC. The NVIC then decides whether the CPU should enter the corresponding interrupt handler based on whether that IRQ has been enabled and what its priority is.
+
+This is why enabling an interrupt on STM32 is usually a multi-stage operation:
+
+1. Configure the peripheral.
+2. Set the relevant bit in the peripheral interrupt enable register.
+3. Enable the IRQ in the NVIC.
+
+For example, an ADC might set the End of Conversion (`EOC`) flag in `ADC_ISR` when a conversion finishes. If the corresponding End of Conversion Interrupt Enable (`EOCIE`) bit is set in `ADC_IER`, that event can generate an interrupt. Likewise, a timer may set an update flag in its status register when it rolls over, but the interrupt is only generated if the matching update interrupt enable bit is also set.
+
+The same idea is used widely across STM32 peripherals, although the exact register names vary slightly between blocks and device families. For example, timers often use `DIER` for interrupt enables and `SR` for status flags, while newer peripherals may use the more explicit `IER` and `ISR` names. The underlying model is the same: one register enables an interrupt source, and another register records that the event happened.
+
+Inside the ISR, software must usually clear or acknowledge the event flag in the peripheral so that the same interrupt is not immediately re-entered. On many STM32 peripherals this is done by writing to a dedicated clear register such as `ICR`, while on others it may be done by writing to a status bit or by reading a data register as described in the reference manual.
 
 ### Vector Table
 
@@ -150,4 +178,3 @@ The EXTI controller can generate:
 [1] ‘Introduction to Microcontrollers - Interrupts - Mike Silva’. Accessed: Apr. 21, 2025. [Online]. Available: https://www.embeddedrelated.com/showarticle/469.php
 
 [2] ST Microelectronics, ‘RM0091 Reference Manual’. May 2022. [Online]. Available: https://www.st.com/resource/en/reference_manual/rm0091-stm32f0x1stm32f0x2stm32f0x8-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
-
