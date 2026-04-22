@@ -18,7 +18,7 @@ nav_order: 6
 Timers are hardware counters built into the microcontroller. They let the STM32 track time, generate precisely timed outputs, and measure external events without wasting CPU time in software delay loops. Timers are among the most useful peripherals in embedded systems.
 
 {: .note}
-The lecture slides used for this section are available [here](./slides/timers.pptx).
+The lecture slides used for this section are available [here](./slides/chapter-11-timers-slides.pdf).
 
 ## Introduction to Timers
 
