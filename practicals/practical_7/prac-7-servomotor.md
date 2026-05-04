@@ -100,13 +100,13 @@ Using this [template file](https://github.com/MechatronicSystems-Group/mec4126f-
 * Implement a PI controller to control the motor. The controller should take the form of an ideal PI controller with the following form:
 
    $$
-   \frac{O(s)}{E(s)} = K_p \left(\frac{s+I}{s}\right)
+   \frac{U(s)}{E(s)} = K_p \left(\frac{s+I}{s}\right)
    $$
 
    where $K_p$ is the proportional gain and $I$ is the integral time constant. When converted to a discrete time domain implementation, the controller becomes:
 
    $$
-   \frac{O(z)}{E(z)} = K_p \left(\frac{(2+IT_s)z + (IT_s-2)}{2z - 2}\right)
+   \frac{U(z)}{E(z)} = K_p \left(\frac{(2+IT_s)z + (IT_s-2)}{2z - 2}\right)
    $$
 
    where $T_s$ is the sample time of the controller. Ensure that the controller is executed at a frequency of 1 kHz. Further, set `K_p = 50` and `I = 1`. Implement the controller as a difference equation in a function called `PI_control()`. You will need to choose an appropriate architecture for this function in terms of arguments and return values.

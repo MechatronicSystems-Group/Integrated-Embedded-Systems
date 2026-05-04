@@ -254,7 +254,7 @@ $$C(z)=P\frac{\left(2+IT_s\right)z+\left(IT_s-2\right)}{2z-2},$$
 
 can be expressed in terms of the input, $E(z)$, and output, $U(z)$, as:
 
-$$U(z)=P\frac{\left(2+IT_s\right)z+\left(IT_s-2\right)}{2z-2}E(z)$$
+$$\frac{U(z)}{E(z)}=P\frac{\left(2+IT_s\right)z+\left(IT_s-2\right)}{2z-2}$$
 
 Divide numerator and denominator by $z$ to express in terms of $z^{-1}$ (which in practice means in terms of a one-sample delay):
 
