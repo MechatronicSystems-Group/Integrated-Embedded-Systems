@@ -264,12 +264,12 @@ $$\left(2-2z^{-1}\right)U(z)=P\left[\left(2+IT_s\right)+\left(IT_s-2\right)z^{-1
 
 Now isolate the control action, $U(z)$, on the left-hand side and express the right-hand side in terms of the current error, $E(z)$, and the previous error, $E(z)z^{-1}$:
 
-$$U(z)=P\left[\frac{\left(2+IT_s\right)E(z)+\left(IT_s-2\right)E(z)z^{-1}+2U(z)z^{-1}}{2}\right].$$
+$$U(z)=\frac{P\left[\left(2+IT_s\right)E(z)+\left(IT_s-2\right)E(z)z^{-1}\right]+2U(z)z^{-1}}{2}.$$
 
 
 Here, $E(z)$ is the current error, $E(z)z^{-1}$ is the value of the previous error, one sample period ($T_s$) ago, $U(z)$ is the current control action, and $U(z)z^{-1}$ is the previous control action, one sample period ago. Considering how this can be implemented on a microcontroller, we can use global variables to store the previous error and control action, and then update those variables at each time step. Let, $u$ be a variable that stores the current control action, $e$ be a variable that stores the current error, $e_p$ be a variable that stores the previous error, and $u_p$ be a variable that stores the previous control action. Then, the difference equation can be expressed as:
 
-$$u = P\left[\frac{\left(2+IT_s\right)e+\left(IT_s-2\right)e_p+2u_p}{2}\right].$$
+$$u = \frac{P\left[\left(2+IT_s\right)e+\left(IT_s-2\right)e_p\right]+2u_p}{2}.$$
 
 This equation is now implementable on a microcontroller and is equivalent to the z-domain controller derived from the continuous-time design. The final step is to run this equation in a timer interrupt at the selected sampling time, $T_s$. The values of $P$, $I$, and $T_s$ are the same as those used in the design and stability checking steps. The variables $e_p$ and $u_p$ must be updated at each time step to store the previous error and control action for use in the next iteration.
 
@@ -294,7 +294,7 @@ float run_controller(float command, float feedback)
     
     float e = command - feedback;   // Compute current error from command and feedback passed to the function
     
-    float u = P * ( (2 + I*Ts)*e + (I*Ts -2)*e_p + 2*u_p ) / 2; // Compute control action using the difference equation
+    float u = (P * ((2 + I*T_s)*e + (I*T_s - 2)*e_p) + 2*u_p) / 2; // Compute control action using the difference equation
 
     if (u > upper_limit) //where upper_limit is the maximum command that can be applied to the actuator
     {
