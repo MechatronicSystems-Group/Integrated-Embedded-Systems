@@ -20,7 +20,7 @@ This chapter connects continuous-time control design to embedded implementation.
 The example used throughout this chapter is a brushed DC motor speed controller. The controller is designed as an ideal PI controller in the $s$-domain, converted into a discrete-time controller in the $z$-domain, checked again with the chosen sampling time, adjusted for hardware effects, and finally written as a difference equation that can run inside a timer interrupt.
 
 {: .note}
-The lecture slides used for this section are available in [here](./slides/MEC3079S_Chapter13_DigitalControlSystems.pdf).
+The lecture slides used for this section are available in [here](./slides/embedded_control.pdf).
 
 ## The Embedded Control Workflow
 
