@@ -93,7 +93,7 @@ The interface electronics for this system should be designed to meet the followi
 
 ## Programming the STM32
 
-Using this [template file](https://github.com/MechatronicSystems-Group/Integrated-Embedded-Systems/blob/main/practicals/practical_7/Resources/main.c), write the code needed to implement the measurement and control of the motor rig. Your code should implement the following functionality and be tracked in a git repository hosted on GitHub:
+Using this [template file](https://github.com/MechatronicSystems-Group/mec4126f-stm32f0-programming-template), write the code needed to implement the measurement and control of the motor rig. Your code should implement the following functionality and be tracked in a git repository hosted on GitHub:
 
 * Initialise the ADC to read the position command potentiometer on PA6 and feedback signal on PA5. The resolution of the ADC should be chosen such that a precision of 1 degree is achieved.
 * Initialise the appropriate timer to generate a PWM signal to drive the motor from PB4. This signal should have a frequency of 20 kHz and an appropriate initial duty cycle. The configuration of the timer should be such that the result of the ADC conversions are matched in scale to the duty cycle control of the PWM signal.
