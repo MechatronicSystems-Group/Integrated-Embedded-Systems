@@ -117,9 +117,12 @@ Using this [template file](https://github.com/MechatronicSystems-Group/mec4126f-
 > Plan and describe your code structure to implement the requirements above using a flowchart.
 
 > #### **Question 5 [2 marks]**
-> What effects do the proportional and integral gains have on the system? What effect does the sample time have on the system?
+>Implement your flowchart on the microcontroller and test that your servo-loop is operational and stable. Once ready, call a tutor to demonstrate it's behaviour.
 
 > #### **Question 6 [2 marks]**
+> What effects do the proportional and integral gains have on the system? What effect does the sample time have on the system?
+
+> #### **Question 7 [2 marks]**
 > If your system is now operational and stable, commit your code with a commit message, "Q4 implemented". 
 >
 > a) Now, using the LM358 datasheet, and introducing a new specification that the signal level change time on the drive signals of the H-Bridge must be less than 1% of the period of the PWM signal, determine the maximum frequency of the PWM signal that can be used. Calculate a new PSC value to implement this. 
@@ -141,5 +144,5 @@ Using this [template file](https://github.com/MechatronicSystems-Group/mec4126f-
 {:.important}
 > Before your demonstration ensure that you are ready to show your answers to the above questions to a tutor. 
 
-When you are ready to demonstrate, call over tutor. You will then be asked to show your answers to the questions above and demonstrate them. Then run ***your C code*** on a UCT STM32 Dev board. The tutor will then assign a mark as described by the marks above. The tutor will then ask a series of questions based on your submitted C code and ask to see your Git commit history on Github.
+When you are ready to demonstrate, call over tutor. You will then be asked to show your answers to the questions above and demonstrate them. Then run ***your C code*** on a UCT STM32 Dev board. The tutor will then assign a mark as described by the marks above. 
 
