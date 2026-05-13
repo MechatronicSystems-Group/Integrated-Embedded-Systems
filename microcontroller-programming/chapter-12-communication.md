@@ -107,6 +107,8 @@ UART is normally used between two devices only. The idle state of the line is hi
 <img src="./images/comms/uart_frame.png" width="85%" alt="UART frame showing idle, start, data, and stop intervals"/>
 _Figure 12.7: UART frame timing with an idle high line, start bit, data bits, and stop bit [2]_
 
+In the figure above, note that the START and STOP bits have a period of 1.5 $T_{1bit}$. This period is usally configurable by the hardware to various values: 1 bit, 1.5 bits or 2 bits. On the STM32F0, the START bit is always 1 bit in length, while the STOP bits are configurable.
+
 ### Baud Rate
 
 The baud rate defines the number of bit periods per second. Common baud rates include:
@@ -157,7 +159,7 @@ RS-232 is an asynchronous serial communication interface standard that commonly 
 <img src="./images/comms/shapes/rs232_level_translation.png" width="90%" alt="RS-232 level translation between two logic-level UART devices using MAX232 line drivers"/>
 _Figure 12.9: RS-232 communication requires line drivers to translate between logic-level UART signals and larger RS-232 voltage swings_
 
-Because of this voltage difference, an STM32 cannot connect directly to an RS-232 signal. A line-driver IC is required to translate between STM32 logic levels and RS-232 voltage levels. An example of this is the `MAX232`.
+Because of this voltage difference, an STM32 cannot connect directly to an RS-232 signal. A line-driver IC is required to translate between STM32 logic levels and RS-232 voltage levels. An example of this is the `MAX232` which can be added to the UCT development board as shown below.
 
 <img src="./images/comms/max232_to_db9.png" width="80%" alt="MAX232 circuit connecting STM32 USART pins to a DB9 RS-232 connector"/>
 _Figure 12.10: MAX232 level-shifting circuit used to connect STM32 USART pins to an RS-232 connector_
@@ -190,11 +192,27 @@ The USART registers used most often are:
 - `USARTx_TDR`: transmit data register.
 - `USARTx_RDR`: receive data register.
 
+In the figure below, if only the top two lines are connected, the USART peripheral is in UART mode, while the addition of the clock line facilitate USART.
+
 <img src="./images/comms/usart_modes.png" width="75%" alt="USART configured for synchronous communication with a clock line"/>
 _Figure 12.11: USART hardware can support synchronous operation as well as asynchronous UART-style communication [1]_
 
+Figure 12.12 below shows the bloack diagram of the USART data and logic control path on the STM32F0.
+
 <img src="./images/comms/usart_data_path.png" width="75%" alt="STM32 USART data path block diagram"/>
 _Figure 12.12: STM32F0 USART data path and control logic [1]_
+
+### USART Control Register 1
+
+The `USART_CR1` register is the primary configuration register for the USART peripheral. It controls the core operating parameters including:
+
+- **Word length**: set via the `M` bits to configure 7, 8, or 9 data bits per frame.
+- **Transmit and receive enables**: the `TE` and `RE` bits enable the transmitter and receiver respectively.
+- **Parity selection**: the `PCE` bit enables parity checking, and the `PS` bit selects even or odd parity.
+- **Interrupt enables**: various bits in `CR1` enable interrupts for transmit, receive, and error events (see the status flags below).
+- **USART enable**: the `UE` bit must be set to activate the peripheral.
+
+Additional control registers configure complementary features. 
 
 ### USART Status Flags
 
@@ -210,30 +228,48 @@ _Figure 12.13: Example USART interrupt events and the corresponding enable bits 
 
 When using interrupts, the interrupt handler should check the relevant flag before servicing the event, especially if more than one USART interrupt source has been enabled.
 
+### Transmit Data Register
+
+The `USART_TDR` register holds the next byte to be transmitted. Software writes data into `TDR`, and the peripheral moves it into the internal transmit shift register when that register becomes free.
+
+- The `TXE` flag is raised when data has moved from `TDR` into the shift register, indicating that `TDR` is ready for the next write. Writing new data to `TDR` clears the `TXE` flag.
+- The `TC` flag is set once no new data has been written to `TDR` and `TXE` is high, meaning the last byte has fully left the transmitter.
+
+
+### Receive Data Register
+
+The `USART_RDR` register contains the last byte received from the serial line. After the receiver has shifted in a complete frame, the resulting data is transferred into `RDR`.
+
+- The `RXNE` flag is raised when data has arrived in `RDR` and is ready to be read by software.
+- Reading `RDR` clears the `RXNE` flag.
+
+### Transmit Timing
+
+The diagram below illustrates the relationship between the `TXE` and `TC` flags during a back-to-back transmission of three frames.
+
+<img src="./images/comms/uart_transmit_receive_block.png" width="90%" alt="USART TC/TXE behaviour when transmitting"/>
+_Figure 12.14: TC/TXE behaviour during back-to-back transmission [1]_
+
+After the USART is enabled, software waits for `TXE` to become high, then writes the first frame (`F1`) into `TDR`. This write clears `TXE`. While `F1` is being shifted out on the TX line, `TXE` goes high again as soon as `F1` moves from `TDR` into the shift register. Software can then write `F2`, which clears `TXE` once more. The same pattern repeats for `F3`.
+
+The `TC` flag behaves differently. It remains low while there is still data to send (`TXE` was cleared by a recent write). Once the last frame (`F3`) has moved into the shift register and `TXE` is high again with no further writes, `TC` is set by hardware when the final stop bit has been transmitted. Software that needs to know when the entire stream has left the transmitter should wait for `TC`, whereas waiting for `TXE` is sufficient when preparing the next byte.
+
 ### USART Configuration Sequence
 
 A typical asynchronous USART setup is:
 
-1. Enable the GPIO clock.
-2. Configure the TX and RX pins for alternate-function mode.
+1. Enable the GPIO clock in `RCC_AHBENR`.
+2. Configure the TX and RX pins for alternate-function mode in `GPIOx_MODER`.
 3. Select the correct alternate function in `GPIOx_AFR`.
-4. Enable the USART peripheral clock.
+4. Enable the USART peripheral clock in `RCC_APB2ENR` or `RCC_APB1ENR`.
 5. Configure the baud rate in `USARTx_BRR`.
-6. Configure word length, parity, and stop bits.
-7. Enable transmitter and/or receiver mode.
-8. Enable USART interrupts if needed.
-9. Enable the USART by setting `UE`.
+6. Configure word length, parity, and stop bits in `USARTx_CR1` and `USARTx_CR2`.
+7. Enable transmitter and/or receiver mode in `USARTx_CR1` (`TE` and `RE`).
+8. Enable USART interrupts in `USARTx_CR1` and the NVIC if needed.
+9. Enable the USART by setting `UE` in `USARTx_CR1`.
 
 The following example configures `USART1` on `PA9` and `PA10` for `9600` bit/s, receive interrupts, transmit mode, and receive mode:
 
-<img src="./images/comms/uart_gpio_registers.png" width="90%" alt="STM32F0 alternate function mapping table for USART pins"/>
-_Figure 12.14: Alternate-function pin mapping must be checked before selecting USART pins [3]_
-
-<img src="./images/comms/usart_brr_register.png" width="85%" alt="USART baud-rate register layout"/>
-_Figure 12.15: USART baud-rate register used to configure the bit timing [1]_
-
-<img src="./images/comms/usart_cr1_register.png" width="85%" alt="USART control register 1 layout"/>
-_Figure 12.16: USART control register 1 contains the USART enable, transmitter and receiver enables, parity settings, and interrupt enables [1]_
 
 ```c
 void init_USART1(void)
@@ -272,25 +308,25 @@ void usart1_write_byte(uint8_t data)
 }
 ```
 
+<img src="./images/comms/uart_tx_rx_animation.gif" width="85%" alt="Functional UART transmit and receive buffer mechanism"/>
+_Figure 12.15: Functional view of the UART transmit and receive buffer mechanism_
+
+
 `TXE` means the transmit data register can accept another byte. `TC` means the final bit of the previous transmission has completed on the line.
 
-<img src="./images/comms/uart_transmit_receive_block.png" width="90%" alt="UART transmit and receive mechanism timing"/>
-_Figure 12.17: UART transmit and receive mechanism, showing transmit and receive register behaviour_
-
-<img src="./images/comms/uart_tx_rx_animation.gif" width="85%" alt="Animated UART transmit and receive buffer mechanism"/>
-_Figure 12.18: Animated view of the UART transmit and receive buffer mechanism_
 
 ### Receiving Data with an Interrupt
 
 The `RXNE` flag is raised when a received byte is available in `RDR`. Reading `RDR` clears `RXNE`.
 
-<img src="./images/comms/uart_interrupt_animation.gif" width="85%" alt="Animated UART receive interrupt mechanism"/>
-_Figure 12.19: Animated view of a UART receive interrupt being generated from received data_
+<img src="./images/comms/uart_interrupt_animation.gif" width="85%" alt="Functional UART receive interrupt mechanism"/>
+_Figure 12.16: Functional view of a UART receive interrupt being generated from received data_
+
+The C code below shows an example of the ISR needed to read two bytes sent to the USART peripheral.
 
 ```c
 volatile uint8_t comm_data[2] = {0, 0};
 volatile uint8_t counter = 0;
-volatile uint8_t data_received = 0;
 
 void USART1_IRQHandler(void)
 {
@@ -302,204 +338,11 @@ void USART1_IRQHandler(void)
         if (counter >= 2)
         {
             counter = 0;
-            data_received = 1;
         }
     }
 }
 ```
 
-The main program can then respond once the full message has arrived:
-
-```c
-while (1)
-{
-    if (data_received)
-    {
-        usart1_write_byte(comm_data[0] + 1);
-        usart1_write_byte(comm_data[1] + 1);
-        data_received = 0;
-    }
-}
-```
-
-## I2C
-
-I2C stands for Inter-Integrated Circuit. It is a synchronous two-wire bus used for communication between ICs on the same board or over short cable distances.
-
-I2C uses two shared lines:
-
-- `SCL`: serial clock line
-- `SDA`: serial data line
-
-<img src="./images/comms/shapes/i2c_bus_topology.png" width="75%" alt="Typical I2C bus with pull-up resistors, a master, and multiple bus devices"/>
-_Figure 12.20: Typical I2C bus topology with shared SDA and SCL lines and pull-up resistors_
-
-Both lines are open-drain and require pull-up resistors. A device can pull the line low, but it does not actively drive the line high. The line returns high through the pull-up resistor when no device is pulling it low.
-
-<img src="./images/comms/i2c_hardware_connection.png" width="80%" alt="I2C hardware connection with pull-up resistors on SCL and SDA"/>
-_Figure 12.21: I2C hardware connection using open-drain SCL and SDA lines with pull-up resistors_
-
-```mermaid
-flowchart LR
-    M[Master] --- BUS[I2C bus: SCL and SDA]
-    BUS --- S1[Slave 1]
-    BUS --- S2[Slave 2]
-    BUS --- S3[Slave 3]
-```
-
-### I2C Bus Behaviour
-
-I2C is a master-slave protocol. The master initiates communication and generates the clock. Each slave has an address, commonly a 7-bit address. The address frame is followed by a read/write bit:
-
-- `0`: write to the slave
-- `1`: read from the slave
-
-A basic I2C transaction contains:
-
-1. Start condition.
-2. Slave address.
-3. Read/write bit.
-4. Acknowledge bit.
-5. One or more data bytes.
-6. Acknowledge or not-acknowledge bits.
-7. Stop condition.
-
-A **start condition** occurs when `SDA` falls while `SCL` is high. A **stop condition** occurs when `SDA` rises while `SCL` is high. During normal data transfer, `SDA` should only change while `SCL` is low.
-
-<img src="./images/comms/shapes/i2c_packet_structure.png" width="90%" alt="High-level I2C packet with start command, data, and stop command"/>
-_Figure 12.22: High-level I2C packet structure, showing idle bus state, start command, data, and stop command_
-
-<img src="./images/comms/i2c_frame.png" width="90%" alt="I2C address and data frame showing start, address, read-write bit, acknowledge bits, and stop"/>
-_Figure 12.23: I2C address and data frame structure [4]_
-
-### Repeated Start
-
-Some devices require more than one message without releasing the bus. For example, a master may first write a register address to a sensor, then read data from that register. In this case, the master can issue a repeated start instead of a stop condition.
-
-A repeated start is simply another start condition before the previous transaction has been ended with a stop condition. The master keeps control of the bus.
-
-<img src="./images/comms/i2c_repeated_start.png" width="85%" alt="I2C repeated start timing"/>
-_Figure 12.24: I2C repeated-start timing [4]_
-
-### Clock Stretching
-
-An I2C slave may hold `SCL` low to delay the master. This is called clock stretching. It is used when the slave is not ready for the next bit or byte. For example, a sensor may stretch the clock while waiting for an internal conversion to complete.
-
-<img src="./images/comms/i2c_clock_stretching.png" width="85%" alt="I2C clock stretching timing"/>
-_Figure 12.25: I2C clock stretching allows a slave to hold SCL low until it is ready [4]_
-
-### I2C Strengths and Limitations
-
-I2C is useful because many devices can share the same two wires, and devices are selected in software using addresses. It also includes acknowledgement bits, so the master can detect whether a slave responded.
-
-<img src="./images/comms/i2c_multi_slave_example.png" width="80%" alt="I2C multi-slave addressing example"/>
-_Figure 12.26: I2C multi-slave addressing example_
-
-The trade-offs are:
-
-- It is intended for short distances.
-- It is slower than SPI in most applications.
-- The addressing and acknowledgement bits add overhead.
-- A stuck-low bus line can prevent all bus communication.
-
-Common I2C speeds include:
-
-- Low speed: `10 kbit/s`
-- Standard mode: `100 kbit/s`
-- Fast mode: `400 kbit/s`
-
-### I2C on the STM32F0
-
-The STM32F0 includes two I2C peripherals. On the course board, useful pin mappings include:
-
-- `I2C1` on `PB8` and `PB9`
-- `I2C2` on `PB10` and `PB11`, or `PF6` and `PF7`
-
-The I2C registers used most often are:
-
-- `I2C_CR1`: peripheral enable and interrupt enables.
-- `I2C_CR2`: slave address, transfer direction, start and stop generation, and number of bytes.
-- `I2C_TIMINGR`: timing configuration.
-- `I2C_ISR`: status flags.
-- `I2C_RXDR`: receive data register.
-- `I2C_TXDR`: transmit data register.
-
-<img src="./images/comms/i2c_peripheral_features.png" width="75%" alt="STM32F0 I2C peripheral feature block diagram"/>
-_Figure 12.27: STM32F0 I2C peripheral feature overview [1]_
-
-<img src="./images/comms/i2c_pin_mapping.png" width="85%" alt="STM32F0 I2C pin definitions table"/>
-_Figure 12.28: I2C pin mapping must be checked in the datasheet before choosing pins [3]_
-
-The timing register must be configured while the I2C peripheral is disabled.
-
-### I2C Configuration Example
-
-The following example configures `I2C2` on `PF6` and `PF7` for use as an I2C master. The timing values are representative values from the reference-manual style setup used in the lecture slides.
-
-<img src="./images/comms/i2c_timing_register.png" width="90%" alt="I2C timing configuration examples from reference manual"/>
-_Figure 12.29: I2C timing configuration values can be taken from the reference manual or calculated from the timing equations [1]_
-
-<img src="./images/comms/i2c_timing_table.png" width="90%" alt="I2C timing register layout"/>
-_Figure 12.30: I2C timing register fields used to set SCL low time, SCL high time, data setup time, data hold time, and prescaler [1]_
-
-<img src="./images/comms/i2c_cr1_register.png" width="90%" alt="I2C control register 1 layout"/>
-_Figure 12.31: I2C control register 1 contains the peripheral enable and interrupt enable bits [1]_
-
-<img src="./images/comms/i2c_cr2_register.png" width="90%" alt="I2C control register 2 layout"/>
-_Figure 12.32: I2C control register 2 contains address, transfer direction, start, stop, and byte-count fields [1]_
-
-```c
-void init_i2c2(void)
-{
-    RCC->AHBENR |= RCC_AHBENR_GPIOFEN;       // Enable GPIOF clock
-
-    GPIOF->MODER &= ~(GPIO_MODER_MODER6 | GPIO_MODER_MODER7);
-    GPIOF->MODER |= GPIO_MODER_MODER6_1
-                 |  GPIO_MODER_MODER7_1;    // Alternate function mode
-
-    GPIOF->OTYPER |= GPIO_OTYPER_OT_6
-                  |  GPIO_OTYPER_OT_7;      // Open-drain outputs
-
-    RCC->APB1ENR |= RCC_APB1ENR_I2C2EN;      // Enable I2C2 clock
-
-    I2C2->CR1 &= ~I2C_CR1_PE;                // Disable before timing setup
-
-    I2C2->TIMINGR = (0xC7 << 0)              // SCLL
-                  | (0xC3 << 8)              // SCLH
-                  | (0x02 << 16)             // SDADEL
-                  | (0x04 << 20)             // SCLDEL
-                  | (0x0B << 28);            // PRESC
-
-    I2C2->CR1 |= I2C_CR1_PE;                 // Enable I2C
-}
-```
-
-### I2C Read Example
-
-The following code reads one byte from a TC74 temperature sensor. The TC74 has a 7-bit address of `0b1001000`.
-
-```c
-#define TC74ADDR 0b1001000
-
-uint8_t tc74_read_temperature(void)
-{
-    I2C2->CR2 = 0;                           // Clear previous transfer setup
-    I2C2->CR2 |= (TC74ADDR << 1);            // 7-bit address in SADD
-    I2C2->CR2 |= (1 << 16);                  // NBYTES = 1
-    I2C2->CR2 |= I2C_CR2_RD_WRN;             // Read transfer
-    I2C2->CR2 |= I2C_CR2_START;              // Generate start
-
-    while ((I2C2->ISR & I2C_ISR_RXNE) == 0);
-
-    uint8_t temperature = I2C2->RXDR;
-
-    I2C2->CR2 |= I2C_CR2_STOP;               // Generate stop
-
-    return temperature;
-}
-```
-
-In a robust application, the code should also check for acknowledgement failure and timeout conditions rather than waiting forever.
 
 ## SPI
 
@@ -515,7 +358,7 @@ SPI commonly uses four signals:
 The master pulls a slave-select line low to choose the slave, then generates clock pulses. Data is shifted out and shifted in as the clock runs.
 
 <img src="./images/comms/spi_master_slave_signals.png" width="65%" alt="SPI master and slave signal connections"/>
-_Figure 12.33: SPI master-slave connection showing clock, MOSI, MISO, and slave-select signals_
+_Figure 12.17: SPI master-slave connection showing clock, MOSI, MISO, and slave-select signals_
 
 ```mermaid
 flowchart LR
@@ -528,10 +371,10 @@ flowchart LR
 When there are multiple slaves, the `SCK`, `MOSI`, and `MISO` lines are often shared, but each slave usually needs its own select line.
 
 <img src="./images/comms/shapes/spi_multi_slave_bus.png" width="55%" alt="SPI master connected to three slaves with shared SCLK, MOSI, and MISO lines and separate slave-select lines"/>
-_Figure 12.34: SPI can share clock and data lines across multiple slaves, but each slave usually needs its own select line_
+_Figure 12.18: SPI can share clock and data lines across multiple slaves, but each slave usually needs its own select line_
 
 <img src="./images/comms/spi_block_diagram.png" width="80%" alt="STM32F0 SPI block diagram"/>
-_Figure 12.35: STM32F0 SPI block diagram [1]_
+_Figure 12.19: STM32F0 SPI block diagram [1]_
 
 ### SPI Modes and Clocking
 
@@ -543,10 +386,10 @@ SPI is synchronous, so the master controls the transfer speed through the serial
 Both the master and slave must use compatible `CPOL` and `CPHA` settings. Otherwise, the receiver may sample data on the wrong edge.
 
 <img src="./images/comms/spi_clock_phase_0.png" width="85%" alt="SPI timing diagram for CPHA equals 0"/>
-_Figure 12.36: SPI timing relationship when `CPHA = 0` [1]_
+_Figure 12.20: SPI timing relationship when `CPHA = 0` [1]_
 
 <img src="./images/comms/spi_clock_phase_1.png" width="85%" alt="SPI timing diagram for CPHA equals 1"/>
-_Figure 12.37: SPI timing relationship when `CPHA = 1` [1]_
+_Figure 12.21: SPI timing relationship when `CPHA = 1` [1]_
 
 ### Full-Duplex Transfers
 
@@ -555,10 +398,10 @@ SPI is naturally shift-register based. While the master shifts a bit out on `MOS
 This has an important consequence: to read from a slave, the master still has to transmit something so that clock pulses are generated. The transmitted byte may be dummy data, but it causes the slave's response bits to be clocked into the master.
 
 <img src="./images/comms/spi_full_duplex_operation.png" width="80%" alt="SPI full-duplex shift-register operation"/>
-_Figure 12.38: SPI full-duplex operation shifts data out and in at the same time_
+_Figure 12.22: SPI full-duplex operation shifts data out and in at the same time_
 
 <img src="./images/comms/shapes/spi_full_duplex_register_flow.png" width="70%" alt="SPI full-duplex register flow showing transmit registers, shift registers, receive registers, MOSI, MISO, and clock"/>
-_Figure 12.39: In full-duplex SPI, each clock pulse shifts data through the master and slave shift registers at the same time_
+_Figure 12.23: In full-duplex SPI, each clock pulse shifts data through the master and slave shift registers at the same time_
 
 ### SPI Strengths and Limitations
 
@@ -586,16 +429,16 @@ The STM32F0 SPI registers used most often are:
 - `SPI_DR`: data register.
 
 <img src="./images/comms/spi_simplex.png" width="75%" alt="SPI simplex single-master single-slave arrangement"/>
-_Figure 12.40: SPI simplex single-master, single-slave arrangement [1]_
+_Figure 12.24: SPI simplex single-master, single-slave arrangement [1]_
 
 <img src="./images/comms/spi_half_duplex.png" width="75%" alt="SPI half-duplex single-master single-slave arrangement"/>
-_Figure 12.41: SPI half-duplex single-master, single-slave arrangement [1]_
+_Figure 12.25: SPI half-duplex single-master, single-slave arrangement [1]_
 
 <img src="./images/comms/spi_full_duplex.png" width="75%" alt="SPI full-duplex single-master single-slave arrangement"/>
-_Figure 12.42: SPI full-duplex single-master, single-slave arrangement [1]_
+_Figure 12.26: SPI full-duplex single-master, single-slave arrangement [1]_
 
 <img src="./images/comms/spi_interrupt_requests.png" width="85%" alt="SPI interrupt requests table"/>
-_Figure 12.43: SPI interrupt events and enable bits [1]_
+_Figure 12.27: SPI interrupt events and enable bits [1]_
 
 The setup sequence for SPI is:
 
@@ -613,13 +456,13 @@ The setup sequence for SPI is:
 The following example configures `SPI2` using `PB13` to `PB15`, with `PB12` as a software-controlled slave-select pin.
 
 <img src="./images/comms/spi_cr1_register.png" width="80%" alt="SPI control register 1 data-flow diagram"/>
-_Figure 12.44: SPI control register 1 controls master mode, baud rate, clock configuration, and bidirectional settings [1]_
+_Figure 12.28: SPI control register 1 controls master mode, baud rate, clock configuration, and bidirectional settings [1]_
 
 <img src="./images/comms/spi_cr2_register.png" width="80%" alt="SPI control register 2 data-flow diagram"/>
-_Figure 12.45: SPI control register 2 controls data size, FIFO threshold, and slave-select output behaviour [1]_
+_Figure 12.29: SPI control register 2 controls data size, FIFO threshold, and slave-select output behaviour [1]_
 
 <img src="./images/comms/spi_status_register.png" width="85%" alt="SPI status flags for transmit and receive FIFO levels"/>
-_Figure 12.46: SPI status flags describe transmit and receive FIFO state [1]_
+_Figure 12.30: SPI status flags describe transmit and receive FIFO state [1]_
 
 ```c
 void init_spi2(void)
@@ -682,6 +525,186 @@ uint8_t spi2_read_byte(void)
     return received_data;
 }
 ```
+
+## I2C
+
+I2C stands for Inter-Integrated Circuit. It is a synchronous two-wire bus used for communication between ICs on the same board or over short cable distances.
+
+I2C uses two shared lines:
+
+- `SCL`: serial clock line
+- `SDA`: serial data line
+
+<img src="./images/comms/shapes/i2c_bus_topology.png" width="75%" alt="Typical I2C bus with pull-up resistors, a master, and multiple bus devices"/>
+_Figure 12.31: Typical I2C bus topology with shared SDA and SCL lines and pull-up resistors_
+
+Both lines are open-drain and require pull-up resistors. A device can pull the line low, but it does not actively drive the line high. The line returns high through the pull-up resistor when no device is pulling it low.
+
+<img src="./images/comms/i2c_hardware_connection.png" width="80%" alt="I2C hardware connection with pull-up resistors on SCL and SDA"/>
+_Figure 12.32: I2C hardware connection using open-drain SCL and SDA lines with pull-up resistors_
+
+```mermaid
+flowchart LR
+    M[Master] --- BUS[I2C bus: SCL and SDA]
+    BUS --- S1[Slave 1]
+    BUS --- S2[Slave 2]
+    BUS --- S3[Slave 3]
+```
+
+### I2C Bus Behaviour
+
+I2C is a master-slave protocol. The master initiates communication and generates the clock. Each slave has an address, commonly a 7-bit address. The address frame is followed by a read/write bit:
+
+- `0`: write to the slave
+- `1`: read from the slave
+
+A basic I2C transaction contains:
+
+1. Start condition.
+2. Slave address.
+3. Read/write bit.
+4. Acknowledge bit.
+5. One or more data bytes.
+6. Acknowledge or not-acknowledge bits.
+7. Stop condition.
+
+A **start condition** occurs when `SDA` falls while `SCL` is high. A **stop condition** occurs when `SDA` rises while `SCL` is high. During normal data transfer, `SDA` should only change while `SCL` is low.
+
+<img src="./images/comms/shapes/i2c_packet_structure.png" width="90%" alt="High-level I2C packet with start command, data, and stop command"/>
+_Figure 12.33: High-level I2C packet structure, showing idle bus state, start command, data, and stop command_
+
+<img src="./images/comms/i2c_frame.png" width="90%" alt="I2C address and data frame showing start, address, read-write bit, acknowledge bits, and stop"/>
+_Figure 12.34: I2C address and data frame structure [4]_
+
+### Repeated Start
+
+Some devices require more than one message without releasing the bus. For example, a master may first write a register address to a sensor, then read data from that register. In this case, the master can issue a repeated start instead of a stop condition.
+
+A repeated start is simply another start condition before the previous transaction has been ended with a stop condition. The master keeps control of the bus.
+
+<img src="./images/comms/i2c_repeated_start.png" width="85%" alt="I2C repeated start timing"/>
+_Figure 12.35: I2C repeated-start timing [4]_
+
+### Clock Stretching
+
+An I2C slave may hold `SCL` low to delay the master. This is called clock stretching. It is used when the slave is not ready for the next bit or byte. For example, a sensor may stretch the clock while waiting for an internal conversion to complete.
+
+<img src="./images/comms/i2c_clock_stretching.png" width="85%" alt="I2C clock stretching timing"/>
+_Figure 12.36: I2C clock stretching allows a slave to hold SCL low until it is ready [4]_
+
+### I2C Strengths and Limitations
+
+I2C is useful because many devices can share the same two wires, and devices are selected in software using addresses. It also includes acknowledgement bits, so the master can detect whether a slave responded.
+
+<img src="./images/comms/i2c_multi_slave_example.png" width="80%" alt="I2C multi-slave addressing example"/>
+_Figure 12.37: I2C multi-slave addressing example_
+
+The trade-offs are:
+
+- It is intended for short distances.
+- It is slower than SPI in most applications.
+- The addressing and acknowledgement bits add overhead.
+- A stuck-low bus line can prevent all bus communication.
+
+Common I2C speeds include:
+
+- Low speed: `10 kbit/s`
+- Standard mode: `100 kbit/s`
+- Fast mode: `400 kbit/s`
+
+### I2C on the STM32F0
+
+The STM32F0 includes two I2C peripherals. On the course board, useful pin mappings include:
+
+- `I2C1` on `PB8` and `PB9`
+- `I2C2` on `PB10` and `PB11`, or `PF6` and `PF7`
+
+The I2C registers used most often are:
+
+- `I2C_CR1`: peripheral enable and interrupt enables.
+- `I2C_CR2`: slave address, transfer direction, start and stop generation, and number of bytes.
+- `I2C_TIMINGR`: timing configuration.
+- `I2C_ISR`: status flags.
+- `I2C_RXDR`: receive data register.
+- `I2C_TXDR`: transmit data register.
+
+<img src="./images/comms/i2c_peripheral_features.png" width="75%" alt="STM32F0 I2C peripheral feature block diagram"/>
+_Figure 12.38: STM32F0 I2C peripheral feature overview [1]_
+
+<img src="./images/comms/i2c_pin_mapping.png" width="85%" alt="STM32F0 I2C pin definitions table"/>
+_Figure 12.39: I2C pin mapping must be checked in the datasheet before choosing pins [3]_
+
+The timing register must be configured while the I2C peripheral is disabled.
+
+### I2C Configuration Example
+
+The following example configures `I2C2` on `PF6` and `PF7` for use as an I2C master. The timing values are representative values from the reference-manual style setup used in the lecture slides.
+
+<img src="./images/comms/i2c_timing_register.png" width="90%" alt="I2C timing configuration examples from reference manual"/>
+_Figure 12.40: I2C timing configuration values can be taken from the reference manual or calculated from the timing equations [1]_
+
+<img src="./images/comms/i2c_timing_table.png" width="90%" alt="I2C timing register layout"/>
+_Figure 12.41: I2C timing register fields used to set SCL low time, SCL high time, data setup time, data hold time, and prescaler [1]_
+
+<img src="./images/comms/i2c_cr1_register.png" width="90%" alt="I2C control register 1 layout"/>
+_Figure 12.42: I2C control register 1 contains the peripheral enable and interrupt enable bits [1]_
+
+<img src="./images/comms/i2c_cr2_register.png" width="90%" alt="I2C control register 2 layout"/>
+_Figure 12.43: I2C control register 2 contains address, transfer direction, start, stop, and byte-count fields [1]_
+
+```c
+void init_i2c2(void)
+{
+    RCC->AHBENR |= RCC_AHBENR_GPIOFEN;       // Enable GPIOF clock
+
+    GPIOF->MODER &= ~(GPIO_MODER_MODER6 | GPIO_MODER_MODER7);
+    GPIOF->MODER |= GPIO_MODER_MODER6_1
+                 |  GPIO_MODER_MODER7_1;    // Alternate function mode
+
+    GPIOF->OTYPER |= GPIO_OTYPER_OT_6
+                  |  GPIO_OTYPER_OT_7;      // Open-drain outputs
+
+    RCC->APB1ENR |= RCC_APB1ENR_I2C2EN;      // Enable I2C2 clock
+
+    I2C2->CR1 &= ~I2C_CR1_PE;                // Disable before timing setup
+
+    I2C2->TIMINGR = (0xC7 << 0)              // SCLL
+                  | (0xC3 << 8)              // SCLH
+                  | (0x02 << 16)             // SDADEL
+                  | (0x04 << 20)             // SCLDEL
+                  | (0x0B << 28);            // PRESC
+
+    I2C2->CR1 |= I2C_CR1_PE;                 // Enable I2C
+}
+```
+
+### I2C Read Example
+
+The following code reads one byte from a TC74 temperature sensor. The TC74 has a 7-bit address of `0b1001000`.
+
+```c
+#define TC74ADDR 0b1001000
+
+uint8_t tc74_read_temperature(void)
+{
+    I2C2->CR2 = 0;                           // Clear previous transfer setup
+    I2C2->CR2 |= (TC74ADDR << 1);            // 7-bit address in SADD
+    I2C2->CR2 |= (1 << 16);                  // NBYTES = 1
+    I2C2->CR2 |= I2C_CR2_RD_WRN;             // Read transfer
+    I2C2->CR2 |= I2C_CR2_START;              // Generate start
+
+    while ((I2C2->ISR & I2C_ISR_RXNE) == 0);
+
+    uint8_t temperature = I2C2->RXDR;
+
+    I2C2->CR2 |= I2C_CR2_STOP;               // Generate stop
+
+    return temperature;
+}
+```
+
+In a robust application, the code should also check for acknowledgement failure and timeout conditions rather than waiting forever.
+
 
 ## Choosing a Communication Interface
 
